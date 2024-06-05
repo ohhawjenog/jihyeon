@@ -405,10 +405,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: untitled
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream
     - target: {fileID: 6087407344774274542, guid: 2e3a0d8d38947c24f835a3fc2309308e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 40b926dc80e1fd54593d55f71d1acacc, type: 2}
+=======
+    - target: {fileID: 3332824504258838008, guid: 2e3a0d8d38947c24f835a3fc2309308e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d0bbac9c27bf84d42ab8d8cd73775cd7, type: 2}
+>>>>>>> Stashed changes
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
