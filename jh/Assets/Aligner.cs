@@ -7,7 +7,8 @@ public class Aligner : MonoBehaviour
 {
     public float speed = 1.0f;
     private Vector3 initialPosition;
-    private bool movingForward = true;
+    public Sensor sensor1;
+    public Sensor sensor2;
 
     void Start()
     {
@@ -16,10 +17,17 @@ public class Aligner : MonoBehaviour
 
     void Update()
     {
-        if (movingForward)
+        if (sensor1.isObjectDetected)
         {
             Vector3 front = new Vector3(0, 1, 0);
             transform.Translate(front * speed * Time.deltaTime);
+
+            if (sensor2.isObjectDetected)
+            {
+                //Vector3 back = new Vector3(0, -1, 0);
+                //transform.Translate(back * speed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, initialPosition, speed * Time.deltaTime);
+            }
         }
     }
 }
