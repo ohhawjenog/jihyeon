@@ -22326,6 +22326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1462506284}
+  - component: {fileID: 1462506285}
   m_Layer: 0
   m_Name: Z-Transfer
   m_TagString: Untagged
@@ -22350,6 +22351,18 @@ Transform:
   - {fileID: 1678989114}
   m_Father: {fileID: 1846974220033116957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462506285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462506283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1463138517
 GameObject:
   m_ObjectHideFlags: 0
@@ -46048,6 +46061,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7135499091641959192}
+  - component: {fileID: 7135499091641959193}
   m_Layer: 0
   m_Name: Y-Transfer
   m_TagString: Untagged
@@ -50775,6 +50789,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5469322666235299369}
+  - component: {fileID: 5469322666235299370}
   m_Layer: 0
   m_Name: X-Transfer
   m_TagString: Untagged
@@ -52257,6 +52272,18 @@ Transform:
   - {fileID: 2086621869}
   m_Father: {fileID: 7135499091641959192}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5469322666235299370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5098727338875479438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &5471090569359249699
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -59030,6 +59057,18 @@ Transform:
   - {fileID: 861188912}
   m_Father: {fileID: 2439115234604251840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7135499091641959193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3917283325800978790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7137662603774475145
 Transform:
   m_ObjectHideFlags: 0
