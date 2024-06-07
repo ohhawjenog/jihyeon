@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class DriveMotor : MonoBehaviour
 {
+    [Header("Device Info")]
+    public string plusMotorDeviceName;
+    public string minusMotorDeviceName;
+    public int motorStatus;
+
+    [Space(20)]
+    [Header("Transfer Position")]
     public Transform transfer;
+    [Tooltip("이송 가능한 최대 위치입니다.")]
     public float minRange;
+    [Tooltip("이송 가능한 최소 위치입니다.")]
     public float maxRange;
     Vector3 nowPos;
     Vector3 minPos;
@@ -13,29 +22,32 @@ public class DriveMotor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nowPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        minPos = new Vector3(transfer.transform.localPosition.x, minRange, transfer.transform.localPosition.z);
-        maxPos = new Vector3(transfer.transform.localPosition.x, maxRange, transfer.transform.localPosition.z);
 
-        print("nowPos = " + nowPos);
-        print("minPos = " + minPos);
-        print("maxPos = " + maxPos);
+        minRange = 0;
+        maxRange = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print("nowPos = " + nowPos);
-            print("minPos = " + minPos);
-            print("maxPos = " + maxPos);
-            Transfer(nowPos, maxPos);
-        }
+        
     }
 
-    public void Transfer(Vector3 startPos, Vector3 endPos)
+    public void Transfer()
     {
-        Vector3 newpos = Vector3.Lerp(startPos, endPos, 3);
+        nowPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+        minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
+        maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
+        Vector3 newpos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+
+        switch (motorStatus)
+        {
+            case 0:
+                newpos = Vector3.Lerp(nowPos, minPos, 1);
+                break;
+            case 1:
+                newpos = Vector3.Lerp(nowPos, maxPos, 1);
+                break;
+        }
     }
 }
