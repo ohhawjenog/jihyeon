@@ -15,7 +15,8 @@ public class Cube : MonoBehaviour
 
         if (sensor1.isObjectDetected)
         {
-            transform.Translate(front * 0 * Time.deltaTime);
+            speed = 0;
+            transform.Translate(front * speed * Time.deltaTime);
         }
     }
 }
