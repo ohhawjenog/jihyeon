@@ -10,7 +10,7 @@ public class Sensor1 : MonoBehaviour
     public Sensor3 sensor3;
     public Sensor4 sensor4;
     public bool isObjectDetected = false;
-    private bool isCoroutineRunning = false;
+    //private bool isCoroutineRunning = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Object"))

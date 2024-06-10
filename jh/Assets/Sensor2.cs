@@ -14,6 +14,7 @@ public class Sensor2 : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
         {
             isObjectDetected = true;
+            print("Sensor2 ÀÎ½Ä");
         }
     }
 
