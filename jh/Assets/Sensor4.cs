@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sensor3 : MonoBehaviour
+public class Sensor4 : MonoBehaviour
 {
     public bool isSizeDetected = false;
+    //public Sensor4 sensor4;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
         {
             isSizeDetected = true;
-            print("Sensor3 인식");
+            print("Sensor4 인식");
         }
     }
+
 }
