@@ -105,8 +105,8 @@ public class Cylinder : MonoBehaviour
     {
         if (_isCylinderMoving)
         {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
+            //MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
+            //MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
             print($"isBackward: {_isStartPosition}, {rearSwitchDeviceName}: 0");
             print($"isBackward: {_isStartPosition}, {frontSwitchDeviceName}: 0");
 
@@ -115,12 +115,12 @@ public class Cylinder : MonoBehaviour
 
         if (_isStartPosition)
         {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
+            //MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
             print($"isBackward: {_isStartPosition}, {rearSwitchDeviceName}: 1");
         }
         else
         {
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
+            //MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
             print($"isBackward: {_isStartPosition}, {frontSwitchDeviceName}: 1");
         }
     }
