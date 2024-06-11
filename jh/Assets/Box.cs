@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Box : MonoBehaviour
 {
     public float speed = 1.0f;
-    public Sensor1 Sensor1;
-    public Sensor2 Sensor2;
-    public Sensor5 Sensor5;
+    public Sensor Sensor1;
+    public Sensor Sensor2;
+    public Sensor Sensor5;
     public Transform cylinder2;
     public Transform destination; // 목적지를 나타내는 변수 추가
     public float restartDistance = 1.0f; // 목적지에 도달하였다고 판단하는 거리
