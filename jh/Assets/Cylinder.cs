@@ -5,18 +5,21 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Piston : MonoBehaviour
+public class Cylinder : MonoBehaviour
 {
     // 상태
     [Header("현재 상태")]
     [Tooltip("GX Works의 Global Device Comment에 설정한 디바이스 값을 입력해 주세요.")]
     public string rearSwitchDeviceName;     //plc연동되는 부분
     public string frontSwitchDeviceName;    //plc연동되는 부분
+    public int[] plcInputValues;
     public bool isStartPosition = true;
     public bool isCylinderMoving = false;
     [Tooltip("실린더가 이동을 마치는 데 걸리는 시간입니다.")]
-    public float runTime = 2;
-    float elapsedTime;                      //경과 시간
+    //public float runTime = 2;
+    //float elapsedTime;                      //경과 시간
+    public float speed = 1.0f;
+    public float distanceLimit = 0.0003f;
 
     // 초기화
     [Space(20)]
@@ -28,46 +31,55 @@ public class Piston : MonoBehaviour
     //public Image backwardButtonImg;
     //public float minRange; //필요한지 아닌지 모르겠다.
     //public float maxRange; //필요한지 아닌지 모르겠다.
-    [Tooltip("실린더가 후진했을 때의 위치입니다.")]
-    Vector3 minPos;
-    [Tooltip("실린더가 전진했을 때의 위치입니다.")]
-    Vector3 maxPos;
+    //[Tooltip("실린더가 후진했을 때의 위치입니다.")]
+    //Vector3 minPos;
+    //[Tooltip("실린더가 전진했을 때의 위치입니다.")]
+    //Vector3 maxPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        InitEquipment();
+        StartCoroutine(CoMove(isStartPosition)); //나중에 지우기
+        //InitEquipment();
     }
 
-    private void InitEquipment()
+    /*private void InitEquipment()
     {
         //SetCylinderBtnActive(true);
 
         //minPos = new Vector3(pistonRod.transform.localPosition.x, minRange, pistonRod.transform.localPosition.z); //필요한지 아닌지 모르겠다.
         //maxPos = new Vector3(pistonRod.transform.localPosition.x, maxRange, pistonRod.transform.localPosition.z); //필요한지 아닌지 모르겠다.
 
-        minPos = (endPosition.position - transform.position).normalized;
-        maxPos = (startPosition.position - transform.position).normalized;
-    }
+        //minPos = (endPosition.position - transform.position).normalized;
+        //maxPos = (startPosition.position - transform.position).normalized;
+    }*/
 
     private void Update()
     {
         if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
             // 실린더 전진
-            if (plcInputValues[0] > 0 && !isCylinderMoving && isStartPosition) //plc신호가 있고, 움직이고, 초기위치일때
+            if (plcInputValues[0] == 1)
                 StartCoroutine(CoMove(isStartPosition));
 
             // 실린더 후진
-            if (plcInputValues[1] > 0 && !isCylinderMoving && !isStartPosition) //plc신호가 없고, 움직이지 않고, 초기위치가 아닐때
+            if (plcInputValues[1] == 1)
                 StartCoroutine(CoMove(!isStartPosition));
         }
     }
 
-    public void MovePistonRod(Vector3 startPos, Vector3 endPos, float _elapsedTime, float _runTime)
+    public void MovePistonRod(Transform destination) //(Vector3 startPos, Vector3 endPos, float _elapsedTime, float _runTime)
     {
-        Vector3 newPos = Vector3.Lerp(startPos, endPos, _elapsedTime / _runTime); // t값이 0(minPos) ~ 1(maxPos) 로 변화
-        pistonRod.transform.localPosition = newPos;
+        Vector3 newPos = (destination.position - transform.position).normalized;
+        float distance = (destination.position - transform.position).magnitude;
+
+        if (distance > distanceLimit)
+            transform.position += newPos * Time.deltaTime * speed;
+        else
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        //Vector3 newPos = Vector3.Lerp(startPos, endPos, _elapsedTime / _runTime); // t값이 0(minPos) ~ 1(maxPos) 로 변화
+        //pistonRod.transform.localPosition = newPos;
     }
 
     /*public void OnDischargeObjectBtnEvent()
@@ -89,7 +101,7 @@ public class Piston : MonoBehaviour
         audioSource.Play();
     }*/
 
-    /*public void SetSwitchDevicesByCylinderMoving(bool _isCylinderMoving, bool _isStartPosition)
+    public void SetSwitchDevicesByCylinderMoving(bool _isCylinderMoving, bool _isStartPosition)
     {
         if (_isCylinderMoving)
         {
@@ -111,7 +123,7 @@ public class Piston : MonoBehaviour
             MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
             print($"isBackward: {_isStartPosition}, {frontSwitchDeviceName}: 1");
         }
-    }*/
+    }
 
     IEnumerator CoMove(bool direction)
     {
@@ -121,19 +133,19 @@ public class Piston : MonoBehaviour
         //SetCylinderBtnActive(false);
         //SetSwitchDevicesByCylinderMoving(isCylinderMoving, isStartPosition); // 스위치 값 변경
 
-        elapsedTime = 0;
+        //elapsedTime = 0;
 
-        while (elapsedTime < runTime)
+        while (true) //elapsedTime < runTime
         {
-            elapsedTime += Time.deltaTime;
+            //elapsedTime += Time.deltaTime;
 
             if (isStartPosition)
             {
-                MovePistonRod(minPos, maxPos, elapsedTime, runTime);
+                MovePistonRod(endPosition);
             }
             else
             {
-                MovePistonRod(maxPos, minPos, elapsedTime, runTime);
+                MovePistonRod(startPosition);
             }
 
             yield return new WaitForSeconds(Time.deltaTime);
@@ -143,12 +155,10 @@ public class Piston : MonoBehaviour
         isStartPosition = !isStartPosition; // 초기값(true) -> false
         isCylinderMoving = false;
 
-        //SetSwitchDevicesByCylinderMoving(isCylinderMoving, isStartPosition);
+        SetSwitchDevicesByCylinderMoving(isCylinderMoving, isStartPosition);
         //SetCylinderBtnActive(true);
         //SetButtonActive(true);
     }
-
-
 
     /*void SetCylinderBtnActive(bool isActive)
     {
