@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class DriveMotor : MonoBehaviour
 {
+    public enum Direction
+    {
+        MoveXAxis = 0,
+        MoveYAxis = 1,
+        MoveZAxis = 2
+    }
+
     [Header("Device Info")]
+    public Direction direction;
     public string plusMotorDeviceName;
     public string minusMotorDeviceName;
     public int motorStatus;
@@ -19,12 +27,24 @@ public class DriveMotor : MonoBehaviour
     Vector3 nowPos;
     Vector3 minPos;
     Vector3 maxPos;
-    // Start is called before the first frame update
+
     void Start()
     {
-
-        minRange = 0;
-        maxRange = -1;
+        switch (direction)
+        {
+            case Direction.MoveXAxis:
+                minPos = new Vector3(minRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                maxPos = new Vector3(maxRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                break;
+            case Direction.MoveYAxis:
+                minPos = new Vector3(transfer.transform.localPosition.x, minRange, transfer.transform.localPosition.z);
+                maxPos = new Vector3(transfer.transform.localPosition.x, maxRange, transfer.transform.localPosition.z);
+                break;
+            case Direction.MoveZAxis:
+                minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
+                maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -33,21 +53,26 @@ public class DriveMotor : MonoBehaviour
         
     }
 
-    public void Transfer()
+    public void SetTransferPosition()
     {
         nowPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
-        maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
-        Vector3 newpos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+        Vector3 newpos = Vector3.zero;
 
         switch (motorStatus)
         {
             case 0:
-                newpos = Vector3.Lerp(nowPos, minPos, 1);
+                newpos = minPos;
                 break;
             case 1:
-                newpos = Vector3.Lerp(nowPos, maxPos, 1);
+                newpos = maxPos;
                 break;
         }
+    }
+
+    public void Transfer()
+    {
+        SetTransferPosition();
+
+
     }
 }
