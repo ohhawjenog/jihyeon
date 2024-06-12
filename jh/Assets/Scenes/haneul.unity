@@ -147,7 +147,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2815957}
   serializedVersion: 2
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 1.563, y: 1.9390007, z: -0.1070003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -156,7 +156,7 @@ Transform:
   - {fileID: 174102595}
   - {fileID: 818147719}
   m_Father: {fileID: 7117541429696916290}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: -180}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: -180}
 --- !u!1 &8083430
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +508,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53796623}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &70463683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70463684}
+  m_Layer: 0
+  m_Name: 1-1. Conveyor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70463684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70463683}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 766402196}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &73696878
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,7 +2912,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2118278355}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
         m_MethodName: OnDisconnectPLCBtnClkEvent
         m_Mode: 1
@@ -3288,9 +3319,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 70463684}
   - {fileID: 1377789079}
-  - {fileID: 498416786496959203}
   - {fileID: 280290194}
+  - {fileID: 498416786496959203}
   - {fileID: 1713839953}
   - {fileID: 1422876590}
   m_Father: {fileID: 0}
@@ -3426,7 +3458,7 @@ Transform:
   m_GameObject: {fileID: 818147718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3448,12 +3480,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  plusMotorDeviceName: 
-  minusMotorDeviceName: 
-  motorStatus: 0
+  plcInputValues: 
+  isDriveReverse: 0
   transfer: {fileID: 818147719}
   minRange: -0.52
   maxRange: 0.36
+  transportRate: 0
+  transferTime: 0
 --- !u!1 &855346605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,7 +3497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 855346606}
   m_Layer: 0
-  m_Name: 1-1-1. Stop_Sensor
+  m_Name: 1-2-1. Stop_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5466,7 +5499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1377789079}
   m_Layer: 0
-  m_Name: 1-1. Stopper
+  m_Name: 1-2. Stopper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5883,7 +5916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1422876590}
   m_Layer: 0
-  m_Name: 1-4-2. BoxB_Sensor
+  m_Name: 1-5-2. BoxB_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6286,7 +6319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1713839953}
   m_Layer: 0
-  m_Name: 1-4-1. BoxA_Sensor
+  m_Name: 1-5-1. BoxA_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6600,7 +6633,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2118278355}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
         m_MethodName: OnConnectPLCBtnClkEvent
         m_Mode: 1
@@ -7595,12 +7628,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 2
-  plusMotorDeviceName: 
-  minusMotorDeviceName: 
-  motorStatus: 0
+  plcInputValues: 
+  isDriveReverse: 0
   transfer: {fileID: 2052126794}
   minRange: 0.25
   maxRange: -3.28
+  transportRate: 0
+  transferTime: 0
 --- !u!1 &2059811351
 GameObject:
   m_ObjectHideFlags: 0
@@ -7750,6 +7784,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc24f9bd80ad1be4d81575b78b1a84ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  connection: 1
+  Stopper: {fileID: 0}
+  stopSensor: {fileID: 0}
+  aligner: {fileID: 0}
+  alignSensor: {fileID: 0}
+  boxASensor: {fileID: 0}
+  boxBSensor: {fileID: 0}
+  yTransfer: {fileID: 2052126795}
+  xTransfer: {fileID: 8062050559059396838}
+  zTransfer: {fileID: 818147720}
+  loadCylinder: {fileID: 0}
+  palletAJigCylinder: {fileID: 0}
+  palletAPullCylinder: {fileID: 0}
+  palletBJigCylinder: {fileID: 0}
+  palletBPullCylinder: {fileID: 0}
 --- !u!1 &2120639195
 GameObject:
   m_ObjectHideFlags: 0
@@ -57541,7 +57590,7 @@ Transform:
   m_GameObject: {fileID: 8062050559059396837}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.02, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -63629,7 +63678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498416786496959203}
   m_Layer: 0
-  m_Name: 1-2. Align_Sensor
+  m_Name: 1-4. Align_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64580,12 +64629,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  plusMotorDeviceName: 
-  minusMotorDeviceName: 
-  motorStatus: 0
+  plcInputValues: 
+  isDriveReverse: 0
   transfer: {fileID: 7117541429696916290}
   minRange: 0
   maxRange: 2.02
+  transportRate: 0
+  transferTime: 0
 --- !u!4 &8064639214395599834
 Transform:
   m_ObjectHideFlags: 0
