@@ -1,43 +1,64 @@
+using MPS;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RotaryCylinder : MonoBehaviour
 {
-    public float rotationAngle = 90.0f; // 회전할 각도
-    public float rotationSpeed = 1.0f; // 회전 속도
+    //상태
+    [Header("현재 상태")]
+    //public string rearSwitchDeviceName;     //plc연동되는 부분
+    //public string frontSwitchDeviceName;    //plc연동되는 부분
+    //public int[] plcInputValues;
+
+    public float rotationSpeed = 90.0f; // 초당 회전 속도
     private bool isRotating = false; // 회전 중인지 확인
-    private float currentRotation = 0.0f;
 
     void Update()
     {
-        if (isRotating)
+        /*if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
-            float step = rotationSpeed * Time.deltaTime; // 프레임 당 회전 속도
-            float rotationThisFrame = step * rotationAngle; // 현재 프레임에서 회전할 각도
+            // 실린더 전진
+            if (plcInputValues[0] == 1)
+                StartCoroutine(RotateCylinder(90.0f));
 
-            if (currentRotation + rotationThisFrame >= rotationAngle)
-            {
-                rotationThisFrame = rotationAngle - currentRotation; // 남은 각도만큼만 회전
-                isRotating = false; // 회전 완료
-            }
+            // 실린더 후진
+            if (plcInputValues[1] == 1)
+                StartCoroutine(RotateCylinder(-90.0f));
+        }*/
 
-            transform.Rotate(Vector3.up, rotationThisFrame); // 회전 적용
-            currentRotation += rotationThisFrame; // 현재 회전 각도 업데이트
+        if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift) && !isRotating)
+        {
+            StartCoroutine(RotateCylinder(90.0f)); // 90도 회전
         }
-
-        // 예시로 스페이스바를 눌렀을 때 회전을 시작하는 코드
-        if (Input.GetKeyDown(KeyCode.Space) && !isRotating)
+        else if (Input.GetKeyDown(KeyCode.F) && Input.GetKey(KeyCode.LeftShift) && !isRotating)
         {
-            StartRotation();
+            StartCoroutine(RotateCylinder(-90.0f)); // -90도 회전 (역방향)
         }
     }
 
-    public void StartRotation()
+    IEnumerator RotateCylinder(float rotationAngle)
     {
         isRotating = true;
-        currentRotation = 0.0f;
+
+        float rotatedAngle = 0.0f; // 회전된 각도
+        float rotationDirection = Mathf.Sign(rotationAngle); // 회전 방향 (1 또는 -1)
+        float targetAngle = Mathf.Abs(rotationAngle); // 목표 회전 각도
+
+        while (rotatedAngle < targetAngle)
+        {
+            float rotationThisFrame = rotationSpeed * Time.deltaTime; // 현재 프레임에서 회전할 각도
+            rotationThisFrame = Mathf.Min(rotationThisFrame, targetAngle - rotatedAngle); // 남은 각도만큼만 회전
+            transform.Rotate(Vector3.up, rotationThisFrame * rotationDirection); // 회전 적용
+            rotatedAngle += rotationThisFrame; // 누적 회전 각도 업데이트
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        isRotating = false;
     }
 }
+
 
