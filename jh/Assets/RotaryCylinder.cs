@@ -1,4 +1,4 @@
-using MPS;
+//using MPS;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -52,7 +52,7 @@ public class RotaryCylinder : MonoBehaviour
         {
             float rotationThisFrame = rotationSpeed * Time.deltaTime; // 현재 프레임에서 회전할 각도
             rotationThisFrame = Mathf.Min(rotationThisFrame, targetAngle - rotatedAngle); // 남은 각도만큼만 회전
-            transform.Rotate(Vector3.up, rotationThisFrame * rotationDirection); // 회전 적용
+            transform.Rotate(Vector3.forward, rotationThisFrame * rotationDirection); // 회전 적용
             rotatedAngle += rotationThisFrame; // 누적 회전 각도 업데이트
             yield return null; // 다음 프레임까지 대기
         }
