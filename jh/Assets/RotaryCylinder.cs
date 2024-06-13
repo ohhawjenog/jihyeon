@@ -1,4 +1,4 @@
-//using MPS;
+using MPS;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -10,25 +10,30 @@ public class RotaryCylinder : MonoBehaviour
 {
     //상태
     [Header("현재 상태")]
-    //public string rearSwitchDeviceName;     //plc연동되는 부분
-    //public string frontSwitchDeviceName;    //plc연동되는 부분
-    //public int[] plcInputValues;
+    public string rearSwitchDeviceName;     //plc연동되는 부분
+    public string frontSwitchDeviceName;    //plc연동되는 부분
+    public int[] plcInputValues;
 
     public float rotationSpeed = 90.0f; // 초당 회전 속도
     private bool isRotating = false; // 회전 중인지 확인
+    //private bool isStartPosition = true;
+
+    private void Start()
+    {
+        plcInputValues = new int[2];
+    }
 
     void Update()
     {
-        /*if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
+
+        if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
-            // 실린더 전진
-            if (plcInputValues[0] == 1)
+            if (plcInputValues[0] > 0)
                 StartCoroutine(RotateCylinder(90.0f));
 
-            // 실린더 후진
-            if (plcInputValues[1] == 1)
+            if (plcInputValues[1] > 0)
                 StartCoroutine(RotateCylinder(-90.0f));
-        }*/
+        }
 
         if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift) && !isRotating)
         {
@@ -58,6 +63,26 @@ public class RotaryCylinder : MonoBehaviour
         }
 
         isRotating = false;
+    }
+
+    public void SetSwitchDevicesByCylinderMoving(bool _isRotating, bool _isStartPosition)
+    {
+        if (_isRotating)
+        {
+            MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
+            MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
+
+            return;
+        }
+
+        if (_isStartPosition)
+        {
+            MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
+        }
+        else
+        {
+            MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
+        }
     }
 }
 
