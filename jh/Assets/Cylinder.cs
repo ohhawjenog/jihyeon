@@ -10,11 +10,12 @@ public class Cylinder : MonoBehaviour
 {
     // 상태
     [Header("현재 상태")]
-    //public string rearSwitchDeviceName;     //plc연동되는 부분
-    //public string frontSwitchDeviceName;    //plc연동되는 부분
-    //public int[] plcInputValues;
+    public string rearSwitchDeviceName;     //plc연동되는 부분
+    public string frontSwitchDeviceName;    //plc연동되는 부분
+    public int[] plcInputValues;
 
     public bool isCylinderMoving = false;   //실린더가 움직이고 있는지 확인
+    public bool isStartPosition = true;
     public float speed = 1.0f;
     public float distanceLimit = 0.0003f;
 
@@ -24,6 +25,11 @@ public class Cylinder : MonoBehaviour
     public Transform pistonRod;         //움직이는 부분
     public Transform startPosition;     //초기위치
     public Transform endPosition;       //목표위치
+
+    private void Start()
+    {
+        plcInputValues = new int[2];
+    }
 
     private void Update()
     {
@@ -36,16 +42,16 @@ public class Cylinder : MonoBehaviour
             StartCoroutine(CoMove(startPosition));
         }
 
-        /*if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
+        if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
             // 실린더 전진
-            if (plcInputValues[0] == 1 && !isCylinderMoving)
+            if (plcInputValues[0] > 0 && !isCylinderMoving)
                 StartCoroutine(CoMove(endPosition));
 
             // 실린더 후진
-            if (plcInputValues[1] == 1 && !isCylinderMoving)
+            if (plcInputValues[1] > 0 && !isCylinderMoving)
                 StartCoroutine(CoMove(startPosition));
-        }*/
+        }
     }
 
     IEnumerator CoMove(Transform destination)
@@ -71,5 +77,25 @@ public class Cylinder : MonoBehaviour
         }
 
         isCylinderMoving = false;
+    }
+
+    public void SetSwitchDevicesByCylinderMoving(bool _isCylinderMoving, bool _isStartPosition)
+    {
+        if (_isCylinderMoving)
+        {
+            MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
+            MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
+
+            return;
+        }
+
+        if (isStartPosition)
+        {
+            MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
+        }
+        else
+        {
+            MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
+        }
     }
 }
