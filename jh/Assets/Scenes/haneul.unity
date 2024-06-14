@@ -2912,8 +2912,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
+      - m_Target: {fileID: 2118278355}
+        m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnDisconnectPLCBtnClkEvent
         m_Mode: 1
         m_Arguments:
@@ -3481,6 +3481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 1
   plcInputValues: 
+  isDriveMoving: 0
   isDriveReverse: 0
   transfer: {fileID: 818147719}
   minRange: -0.52
@@ -6633,8 +6634,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
+      - m_Target: {fileID: 2118278355}
+        m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnConnectPLCBtnClkEvent
         m_Mode: 1
         m_Arguments:
@@ -7629,6 +7630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 2
   plcInputValues: 
+  isDriveMoving: 0
   isDriveReverse: 0
   transfer: {fileID: 2052126794}
   minRange: 0.25
@@ -64630,6 +64632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 0
   plcInputValues: 
+  isDriveMoving: 0
   isDriveReverse: 0
   transfer: {fileID: 7117541429696916290}
   minRange: 0
