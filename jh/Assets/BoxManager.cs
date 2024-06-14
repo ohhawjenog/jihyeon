@@ -26,8 +26,8 @@ public class BoxManager : MonoBehaviour
         public float speed = 1.0f;
         public Vector3 front = new Vector3(1, 0, 0);
 
-        private List<Box> boxesA = new List<Box>(); // 积己等 冠胶 A甫 包府且 府胶飘
-        private List<Box> boxesB = new List<Box>(); // 积己等 冠胶 B甫 包府且 府胶飘
+        private List<Box1> boxesA = new List<Box1>(); // 积己等 冠胶 A甫 包府且 府胶飘
+        private List<Box1> boxesB = new List<Box1>(); // 积己等 冠胶 B甫 包府且 府胶飘
 
         void Update()
         {
@@ -64,7 +64,7 @@ public class BoxManager : MonoBehaviour
         public void OnCreateBoxAButtonClick()
         {
             GameObject boxObj = Instantiate(boxAPrefab, spawnPointA.position, spawnPointA.rotation);
-            Box boxScript = boxObj.AddComponent<Box>();
+            Box1 boxScript = boxObj.AddComponent<Box1>();
             boxScript.speed = speed;
             boxScript.direction = front;
             boxesA.Add(boxScript);
@@ -73,7 +73,7 @@ public class BoxManager : MonoBehaviour
         public void OnCreateBoxBButtonClick()
         {
             GameObject boxObj = Instantiate(boxBPrefab, spawnPointB.position, spawnPointB.rotation);
-            Box boxScript = boxObj.AddComponent<Box>();
+            Box1 boxScript = boxObj.AddComponent<Box1>();
             boxScript.speed = speed;
             boxScript.direction = front;
             boxesB.Add(boxScript);

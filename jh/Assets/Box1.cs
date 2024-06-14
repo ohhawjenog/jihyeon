@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour
+public class Box1 : MonoBehaviour
 {
     public float speed = 1.0f;
     public Vector3 direction = new Vector3(1, 0, 0);
