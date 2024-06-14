@@ -19,6 +19,8 @@ namespace MPS
 
         ActUtlType64Lib.ActUtlType64 mxComponent;
         public Connection connection = Connection.Disconnected;
+        public int boxACount;
+        public int boxBCount;
 
         [Header("Align System")]
         //public Conveyor conveyor;               // 1-1. Conveyor
@@ -76,12 +78,15 @@ namespace MPS
         {
             if (connection == Connection.Connected)
             {
-                //short[] xData = ReadDeviceBlock("X0", 5); // Short지만, 10개의 비트를 가져옴
-                short[] yData = ReadDeviceBlock("Y0", 100); // Short지만, 10개의 비트를 가져옴
-                //string newXData = ConvertDateIntoString(xData);
+                short[] dData = ReadDeviceBlock("D0", 1);
+                short[] xData = ReadDeviceBlock("X0", 1);
+                short[] yData = ReadDeviceBlock("Y0", 5);
+                string newDData = ConvertDataIntoString(dData);
+                string newXData = ConvertDataIntoString(xData);
                 string newYData = ConvertDataIntoString(yData);
 
-                print(newYData);
+                boxACount                               = newDData[0 ] - 48;
+                boxBCount                               = newXData[1 ] - 48;
 
                 //stopSensor.plcInputValue                = newXData[1 ] - 48;
                 //alignSensor.plcInputValue               = newXData[2 ] - 48;
@@ -93,14 +98,14 @@ namespace MPS
                 //Stopper.plcInputValues[1]               = newYData[11] - 48;
                 //aligner.plcInputValues[0]               = newYData[12] - 48;
                 //aligner.plcInputValues[1]               = newYData[13] - 48;
-                //yTransfer.plcInputValues[0]             = newYData[42] - 48;
-                //yTransfer.plcInputValues[1]             = newYData[43] - 48;
-                //xTransfer.plcInputValues[0]             = newYData[40] - 48;
-                //xTransfer.plcInputValues[1]             = newYData[41] - 48;
+                yTransfer.plcInputValues[0]             = newYData[42] - 48;
+                yTransfer.plcInputValues[1]             = newYData[43] - 48;
+                xTransfer.plcInputValues[0]             = newYData[40] - 48;
+                xTransfer.plcInputValues[1]             = newYData[41] - 48;
                 //rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
                 //rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
-                //zTransfer.plcInputValues[0]             = newYData[44] - 48;
-                //zTransfer.plcInputValues[1]             = newYData[45] - 48;
+                zTransfer.plcInputValues[0]             = newYData[44] - 48;
+                zTransfer.plcInputValues[1]             = newYData[45] - 48;
                 //loadCylinder.plcInputValues[0]          = newYData[22] - 48;
                 //loadCylinder.plcInputValues[1]          = newYData[23] - 48;
                 //palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
@@ -132,28 +137,28 @@ namespace MPS
 
         string ConvertDataIntoString(short[] data)
         {
-            string newYData = "";
+            string newData = "";
             for (int i = 0; i < data.Length; i++)
             {
                 if (data[i] == 0)
                 {
-                    newYData += "0000000000";
+                    newData += "0000000000";
                     continue;
                 }
 
-                string temp = Convert.ToString(data[i], 2);// 100
-                string temp2 = new string(temp.Reverse().ToArray()); // reverse 100 -> 001  
-                newYData += temp2; // 0000000000 + 001
+                string temp = Convert.ToString(data[i], 2);
+                string temp2 = new string(temp.Reverse().ToArray());
+                newData += temp2;
 
                 if (temp2.Length < 10)
                 {
-                    int zeroCount = 10 - temp2.Length; // 7 -> 7개의 0을 newYData에 더해준다. (0000000)
+                    int zeroCount = 10 - temp2.Length;
                     for (int j = 0; j < zeroCount; j++)
-                        newYData += "0";
-                } // 0000000000 + 001 + 0000000 -> 총 20개의 비트
+                        newData += "0";
+                }
             }
 
-            return newYData;
+            return newData;
         }
 
         int GetDevice(string device)
@@ -233,6 +238,47 @@ namespace MPS
             }
         }
 
+        bool isStarted = false;
+        public void OnStartPLCButtonClkEvent()
+        {
+            if (connection == Connection.Connected)
+            {
+                isStarted = !isStarted;
+
+                if (isStarted)
+                    SetDevice("X0", 1);
+                else
+                    SetDevice("X0", 0);
+            }
+        }
+
+        bool isStoped = false;
+        public void OnStopPLCButtonClkEvent()
+        {
+            if (connection == Connection.Connected)
+            {
+                isStoped = !isStoped;
+
+                if (isStoped)
+                    SetDevice("X1", 1);
+                else
+                    SetDevice("X1", 0);
+            }
+        }
+
+        bool isEmmergency = false;
+        //public void OnEmmergencyStopBtnClkEvent()
+        //{
+        //    if (connection == Connection.Connected)
+        //    {
+        //        isEmmergency = !isEmmergency;
+
+        //        if (isEmmergency)
+        //            SetDevice("X2", 1);
+        //        else
+        //            SetDevice("X2", 0);
+        //    }
+        //}
         private void OnDestroy()
         {
             OnDisconnectPLCBtnClkEvent();

@@ -20,6 +20,9 @@ public class DriveMotor : MonoBehaviour
     public int plcInputBoxBQuantity;
     public bool isDriveMoving;
     public bool isDriveReverse;
+    public int boxACount;
+    public int boxBCount;
+    public MxComponent mxComponent;
 
     [Space(20)]
     [Header("Transfer Position")]
@@ -68,6 +71,9 @@ public class DriveMotor : MonoBehaviour
 
     private void Update()
     {
+        boxACount = mxComponent.boxACount;
+        boxBCount = mxComponent.boxBCount;
+
         if (MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
             if (plcInputValues[0] > 0)
@@ -112,6 +118,7 @@ public class DriveMotor : MonoBehaviour
                 transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
                 break;
         }
+
     }
 
     IEnumerator CoTransfer()
@@ -138,5 +145,7 @@ public class DriveMotor : MonoBehaviour
         }
 
         isDriveMoving = false;
+
+        
     }
 }
