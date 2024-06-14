@@ -1,3 +1,4 @@
+using MPS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,32 @@ using UnityEngine;
 public class Sensor : MonoBehaviour
 {
     //public Sensor sensor;
-  
+
+    public string forwardName;
+    public string backwardName;
+
+    public int plcInputValue;
+    //public string sensorDeviceName;
+
     public bool isObjectDetected = false;
     public bool isSizeDetected = false;
-    
+
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
+        if(MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
-            isObjectDetected = true;
-            print("Sensor 감지");
-        }
+            if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
+            {
+                isObjectDetected = true;
+                print("Sensor 감지");
+            }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
-        {
-            isSizeDetected = true;
-           
+            if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
+            {
+                isSizeDetected = true;
+            }
         }
-
     }
-
 }
