@@ -19,21 +19,24 @@ namespace MPS
 
         ActUtlType64Lib.ActUtlType64 mxComponent;
         public Connection connection = Connection.Disconnected;
+        public int boxACount;
+        public int boxBCount;
 
         [Header("Align System")]
-        public Cylinder Stopper;                // 1-1. Stopper
-        //public Sensor stopSensor;               // 1-1-1. Stop Sensor
-        //public Sensor alignSensor;              // 1-2. Align Sensor
-        public Aligner aligner;               // 1-3. Aligner
-        //public Sensor boxASensor;               // 1-4-1. Box A Sensor
-        //public Sensor BoxBSensor;               // 1-4-2. Box B Sensor
+        //public Conveyor conveyor;               // 1-1. Conveyor
+        public Cylinder Stopper;                // 1-2. Stopper
+        public Sensor stopSensor;               // 1-2-1. Stop Sensor
+        public Cylinder aligner;               // 1-3. Aligner
+        public Sensor alignSensor;              // 1-4. Align Sensor
+        public Sensor boxASensor;               // 1-5-1. Box A Sensor
+        public Sensor boxBSensor;               // 1-5-2. Box B Sensor
 
         [Space(20)]
         [Header("Palletizing System")]
-        //public DriveMotor yTransfer;            // 2-1. Y-Transfer
-        //public DriveMotor xTransfer;            // 2-2. X-Transfer
-        public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
-        //public DriveMotor zTransfer;            // 2-4. Z-Transfer
+        public DriveMotor yTransfer;            // 2-1. Y-Transfer
+        public DriveMotor xTransfer;            // 2-2. X-Transfer
+        //public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
+        public DriveMotor zTransfer;            // 2-4. Z-Transfer
         public Cylinder loadCylinder;           // 2-5. Load Cylinder
 
         [Space(20)]
@@ -75,12 +78,15 @@ namespace MPS
         {
             if (connection == Connection.Connected)
             {
-                //short[] xData = ReadDeviceBlock("X0", 5); // Short지만, 10개의 비트를 가져옴
-                short[] yData = ReadDeviceBlock("Y0", 100); // Short지만, 10개의 비트를 가져옴
-                                                            //string newXData = ConvertDateIntoString(xData);
+                short[] dData = ReadDeviceBlock("D0", 1);
+                short[] xData = ReadDeviceBlock("X0", 1);
+                short[] yData = ReadDeviceBlock("Y0", 5);
+                string newDData = ConvertDataIntoString(dData);
+                string newXData = ConvertDataIntoString(xData);
                 string newYData = ConvertDataIntoString(yData);
 
-                // print(newYData); // 데이터를 잘 받아오는지 확인
+                boxACount                               = newDData[0 ] - 48;
+                boxBCount                               = newXData[1 ] - 48;
 
                 //stopSensor.plcInputValue                = newXData[1 ] - 48;
                 //alignSensor.plcInputValue               = newXData[2 ] - 48;
@@ -88,28 +94,28 @@ namespace MPS
                 //boxBSensor.plcInputValue                = newXData[4 ] - 48;
 
                 //conveyor.plcInputValue                  = newYData[0 ] - 48;
-                Stopper.plcInputValues[0]               = newYData[10] - 48;
-                Stopper.plcInputValues[1]               = newYData[11] - 48;
-                aligner.plcInputValues[0]               = newYData[12] - 48;
-                aligner.plcInputValues[1]               = newYData[13] - 48;
-                //yTransfer.plcInputValues[0]             = newYData[42] - 48;
-                //yTransfer.plcInputValues[1]             = newYData[43] - 48;
-                //xTransfer.plcInputValues[0]             = newYData[40] - 48;
-                //xTransfer.plcInputValues[1]             = newYData[41] - 48;
-                rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
-                rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
-                //zTransfer.plcInputValues[0]             = newYData[44] - 48;
-                //zTransfer.plcInputValues[1]             = newYData[45] - 48;
-                loadCylinder.plcInputValues[0]          = newYData[22] - 48;
-                loadCylinder.plcInputValues[1]          = newYData[23] - 48;
-                palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
-                palletAJigCylinder.plcInputValues[1]    = newYData[31] - 48;
-                palletAPullCylinder.plcInputValues[0]   = newYData[32] - 48;
-                palletAPullCylinder.plcInputValues[1]   = newYData[33] - 48;
-                palletBJigCylinder.plcInputValues[0]    = newYData[34] - 48;
-                palletBJigCylinder.plcInputValues[1]    = newYData[35] - 48;
-                palletBPullCylinder.plcInputValues[0]   = newYData[36] - 48;
-                palletBPullCylinder.plcInputValues[1]   = newYData[37] - 48;
+                //Stopper.plcInputValues[0]               = newYData[10] - 48;
+                //Stopper.plcInputValues[1]               = newYData[11] - 48;
+                //aligner.plcInputValues[0]               = newYData[12] - 48;
+                //aligner.plcInputValues[1]               = newYData[13] - 48;
+                yTransfer.plcInputValues[0]             = newYData[42] - 48;
+                yTransfer.plcInputValues[1]             = newYData[43] - 48;
+                xTransfer.plcInputValues[0]             = newYData[40] - 48;
+                xTransfer.plcInputValues[1]             = newYData[41] - 48;
+                //rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
+                //rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
+                zTransfer.plcInputValues[0]             = newYData[44] - 48;
+                zTransfer.plcInputValues[1]             = newYData[45] - 48;
+                //loadCylinder.plcInputValues[0]          = newYData[22] - 48;
+                //loadCylinder.plcInputValues[1]          = newYData[23] - 48;
+                //palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
+                //palletAJigCylinder.plcInputValues[1]    = newYData[31] - 48;
+                //palletAPullCylinder.plcInputValues[0]   = newYData[32] - 48;
+                //palletAPullCylinder.plcInputValues[1]   = newYData[33] - 48;
+                //palletBJigCylinder.plcInputValues[0]    = newYData[34] - 48;
+                //palletBJigCylinder.plcInputValues[1]    = newYData[35] - 48;
+                //palletBPullCylinder.plcInputValues[0]   = newYData[36] - 48;
+                //palletBPullCylinder.plcInputValues[1]   = newYData[37] - 48;
             }
         }
 
@@ -131,28 +137,28 @@ namespace MPS
 
         string ConvertDataIntoString(short[] data)
         {
-            string newYData = "";
+            string newData = "";
             for (int i = 0; i < data.Length; i++)
             {
                 if (data[i] == 0)
                 {
-                    newYData += "0000000000";
+                    newData += "0000000000";
                     continue;
                 }
 
-                string temp = Convert.ToString(data[i], 2);// 100
-                string temp2 = new string(temp.Reverse().ToArray()); // reverse 100 -> 001
-                newYData += temp2; // 0000000000 + 001
+                string temp = Convert.ToString(data[i], 2);
+                string temp2 = new string(temp.Reverse().ToArray());
+                newData += temp2;
 
                 if (temp2.Length < 10)
                 {
-                    int zeroCount = 10 - temp2.Length; // 7 -> 7개의 0을 newYData에 더해준다. (0000000)
+                    int zeroCount = 10 - temp2.Length;
                     for (int j = 0; j < zeroCount; j++)
-                        newYData += "0";
-                } // 0000000000 + 001 + 0000000 -> 총 20개의 비트
+                        newData += "0";
+                }
             }
 
-            return newYData;
+            return newData;
         }
 
         int GetDevice(string device)
@@ -197,8 +203,6 @@ namespace MPS
                     print("연결에 성공하였습니다.");
 
                     connection = Connection.Connected;
-
-                    StartCoroutine(CoSendDevice());
                 }
                 else
                 {
@@ -207,7 +211,7 @@ namespace MPS
             }
             else
             {
-                print("연결 되어 있습니다.");
+                print("연결되어 있습니다.");
             }
         }
 
@@ -230,24 +234,51 @@ namespace MPS
             }
             else
             {
-                print("연결 되어있지 않습니다.");
+                print("연결되어 있지 않습니다.");
             }
         }
 
-        IEnumerator CoSendDevice()
+        bool isStarted = false;
+        public void OnStartPLCButtonClkEvent()
         {
-            yield return new WaitForSeconds(0.5f);
+            if (connection == Connection.Connected)
+            {
+                isStarted = !isStarted;
 
-            Stopper.SetSwitchDevicesByCylinderMoving(false, true);
-            aligner.SetSwitchDevicesByCylinderMoving(false, true);
-            rotaryCylinder.SetSwitchDevicesByCylinderMoving(false, true);
-            loadCylinder.SetSwitchDevicesByCylinderMoving(false, true);
-            palletAJigCylinder.SetSwitchDevicesByCylinderMoving(false, true);
-            palletBJigCylinder.SetSwitchDevicesByCylinderMoving(false, true);
-            palletAPullCylinder.SetSwitchDevicesByCylinderMoving(false, true);
-            palletBPullCylinder.SetSwitchDevicesByCylinderMoving(false, true);
+                if (isStarted)
+                    SetDevice("X0", 1);
+                else
+                    SetDevice("X0", 0);
+            }
         }
 
+        bool isStoped = false;
+        public void OnStopPLCButtonClkEvent()
+        {
+            if (connection == Connection.Connected)
+            {
+                isStoped = !isStoped;
+
+                if (isStoped)
+                    SetDevice("X1", 1);
+                else
+                    SetDevice("X1", 0);
+            }
+        }
+
+        bool isEmmergency = false;
+        //public void OnEmmergencyStopBtnClkEvent()
+        //{
+        //    if (connection == Connection.Connected)
+        //    {
+        //        isEmmergency = !isEmmergency;
+
+        //        if (isEmmergency)
+        //            SetDevice("X2", 1);
+        //        else
+        //            SetDevice("X2", 0);
+        //    }
+        //}
         private void OnDestroy()
         {
             OnDisconnectPLCBtnClkEvent();
