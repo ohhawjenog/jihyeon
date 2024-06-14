@@ -16,7 +16,7 @@ public class RotaryCylinder : MonoBehaviour
 
     public float rotationSpeed = 90.0f; // 초당 회전 속도
     private bool isRotating = false; // 회전 중인지 확인
-    //private bool isStartPosition = true;
+    private bool isStartPosition = true;
 
     private void Start()
     {
@@ -28,11 +28,17 @@ public class RotaryCylinder : MonoBehaviour
 
         if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
-            if (plcInputValues[0] > 0)
+            if (plcInputValues[0] > 0 && isStartPosition && !isRotating)
+            {
                 StartCoroutine(RotateCylinder(90.0f));
+                isStartPosition = false;
+            }
 
-            if (plcInputValues[1] > 0)
+            if (plcInputValues[1] > 0 && !isStartPosition && !isRotating)
+            { 
                 StartCoroutine(RotateCylinder(-90.0f));
+                isStartPosition = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.LeftShift) && !isRotating)
@@ -63,26 +69,6 @@ public class RotaryCylinder : MonoBehaviour
         }
 
         isRotating = false;
-    }
-
-    public void SetSwitchDevicesByCylinderMoving(bool _isRotating, bool _isStartPosition)
-    {
-        if (_isRotating)
-        {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
-
-            return;
-        }
-
-        if (_isStartPosition)
-        {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
-        }
-        else
-        {
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
-        }
     }
 }
 

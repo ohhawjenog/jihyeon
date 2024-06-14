@@ -45,12 +45,18 @@ public class Cylinder : MonoBehaviour
         if (MxComponent.instance.connection == MxComponent.Connection.Connected) //plc에서 신호를 받아옴
         {
             // 실린더 전진
-            if (plcInputValues[0] > 0 && !isCylinderMoving)
+            if (plcInputValues[0] > 0 && !isCylinderMoving && isStartPosition)
+            {
                 StartCoroutine(CoMove(endPosition));
+                isStartPosition = false;
+            }
 
             // 실린더 후진
-            if (plcInputValues[1] > 0 && !isCylinderMoving)
+            if (plcInputValues[1] > 0 && !isCylinderMoving && !isStartPosition)
+            {
                 StartCoroutine(CoMove(startPosition));
+                isStartPosition = true;
+            }
         }
     }
 
@@ -77,25 +83,5 @@ public class Cylinder : MonoBehaviour
         }
 
         isCylinderMoving = false;
-    }
-
-    public void SetSwitchDevicesByCylinderMoving(bool _isCylinderMoving, bool _isStartPosition)
-    {
-        if (_isCylinderMoving)
-        {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 0);
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 0);
-
-            return;
-        }
-
-        if (isStartPosition)
-        {
-            MxComponent.instance.SetDevice(rearSwitchDeviceName, 1);
-        }
-        else
-        {
-            MxComponent.instance.SetDevice(frontSwitchDeviceName, 1);
-        }
     }
 }

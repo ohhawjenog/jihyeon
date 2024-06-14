@@ -3,18 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Sensor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Sensor
   - Water
   - UI
-  - conveyor
-  - Cylinder
-  - Object
   - Size
+  - 
+  - Object
+  - 
   - 
   - 
   - 
