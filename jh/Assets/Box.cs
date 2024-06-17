@@ -1,6 +1,11 @@
+using MPS;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Box : MonoBehaviour
 {
@@ -15,6 +20,10 @@ public class Box : MonoBehaviour
     private bool resultPrinted = false;
     private bool isStopped = false;
     private Renderer boxRenderer;
+
+    public string forwardName;
+
+    public int plcInputValue;
 
     private void Start()
     {

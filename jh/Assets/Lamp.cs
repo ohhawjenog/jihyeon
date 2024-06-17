@@ -1,63 +1,48 @@
+using MPS;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Lamp : MonoBehaviour
 {
-
-    private bool colorChanged = false;
-    private Color originalColor;
+    public string forwardName;
+    public string backwardName;
+    public int[] plcInputValues; // 편솔의 경우 입력 1개, 양솔의 경우 입력 2개
+    public Image forwardButtonImg;
+    public Image backwardButtonImg;
 
     // Start is called before the first frame update
     void Start()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer != null)
-        {
-            originalColor = renderer.material.color;
-        }
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Renderer renderer = GetComponent<Renderer>();
-        if (renderer == null)
-        {
-            Debug.LogError("이 오브젝트에 Renderer 컴포넌트가 없습니다.");
-            return;
-        }
 
-        if (!colorChanged)
+        if (MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
             // 스페이스바를 눌렀는지 확인
-            if (Input.GetKey(KeyCode.A) && Input.GetKeyDown(KeyCode.LeftShift))
+            if (plcInputValues[0] > 0)
             {
-                // 색상 변경
-
-                if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.A))
-                {
-                    // 색상 변경
-                    renderer.material.color = Color.red;
-                    colorChanged = true; // 색상이 변경되었음을 표시
-                    Debug.Log("Color changed to red");
-                }
+                forwardButtonImg.color = Color.white;
+                backwardButtonImg.color = Color.green;
             }
-            
+            else
+            {
+                forwardButtonImg.color = Color.green;
+                backwardButtonImg.color = Color.white;
+            }
+
         }
         else
         {
-            // S 키와 LeftShift 키를 눌렀는지 확인
-            if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.S))
-            {
-                // 원래 색상으로 복원
-                renderer.material.color = originalColor;
-                colorChanged = false; // 색상이 원래대로 돌아왔음을 표시
-                Debug.Log("Color reverted to original");
-            }
+            //forwardButtonImg.color = Color.white;
+            //forwardButtonImg.color = Color.white;
         }
+
+        
     }
 
 }
-
