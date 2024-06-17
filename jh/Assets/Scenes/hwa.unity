@@ -467,6 +467,7 @@ GameObject:
   - component: {fileID: 20773394}
   - component: {fileID: 20773393}
   - component: {fileID: 20773392}
+  - component: {fileID: 20773395}
   m_Layer: 0
   m_Name: Red Lamp
   m_TagString: Untagged
@@ -562,6 +563,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20773390}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &20773395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20773390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be2b703e3b64de40b82d62e0464a44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lampName: {fileID: 20773391}
+  plcInputValue: 0
 --- !u!1 &20958653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2934,8 +2949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 1378251490}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -3034,19 +3049,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 102211954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y22
-  frontSwitchDeviceName: Y23
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
   speed: 1
   distanceLimit: 0.0003
-  pistonRod: {fileID: 0}
-  startPosition: {fileID: 0}
-  endPosition: {fileID: 0}
+  pistonRod: {fileID: 102211955}
+  startPosition: {fileID: 569575166}
+  endPosition: {fileID: 1963403670}
 --- !u!1 &103454357
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &129783071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6417,11 +6432,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 206887675}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y10
-  frontSwitchDeviceName: Y11
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -8942,7 +8957,6 @@ GameObject:
   - component: {fileID: 364059867}
   - component: {fileID: 364059866}
   - component: {fileID: 364059865}
-  - component: {fileID: 364059868}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -9039,23 +9053,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364059863}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &364059868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364059863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be2b703e3b64de40b82d62e0464a44c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardName: Y51
-  backwardName: Y52
-  plcInputValues: 
-  forwardButtonImg: {fileID: 0}
-  backwardButtonImg: {fileID: 0}
 --- !u!1 &369525005
 GameObject:
   m_ObjectHideFlags: 0
@@ -10107,7 +10104,7 @@ Transform:
   m_GameObject: {fileID: 420807772}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -1.2373815e-12, z: 1.2373813e-12, w: 0.7071068}
-  m_LocalPosition: {x: 0.000015, y: -0.000014, z: 0.000528}
+  m_LocalPosition: {x: -0.0001, y: -0.00001, z: 0.00053}
   m_LocalScale: {x: 0.010000001, y: 0.009999997, z: 0.009999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10146,8 +10143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 1378251490}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -11363,6 +11360,7 @@ Transform:
   - {fileID: 960325885}
   - {fileID: 1484023696}
   - {fileID: 1836708430}
+  - {fileID: 1104278909}
   m_Father: {fileID: 370636647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474559459
@@ -12773,7 +12771,6 @@ GameObject:
   - component: {fileID: 547949221}
   - component: {fileID: 547949220}
   - component: {fileID: 547949219}
-  - component: {fileID: 547949222}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -12870,23 +12867,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 547949217}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &547949222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 547949217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be2b703e3b64de40b82d62e0464a44c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardName: Y51
-  backwardName: Y52
-  plcInputValues: 
-  forwardButtonImg: {fileID: 0}
-  backwardButtonImg: {fileID: 0}
 --- !u!1 &549866093
 GameObject:
   m_ObjectHideFlags: 0
@@ -14505,7 +14485,7 @@ GameObject:
   - component: {fileID: 593645556}
   - component: {fileID: 593645558}
   - component: {fileID: 593645557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sensor3
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -14521,8 +14501,8 @@ Transform:
   m_GameObject: {fileID: 593645555}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.003670002, y: 0, z: 0}
-  m_LocalScale: {x: 0.00049999997, y: 0.0004999999, z: 0.0005000001}
+  m_LocalPosition: {x: -0.0033, y: 0, z: 0}
+  m_LocalScale: {x: 0.0001, y: 0.0005, z: 0.0005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 179539418}
@@ -14539,8 +14519,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 1378251490}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -16497,7 +16477,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666436396}
   serializedVersion: 4
-  m_Mass: 0.01
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -16596,7 +16576,7 @@ Transform:
   m_GameObject: {fileID: 666436396}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.008, y: -0.00025000048, z: 0.0054100053}
+  m_LocalPosition: {x: -0.00478, y: -0.00025000048, z: 0.0054100053}
   m_LocalScale: {x: 0.002, y: 0.0015999997, z: 0.0023999996}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16615,11 +16595,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  Sensor1: {fileID: 420807775}
-  Sensor2: {fileID: 1378251490}
+  sensor1: {fileID: 0}
+  sensor2: {fileID: 0}
   sensor3: {fileID: 593645557}
   sensor4: {fileID: 1903649642}
-  Sensor5: {fileID: 100052162}
+  sensor5: {fileID: 0}
+  xTransfer: {fileID: 0}
+  yTransfer: {fileID: 0}
+  zTransfer: {fileID: 0}
+  boxADetected: 0
+  boxBDetected: 0
   cylinder2: {fileID: 206887676}
   restartDistance: 1
   forwardName: D0
@@ -17957,11 +17942,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 719820270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y36
-  frontSwitchDeviceName: Y37
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -23422,11 +23407,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 949414500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y34
-  frontSwitchDeviceName: Y35
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -23596,7 +23581,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960325884}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 100000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -25423,11 +25408,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  Sensor1: {fileID: 420807775}
-  Sensor2: {fileID: 1378251490}
+  sensor1: {fileID: 0}
+  sensor2: {fileID: 0}
   sensor3: {fileID: 593645557}
   sensor4: {fileID: 1903649642}
-  Sensor5: {fileID: 100052162}
+  sensor5: {fileID: 0}
+  xTransfer: {fileID: 0}
+  yTransfer: {fileID: 0}
+  zTransfer: {fileID: 0}
+  boxADetected: 0
+  boxBDetected: 0
   cylinder2: {fileID: 206887676}
   restartDistance: 1
   forwardName: D1
@@ -27231,7 +27221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1104278909}
   - component: {fileID: 1104278910}
-  m_Layer: 9
+  m_Layer: 6
   m_Name: Size
   m_TagString: Untagged
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -27246,12 +27236,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104278908}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.000854, z: 0.0005}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0006800024, z: 0.00044800044}
+  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1484023696}
+  m_Father: {fileID: 467602132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1104278910
 BoxCollider:
@@ -27272,7 +27262,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2, y: 0.02, z: 0.02}
+  m_Size: {x: 1, y: 0.05, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1105368741
 GameObject:
@@ -32327,11 +32317,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1306301215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y32
-  frontSwitchDeviceName: Y33
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -33162,11 +33152,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1340318434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y30
-  frontSwitchDeviceName: Y31
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -34484,8 +34474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 1378251490}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -36316,7 +36306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d0bbac9c27bf84d42ab8d8cd73775cd7, type: 2}
+  - {fileID: 2100000, guid: d2bf02650de003345bff78136d92cfb7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37040,21 +37030,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connection: 1
-  BoxA: {fileID: 666436402}
-  BoxB: {fileID: 1012890274}
+  boxACount: 0
+  boxBCount: 0
   Stopper: {fileID: 206887677}
-  Sensor1: {fileID: 420807775}
-  Sensor2: {fileID: 1378251490}
-  aligner: {fileID: 960325887}
-  Sensor3: {fileID: 593645557}
-  Sensor4: {fileID: 1903649642}
-  Sensor5: {fileID: 100052162}
-  rotaryCylinder: {fileID: 2020129616}
+  stopSensor: {fileID: 0}
+  aligner: {fileID: 0}
+  alignSensor: {fileID: 0}
+  boxASensor: {fileID: 0}
+  boxBSensor: {fileID: 0}
+  yTransfer: {fileID: 0}
+  xTransfer: {fileID: 0}
+  zTransfer: {fileID: 0}
   loadCylinder: {fileID: 2049666070}
-  palletALamp: {fileID: 547949222}
   palletAJigCylinder: {fileID: 949414503}
   palletAPullCylinder: {fileID: 1340318437}
-  palletBLamp: {fileID: 364059868}
   palletBJigCylinder: {fileID: 719820273}
   palletBPullCylinder: {fileID: 1306301217}
 --- !u!4 &1455656705
@@ -37806,7 +37795,6 @@ Transform:
   m_Children:
   - {fileID: 434730433}
   - {fileID: 1196457500}
-  - {fileID: 1104278909}
   m_Father: {fileID: 467602132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1484444158
@@ -39576,6 +39564,7 @@ GameObject:
   - component: {fileID: 1593542636}
   - component: {fileID: 1593542635}
   - component: {fileID: 1593542634}
+  - component: {fileID: 1593542637}
   m_Layer: 0
   m_Name: Red Lamp
   m_TagString: Untagged
@@ -39671,6 +39660,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1593542632}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1593542637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593542632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be2b703e3b64de40b82d62e0464a44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lampName: {fileID: 1593542633}
+  plcInputValue: 0
 --- !u!1 &1597846887
 GameObject:
   m_ObjectHideFlags: 0
@@ -48437,7 +48440,7 @@ GameObject:
   - component: {fileID: 1903649641}
   - component: {fileID: 1903649643}
   - component: {fileID: 1903649642}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sensor4
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -48453,8 +48456,8 @@ Transform:
   m_GameObject: {fileID: 1903649640}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0020700006, y: 0, z: 0}
-  m_LocalScale: {x: 0.00029999996, y: 0.00029999993, z: 0.0003}
+  m_LocalPosition: {x: -0.0029, y: 0, z: 0}
+  m_LocalScale: {x: 0.0001, y: 0.0005, z: 0.0005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 179539418}
@@ -48471,8 +48474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 1378251490}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -52515,11 +52518,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2049666067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce2b07403cede5941a9ed6e5521b8528, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a60d8289c9191e4f981e0b0edf81e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rearSwitchDeviceName: Y22
-  frontSwitchDeviceName: Y23
+  rearSwitchDeviceName: 
+  frontSwitchDeviceName: 
   plcInputValues: 
   isCylinderMoving: 0
   isStartPosition: 1
@@ -74106,7 +74109,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -4279979935521194213, guid: 2e3a0d8d38947c24f835a3fc2309308e, type: 3}
+  - {fileID: 2100000, guid: 2cbba080e7795c043ae9892e907b9d8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
