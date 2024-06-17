@@ -8,16 +8,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class BoxManager : MonoBehaviour
     {
-        [Header("박스 A 생성")]
+        [Header("박스 생성")]
         public GameObject boxAPrefab;
-        public Transform spawnPointA; // 박스 A를 생성할 위치
-
-        [Header("박스 B 생성")]
+        public Transform spawnPoint; // 박스를 생성할 위치
         public GameObject boxBPrefab;
-        public Transform spawnPointB; // 박스 B를 생성할 위치
 
         [Space(20)]
         [Header("현재 상태")]
@@ -26,8 +24,7 @@ public class BoxManager : MonoBehaviour
         public float speed = 1.0f;
         public Vector3 front = new Vector3(1, 0, 0);
 
-        private List<Box1> boxesA = new List<Box1>(); // 생성된 박스 A를 관리할 리스트
-        private List<Box1> boxesB = new List<Box1>(); // 생성된 박스 B를 관리할 리스트
+        public List<Box1> boxes = new List<Box1>(); // 생성된 박스 A를 관리할 리스트
 
         void Update()
         {
@@ -36,11 +33,7 @@ public class BoxManager : MonoBehaviour
                 if (plcInputValue == 0)
                 {
                     // PLC 신호가 없으면 모든 박스 멈춤
-                    foreach (var box in boxesA)
-                    {
-                        box.StopMoving();
-                    }
-                    foreach (var box in boxesB)
+                    foreach (var box in boxes)
                     {
                         box.StopMoving();
                     }
@@ -48,11 +41,7 @@ public class BoxManager : MonoBehaviour
                 else if (plcInputValue > 0)
             {
                     // PLC 신호가 있으면 모든 박스 움직임 시작
-                    foreach (var box in boxesA)
-                    {
-                        box.StartMoving();
-                    }
-                    foreach (var box in boxesB)
+                    foreach (var box in boxes)
                     {
                         box.StartMoving();
                     }
@@ -63,20 +52,25 @@ public class BoxManager : MonoBehaviour
         // 버튼 클릭 시 호출될 메서드
         public void OnCreateBoxAButtonClick()
         {
-            GameObject boxObj = Instantiate(boxAPrefab, spawnPointA.position, spawnPointA.rotation);
-            Box1 boxScript = boxObj.AddComponent<Box1>();
-            boxScript.speed = speed;
-            boxScript.direction = front;
-            boxesA.Add(boxScript);
-        }
+            GameObject boxObj = null;
 
-        public void OnCreateBoxBButtonClick()
-        {
-            GameObject boxObj = Instantiate(boxBPrefab, spawnPointB.position, spawnPointB.rotation);
+            int temp = Random.Range(0, 2);
+            print(temp);
+            if (temp == 0)
+            {
+                boxObj = Instantiate(boxAPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            }
+            else if (temp == 1)
+            {
+                boxObj = Instantiate(boxBPrefab, spawnPoint.position, spawnPoint.rotation);
+            }
+            
+
             Box1 boxScript = boxObj.AddComponent<Box1>();
             boxScript.speed = speed;
             boxScript.direction = front;
-            boxesB.Add(boxScript);
+            boxes.Add(boxScript);
         }
     }
 

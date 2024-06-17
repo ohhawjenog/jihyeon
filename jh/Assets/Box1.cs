@@ -41,4 +41,6 @@ public class Box1 : MonoBehaviour
             isStoppedBySensor = true; // 센서에 의해 멈춘 상태로 설정
         }
     }
+
+
 }
