@@ -23,10 +23,10 @@ namespace MPS
         public int boxBCount;
 
         [Header("Align System")]
-        //public Conveyor conveyor;               // 1-1. Conveyor
-        public Cylinder Stopper;                // 1-2. Stopper
+        //public BoxManager boxManager;           // 1-1. Conveyor
+        public Cylinder stopper;                // 1-2. Stopper
         public Sensor stopSensor;               // 1-2-1. Stop Sensor
-        public Cylinder aligner;               // 1-3. Aligner
+        public Aligner aligner;                 // 1-3. Aligner
         public Sensor alignSensor;              // 1-4. Align Sensor
         public Sensor boxASensor;               // 1-5-1. Box A Sensor
         public Sensor boxBSensor;               // 1-5-2. Box B Sensor
@@ -93,7 +93,7 @@ namespace MPS
                 //boxASensor.plcInputValue                = newXData[3 ] - 48;
                 //boxBSensor.plcInputValue                = newXData[4 ] - 48;
 
-                //conveyor.plcInputValue                  = newYData[0 ] - 48;
+                //boxManager.plcInputValue                = newYData[0 ] - 48;
                 //Stopper.plcInputValues[0]               = newYData[10] - 48;
                 //Stopper.plcInputValues[1]               = newYData[11] - 48;
                 //aligner.plcInputValues[0]               = newYData[12] - 48;

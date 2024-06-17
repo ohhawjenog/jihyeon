@@ -1589,7 +1589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &84119914
 Transform:
   m_ObjectHideFlags: 0
@@ -4169,6 +4169,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9857c19f2cc994a4ea613f99036cbdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
+  Sensor1: {fileID: 0}
+  Sensor2: {fileID: 0}
+  sensor3: {fileID: 0}
+  sensor4: {fileID: 0}
+  Sensor5: {fileID: 0}
+  cylinder2: {fileID: 0}
+  restartDistance: 1
+  forwardName: 
+  plcInputValue: 0
 --- !u!4 &264770367
 Transform:
   m_ObjectHideFlags: 0
@@ -22036,6 +22046,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
+  plcInputValues: 
+  plcInputBoxAQuantity: 0
+  plcInputBoxBQuantity: 0
+  isDriveMoving: 0
+  isDriveReverse: 0
+  boxACount: 0
+  boxBCount: 0
+  mxComponent: {fileID: 0}
+  transfer: {fileID: 0}
+  minRange: 0
+  maxRange: 0
+  transportRate: 0
+  destinationRate: 0
+  transferTime: 0
+  speed: 1
 --- !u!1 &1463138517
 GameObject:
   m_ObjectHideFlags: 0
@@ -52707,6 +52733,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
+  plcInputValues: 
+  plcInputBoxAQuantity: 0
+  plcInputBoxBQuantity: 0
+  isDriveMoving: 0
+  isDriveReverse: 0
+  boxACount: 0
+  boxBCount: 0
+  mxComponent: {fileID: 0}
+  transfer: {fileID: 0}
+  minRange: 0
+  maxRange: 0
+  transportRate: 0
+  destinationRate: 0
+  transferTime: 0
+  speed: 1
 --- !u!23 &5471090569359249699
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -59492,6 +59534,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae6072eb8511b74e811c2df038e042d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: 0
+  plcInputValues: 
+  plcInputBoxAQuantity: 0
+  plcInputBoxBQuantity: 0
+  isDriveMoving: 0
+  isDriveReverse: 0
+  boxACount: 0
+  boxBCount: 0
+  mxComponent: {fileID: 0}
+  transfer: {fileID: 0}
+  minRange: 0
+  maxRange: 0
+  transportRate: 0
+  destinationRate: 0
+  transferTime: 0
+  speed: 1
 --- !u!4 &7137662603774475145
 Transform:
   m_ObjectHideFlags: 0
