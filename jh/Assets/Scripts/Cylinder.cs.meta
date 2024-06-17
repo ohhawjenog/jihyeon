@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:jh/Assets/Lamp.cs.meta
+guid: e31f0475e857ff34eb9c5109b9c19760
+========
+guid: 1e34ef767cb774e46ba3e1d51f5753e7
+>>>>>>>> main:jh/Assets/Cylinder.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

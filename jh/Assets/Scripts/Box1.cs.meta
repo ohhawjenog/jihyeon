@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:jh/Assets/Box.cs.meta
+guid: 353c52e70a97bbf4fa88108272c44284
+========
+guid: 6f2c6d3c208a98841a09a81139c06f84
+>>>>>>>> miso:jh/Assets/Box1.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
