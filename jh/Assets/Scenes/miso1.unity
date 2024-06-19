@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -796,7 +796,7 @@ Transform:
   m_GameObject: {fileID: 62859403}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0002300024, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0003, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2044,7 +2044,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196445758}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2061,7 +2061,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!114 &196445761
 MonoBehaviour:
@@ -2081,8 +2081,8 @@ MonoBehaviour:
   alignSensor: {fileID: 0}
   isCylinderMoving: 0
   isStartPosition: 1
-  speed: 1
-  distanceLimit: 0.03
+  speed: 1.2
+  distanceLimit: 0.000000001
   pistonRod: {fileID: 196445759}
   startPosition: {fileID: 1944124388}
   endPosition: {fileID: 62859404}
@@ -3025,7 +3025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &306163380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,7 +3126,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &308932751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3600,7 +3600,7 @@ Transform:
   m_GameObject: {fileID: 343730080}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 3, z: 0}
+  m_LocalPosition: {x: -8, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3993,8 +3993,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 0}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -7426,7 +7426,7 @@ Transform:
   m_GameObject: {fileID: 679673669}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0079, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7449,7 +7449,7 @@ GameObject:
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &684924928
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7866,7 +7866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &705507994
 Light:
   m_ObjectHideFlags: 0
@@ -8514,7 +8514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &768834225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10489,8 +10489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardName: 
-  backwardName: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 0}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -10761,7 +10761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &963194226
 AudioListener:
   m_ObjectHideFlags: 0
@@ -11091,8 +11091,8 @@ MonoBehaviour:
   alignSensor: {fileID: 0}
   isCylinderMoving: 0
   isStartPosition: 1
-  speed: 1
-  distanceLimit: 0.03
+  speed: 1.2
+  distanceLimit: 0.000000001
   pistonRod: {fileID: 998647334}
   startPosition: {fileID: 92262022}
   endPosition: {fileID: 1907629236}
@@ -11104,7 +11104,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998647333}
   serializedVersion: 4
-  m_Mass: 10
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -11121,7 +11121,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 122
+  m_Constraints: 124
   m_CollisionDetection: 0
 --- !u!1 &1009602976
 GameObject:
@@ -13878,7 +13878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1315077917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13894,7 +13894,8 @@ MonoBehaviour:
   connection: 1
   boxACount: 0
   boxBCount: 0
-  Stopper: {fileID: 833319379}
+  boxManager: {fileID: 1582383892}
+  stopper: {fileID: 833319379}
   stopSensor: {fileID: 0}
   aligner: {fileID: 1924232403}
   alignSensor: {fileID: 0}
@@ -13902,6 +13903,7 @@ MonoBehaviour:
   boxBSensor: {fileID: 0}
   yTransfer: {fileID: 0}
   xTransfer: {fileID: 0}
+  rotaryCylinder: {fileID: 1024292377}
   zTransfer: {fileID: 0}
   loadCylinder: {fileID: 1328787442}
   palletAJigCylinder: {fileID: 998647335}
@@ -14172,7 +14174,7 @@ MonoBehaviour:
   alignSensor: {fileID: 0}
   isCylinderMoving: 0
   isStartPosition: 1
-  speed: 1
+  speed: 1.2
   distanceLimit: 0.03
   pistonRod: {fileID: 1328787440}
   startPosition: {fileID: 1559305536}
@@ -16955,7 +16957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1582383892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16973,7 +16975,7 @@ MonoBehaviour:
   boxBPrefab: {fileID: 5059794776814167907, guid: 22718c42864dae34a9748112f5c7944c, type: 3}
   switchDeviceName: Y0
   plcInputValue: 0
-  speed: 0.001
+  speed: 1
   front: {x: 1, y: 0, z: 0}
   boxes: []
 --- !u!4 &1582383893
@@ -17756,7 +17758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1634567238
 Transform:
   m_ObjectHideFlags: 0
@@ -20956,7 +20958,7 @@ Transform:
   m_GameObject: {fileID: 1907629235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00024, y: 0, z: 0}
+  m_LocalPosition: {x: -0.0003, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23489,6 +23491,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: test6
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 194afd13cbc94cc4ca848cd1659debb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -24181,7 +24187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &942519258225299007
 Transform:
   m_ObjectHideFlags: 0
