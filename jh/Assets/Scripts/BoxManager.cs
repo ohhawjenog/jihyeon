@@ -20,11 +20,11 @@ public class BoxManager : MonoBehaviour
         [Space(20)]
         [Header("현재 상태")]
         public string switchDeviceName; // plc 연동되는 부분
-        public int plcInputValue;
+        public int plcInputValue = 0;
         public float speed = 1.0f;
         public Vector3 front = new Vector3(1, 0, 0);
 
-        public List<Box1> boxes = new List<Box1>(); // 생성된 박스 A를 관리할 리스트
+        public List<Box1> boxes = new List<Box1>(); // 생성된 박스를 관리할 리스트
 
         void Update()
         {
@@ -50,12 +50,11 @@ public class BoxManager : MonoBehaviour
         }
 
         // 버튼 클릭 시 호출될 메서드
-        public void OnCreateBoxAButtonClick()
+        public void OnCreateBoxButtonClick()
         {
             GameObject boxObj = null;
 
             int temp = Random.Range(0, 2);
-            print(temp);
             if (temp == 0)
             {
                 boxObj = Instantiate(boxAPrefab, spawnPoint.position, spawnPoint.rotation);

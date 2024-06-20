@@ -4609,8 +4609,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: 
-  alignSensor: {fileID: 0}
+  sensorDeviceName: X10
+  alignSensor: {fileID: 459875396}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -4814,7 +4814,7 @@ GameObject:
   - component: {fileID: 472439348}
   - component: {fileID: 472439350}
   - component: {fileID: 472439349}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 1-4-2. BoxB_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -4848,8 +4848,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: 
-  alignSensor: {fileID: 0}
+  sensorDeviceName: X13
+  alignSensor: {fileID: 472439349}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -5529,8 +5529,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
+      - m_Target: {fileID: 1996577473}
+        m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnDisconnectPLCBtnClkEvent
         m_Mode: 1
         m_Arguments:
@@ -5878,8 +5878,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: 
-  alignSensor: {fileID: 0}
+  sensorDeviceName: X11
+  alignSensor: {fileID: 561110591}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -7289,7 +7289,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 706209762}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1938248911}
+        m_TargetAssemblyTypeName: BoxManager, Assembly-CSharp
+        m_MethodName: OnCreateBoxButtonClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &706209762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8401,7 +8413,13 @@ MonoBehaviour:
   transportRate: 0
   destinationRate: 0
   transferTime: 0
+  elapsedTime: 0
   speed: 1
+  nowPos: {x: 0, y: 0, z: 0}
+  defPosA: {x: 0, y: 0, z: 0}
+  defPosB: {x: 0, y: 0, z: 0}
+  minPos: {x: 0, y: 0, z: 0}
+  maxPos: {x: 0, y: 0, z: 0}
   boxADefault: {fileID: 0}
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
@@ -8563,7 +8581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 884680862}
   - component: {fileID: 884680863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 1-4. SizeDetector
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -9286,7 +9304,7 @@ GameObject:
   - component: {fileID: 1000699651}
   - component: {fileID: 1000699654}
   - component: {fileID: 1000699652}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 1-4-1. BoxA_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -9320,8 +9338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: 
-  alignSensor: {fileID: 0}
+  sensorDeviceName: X12
+  alignSensor: {fileID: 1000699652}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -11760,7 +11778,7 @@ GameObject:
   - component: {fileID: 1302175376}
   m_Layer: 0
   m_Name: LoadingDetector
-  m_TagString: Untagged
+  m_TagString: Sensor
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11813,8 +11831,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: 
-  alignSensor: {fileID: 0}
+  sensorDeviceName: X14
+  alignSensor: {fileID: 1302175376}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -12997,7 +13015,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1996577473}
         m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnStartPLCButtonClkEvent
         m_Mode: 1
@@ -13660,6 +13678,7 @@ GameObject:
   - component: {fileID: 1491222643}
   - component: {fileID: 1491222645}
   - component: {fileID: 1491222644}
+  - component: {fileID: 1491222646}
   m_Layer: 0
   m_Name: 16-02_300X100X3_AL6061
   m_TagString: Untagged
@@ -13732,6 +13751,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1491222642}
   m_Mesh: {fileID: -6620695813866420720, guid: 194afd13cbc94cc4ca848cd1659debb6, type: 3}
+--- !u!65 &1491222646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491222642}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.37999997, y: 3.0000007, z: 1.0000002}
+  m_Center: {x: 0.175, y: 0, z: 0.5000001}
 --- !u!1 &1491840991
 GameObject:
   m_ObjectHideFlags: 0
@@ -16062,8 +16102,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MxComponent, Assembly-CSharp
+      - m_Target: {fileID: 1996577473}
+        m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnConnectPLCBtnClkEvent
         m_Mode: 1
         m_Arguments:
@@ -16733,7 +16773,7 @@ Transform:
   m_GameObject: {fileID: 1793277705}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 1, z: 0}
+  m_LocalPosition: {x: -9, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16805,7 +16845,13 @@ MonoBehaviour:
   transportRate: 0
   destinationRate: 0
   transferTime: 0
+  elapsedTime: 0
   speed: 1
+  nowPos: {x: 0, y: 0, z: 0}
+  defPosA: {x: 0, y: 0, z: 0}
+  defPosB: {x: 0, y: 0, z: 0}
+  minPos: {x: 0, y: 0, z: 0}
+  maxPos: {x: 0, y: 0, z: 0}
   boxADefault: {fileID: 0}
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
@@ -16901,7 +16947,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1996577473}
         m_TargetAssemblyTypeName: MPS.MxComponent, Assembly-CSharp
         m_MethodName: OnStopPLCButtonClkEvent
         m_Mode: 1
@@ -18199,9 +18245,9 @@ MonoBehaviour:
   boxAPrefab: {fileID: 1263763554342917499, guid: bbbd77915c054224585bc9b6d0bdc148, type: 3}
   spawnPoint: {fileID: 1793277706}
   boxBPrefab: {fileID: 8697618595624366251, guid: 94e3cb59d2bbd0f4c9be5d26f4925a06, type: 3}
-  switchDeviceName: 
+  switchDeviceName: Y0
   plcInputValue: 0
-  speed: 1
+  speed: 0.05
   front: {x: 1, y: 0, z: 0}
   boxes: []
 --- !u!1 &1954075539
@@ -18530,10 +18576,7 @@ MonoBehaviour:
   boxASensor: {fileID: 1000699652}
   boxBSensor: {fileID: 472439349}
   loadSensor: {fileID: 1302175376}
-  yTransfer: {fileID: 2072744994}
-  xTransfer: {fileID: 1811624770}
   rotaryCylinder: {fileID: 1273517498}
-  zTransfer: {fileID: 854911004}
   loadCylinder: {fileID: 1587020461}
   palletAJigCylinder: {fileID: 651207143}
   palletAPullCylinder: {fileID: 1761631000}
@@ -19543,7 +19586,13 @@ MonoBehaviour:
   transportRate: 0
   destinationRate: 0
   transferTime: 0
+  elapsedTime: 0
   speed: 1
+  nowPos: {x: 0, y: 0, z: 0}
+  defPosA: {x: 0, y: 0, z: 0}
+  defPosB: {x: 0, y: 0, z: 0}
+  minPos: {x: 0, y: 0, z: 0}
+  maxPos: {x: 0, y: 0, z: 0}
   boxADefault: {fileID: 0}
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
@@ -39485,6 +39534,7 @@ GameObject:
   - component: {fileID: 7212588590927987460}
   - component: {fileID: 5453505328408406850}
   - component: {fileID: 8538889692773247892}
+  - component: {fileID: 8538889692773247893}
   m_Layer: 0
   m_Name: 91-01_Belt_B500X4455L
   m_TagString: Untagged
@@ -45143,6 +45193,7 @@ GameObject:
   - component: {fileID: 8936934212190794058}
   - component: {fileID: 2594167793838579160}
   - component: {fileID: 3612231951355036058}
+  - component: {fileID: 8936934212190794059}
   m_Layer: 0
   m_Name: 16-03_200X100X3_AL6061
   m_TagString: Untagged
@@ -47434,6 +47485,7 @@ GameObject:
   - component: {fileID: 6091800109898560651}
   - component: {fileID: 8542425226259037024}
   - component: {fileID: 4531389743421377352}
+  - component: {fileID: 8542425226259037025}
   m_Layer: 0
   m_Name: 55-04_365X150X3T
   m_TagString: Untagged
@@ -61634,6 +61686,7 @@ GameObject:
   - component: {fileID: 6917332339389264074}
   - component: {fileID: 7673946762448268300}
   - component: {fileID: 3842836043272610374}
+  - component: {fileID: 7795594947515955587}
   m_Layer: 0
   m_Name: 16-01_300X100X3_AL6061
   m_TagString: Untagged
@@ -61641,6 +61694,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &7795594947515955587
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795594947515955586}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3, y: 0.35000008, z: 1.0000002}
+  m_Center: {x: 1.5, y: 0.17500052, z: 0.5000001}
 --- !u!23 &7801005114597201694
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65256,6 +65330,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8538889692773247893
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640837560230005695}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 21.864384, y: 5.000001, z: 0.77000016}
+  m_Center: {x: 4.1359036e-25, y: 0, z: -0.0000001192093}
 --- !u!4 &8540817020789411410
 Transform:
   m_ObjectHideFlags: 0
@@ -65279,6 +65374,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5131163678049966546}
   m_Mesh: {fileID: 4245240042264165507, guid: 194afd13cbc94cc4ca848cd1659debb6, type: 3}
+--- !u!65 &8542425226259037025
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131163678049966546}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.4499998, y: 1.4999998, z: 0.42999992}
+  m_Center: {x: 1.6949999, y: 1.1485766e-20, z: -0.18499997}
 --- !u!4 &8543722103473177707
 Transform:
   m_ObjectHideFlags: 0
@@ -67536,6 +67652,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 188523941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8936934212190794059
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760466212393299163}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.029999996, z: 0.9999999}
+  m_Center: {x: 1.08420185e-19, y: 0, z: 0.49999994}
 --- !u!33 &8942248166402143804
 MeshFilter:
   m_ObjectHideFlags: 0

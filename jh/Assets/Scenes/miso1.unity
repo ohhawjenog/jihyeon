@@ -3590,7 +3590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &343730081
 Transform:
   m_ObjectHideFlags: 0
@@ -8234,7 +8234,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &719285356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10928,7 +10928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &982044362
 Transform:
   m_ObjectHideFlags: 0
@@ -12849,7 +12849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1230351519
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12916,7 +12916,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1582383892}
         m_TargetAssemblyTypeName: BoxManager, Assembly-CSharp
-        m_MethodName: OnCreateBoxAButtonClick
+        m_MethodName: OnCreateBoxButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13901,6 +13901,7 @@ MonoBehaviour:
   alignSensor: {fileID: 0}
   boxASensor: {fileID: 0}
   boxBSensor: {fileID: 0}
+  loadSensor: {fileID: 0}
   yTransfer: {fileID: 0}
   xTransfer: {fileID: 0}
   rotaryCylinder: {fileID: 1024292377}
@@ -16970,9 +16971,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3d4a869e183a24e89e482c8f8783af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxAPrefab: {fileID: 8542224269723403899, guid: 235486fd6c3260c4197e844b402221bb, type: 3}
+  boxAPrefab: {fileID: 1263763554342917499, guid: bbbd77915c054224585bc9b6d0bdc148, type: 3}
   spawnPoint: {fileID: 343730081}
-  boxBPrefab: {fileID: 5059794776814167907, guid: 22718c42864dae34a9748112f5c7944c, type: 3}
+  boxBPrefab: {fileID: 8697618595624366251, guid: 94e3cb59d2bbd0f4c9be5d26f4925a06, type: 3}
   switchDeviceName: Y0
   plcInputValue: 0
   speed: 1
@@ -18610,7 +18611,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1702214937
 RectTransform:
   m_ObjectHideFlags: 0
