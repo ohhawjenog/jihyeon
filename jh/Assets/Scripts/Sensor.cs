@@ -43,7 +43,7 @@ public class Sensor : MonoBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
         {
-            if(alignSensor.isObjectDetected == true)
+            if (alignSensor.isObjectDetected == true)
             {
                 MxComponent.instance.SetDevice(sensorDeviceName, 1);
                 isSizeDetected = true;
