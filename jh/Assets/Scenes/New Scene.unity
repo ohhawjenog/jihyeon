@@ -4556,7 +4556,7 @@ GameObject:
   m_Layer: 0
   m_Name: 1-1-1. Stop_Sensor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -4815,9 +4815,9 @@ GameObject:
   - component: {fileID: 472439350}
   - component: {fileID: 472439349}
   m_Layer: 0
-  m_Name: 1-4-1. BoxB_Sensor
+  m_Name: 1-4-2. BoxB_Sensor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5825,7 +5825,7 @@ GameObject:
   m_Layer: 0
   m_Name: 1-2. Align_Sensor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -8566,7 +8566,7 @@ GameObject:
   m_Layer: 0
   m_Name: 1-4. SizeDetector
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -9289,7 +9289,7 @@ GameObject:
   m_Layer: 0
   m_Name: 1-4-1. BoxA_Sensor
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -11756,10 +11756,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1302175374}
+  - component: {fileID: 1302175375}
+  - component: {fileID: 1302175376}
   m_Layer: 0
   m_Name: LoadingDetector
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -11772,12 +11774,50 @@ Transform:
   m_GameObject: {fileID: 1302175373}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 12.6, y: 0.7, z: -1.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 854911003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1302175375
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302175373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.1, y: 0.5, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1302175376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302175373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorDeviceName: 
+  alignSensor: {fileID: 0}
+  plcInputValue: 0
+  isObjectDetected: 0
+  isSizeDetected: 0
 --- !u!1 &1322728038
 GameObject:
   m_ObjectHideFlags: 0
@@ -18482,22 +18522,23 @@ MonoBehaviour:
   connection: 1
   boxACount: 0
   boxBCount: 0
-  boxManager: {fileID: 0}
-  stopper: {fileID: 0}
-  stopSensor: {fileID: 0}
-  aligner: {fileID: 0}
-  alignSensor: {fileID: 0}
-  boxASensor: {fileID: 0}
-  boxBSensor: {fileID: 0}
-  yTransfer: {fileID: 0}
-  xTransfer: {fileID: 0}
-  rotaryCylinder: {fileID: 0}
-  zTransfer: {fileID: 0}
-  loadCylinder: {fileID: 0}
-  palletAJigCylinder: {fileID: 0}
-  palletAPullCylinder: {fileID: 0}
-  palletBJigCylinder: {fileID: 0}
-  palletBPullCylinder: {fileID: 0}
+  boxManager: {fileID: 1938248911}
+  stopper: {fileID: 1041108315}
+  stopSensor: {fileID: 459875396}
+  aligner: {fileID: 1917349901}
+  alignSensor: {fileID: 561110591}
+  boxASensor: {fileID: 1000699652}
+  boxBSensor: {fileID: 472439349}
+  loadSensor: {fileID: 1302175376}
+  yTransfer: {fileID: 2072744994}
+  xTransfer: {fileID: 1811624770}
+  rotaryCylinder: {fileID: 1273517498}
+  zTransfer: {fileID: 854911004}
+  loadCylinder: {fileID: 1587020461}
+  palletAJigCylinder: {fileID: 651207143}
+  palletAPullCylinder: {fileID: 1761631000}
+  palletBJigCylinder: {fileID: 539747325}
+  palletBPullCylinder: {fileID: 377983735}
 --- !u!1 &2001141150
 GameObject:
   m_ObjectHideFlags: 0
