@@ -36,7 +36,8 @@ public class DriveMotor : MonoBehaviour
     public int plcInputBoxAQuantity;
     public int plcInputBoxBQuantity;
     public bool isDriveMoving;
-    public bool isDriveReverse;
+    public bool isDriveReversed;
+    public bool isDriveArrived;
     public int boxACount;
     public int boxAFloor;
     public int boxBCount;
@@ -87,27 +88,27 @@ public class DriveMotor : MonoBehaviour
 
         transferTime = maxRange - minRange;
 
-        //switch (direction)
-        //{
-        //    case Direction.MoveLocalX:
-        //        minPos = new Vector3(minRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        maxPos = new Vector3(maxRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        defPosA = new Vector3(boxADefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        defPosB = new Vector3(boxBDefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        break;
-        //    case Direction.MoveLocalY:
-        //        minPos = new Vector3(transfer.transform.localPosition.x, minRange, transfer.transform.localPosition.z);
-        //        maxPos = new Vector3(transfer.transform.localPosition.x, maxRange, transfer.transform.localPosition.z);
-        //        defPosA = new Vector3(transfer.transform.localPosition.x, boxADefault.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        defPosB = new Vector3(transfer.transform.localPosition.x, boxBDefault.transform.localPosition.y, transfer.transform.localPosition.z);
-        //        break;
-        //    case Direction.MoveLocalZ:
-        //        minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
-        //        maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
-        //        defPosA = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxADefault.transform.localPosition.z);
-        //        defPosB = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxBDefault.transform.localPosition.z);
-        //        break;
-        //}
+        switch (direction)
+        {
+            case Direction.MoveLocalX:
+                minPos = new Vector3(minRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                maxPos = new Vector3(maxRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                //defPosA = new Vector3(boxADefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                //defPosB = new Vector3(boxBDefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                break;
+            case Direction.MoveLocalY:
+                minPos = new Vector3(transfer.transform.localPosition.x, minRange, transfer.transform.localPosition.z);
+                maxPos = new Vector3(transfer.transform.localPosition.x, maxRange, transfer.transform.localPosition.z);
+                //defPosA = new Vector3(transfer.transform.localPosition.x, boxADefault.transform.localPosition.y, transfer.transform.localPosition.z);
+                //defPosB = new Vector3(transfer.transform.localPosition.x, boxBDefault.transform.localPosition.y, transfer.transform.localPosition.z);
+                break;
+            case Direction.MoveLocalZ:
+                minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
+                maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
+                //defPosA = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxADefault.transform.localPosition.z);
+                //defPosB = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxBDefault.transform.localPosition.z);
+                break;
+        }
 
         plcInputValues = new int[2];
 
@@ -120,13 +121,13 @@ public class DriveMotor : MonoBehaviour
         {
             if (plcInputValues[0] > 0)
             {
-                isDriveReverse = false;
+                isDriveReversed = false;
                 StartCoroutine(CoTransfer());
             }
 
             if (plcInputValues[1] > 0)
             {
-                isDriveReverse = true;
+                isDriveReversed = true;
                 StartCoroutine(CoTransfer());
             }
 
@@ -155,7 +156,7 @@ public class DriveMotor : MonoBehaviour
         transfer.transform.localPosition = newPos;
     }
 
-    public void SetToMove(Detection detection, int boxCount)
+    public void SetToMove(/*Detection detection, int boxCount*/)
     {
         nowPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
 
@@ -171,37 +172,6 @@ public class DriveMotor : MonoBehaviour
                 transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
                 break;
         }
-
-        if (detection == Detection.BoxA)
-        {
-            switch (direction)
-            {
-                case Direction.MoveLocalX:
-                    transportRate = (transfer.transform.localPosition.x - minRange) / (maxRange - minRange) * 100;
-                    break;
-                case Direction.MoveLocalY:
-                    transportRate = (transfer.transform.localPosition.y - minRange) / (maxRange - minRange) * 100;
-                    break;
-                case Direction.MoveLocalZ:
-                    transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
-                    break;
-            }
-        }
-        else if (detection == Detection.BoxB)
-        {
-            switch (direction)
-            {
-                case Direction.MoveLocalX:
-                    transportRate = (transfer.transform.localPosition.x - minRange) / (maxRange - minRange) * 100;
-                    break;
-                case Direction.MoveLocalY:
-                    transportRate = (transfer.transform.localPosition.y - minRange) / (maxRange - minRange) * 100;
-                    break;
-                case Direction.MoveLocalZ:
-                    transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
-                    break;
-            }
-        }
     }
 
     IEnumerator CoTransfer()
@@ -215,7 +185,7 @@ public class DriveMotor : MonoBehaviour
         //    SetToMove(Detection.boxB, boxBCount - 1);
         //}
 
-        //SetToMove();
+        SetToMove();
         isDriveMoving = true;
 
         elapsedTime = 0;
@@ -224,7 +194,7 @@ public class DriveMotor : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            if (isDriveReverse)
+            if (isDriveReversed)
             {
                 MoveDrive(nowPos, minPos, elapsedTime, transferTime * transportRate * speed);
             }
