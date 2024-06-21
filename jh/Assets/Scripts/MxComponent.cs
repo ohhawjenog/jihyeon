@@ -268,19 +268,6 @@ namespace MPS
             }
         }
 
-        //bool isEmmergency = false;
-        //public void OnEmmergencyStopBtnClkEvent()
-        //{
-        //    if (connection == Connection.Connected)
-        //    {
-        //        isEmmergency = !isEmmergency;
-
-        //        if (isEmmergency)
-        //            SetDevice("X2", 1);
-        //        else
-        //            SetDevice("X2", 0);
-        //    }
-        //}
         private void OnDestroy()
         {
             OnDisconnectPLCBtnClkEvent();
