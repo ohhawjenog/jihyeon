@@ -23,20 +23,21 @@ namespace MPS
         public int boxBCount;
 
         [Header("Align System")]
-        //public BoxManager boxManager;           // 1-1. Conveyor
+        public BoxManager boxManager;           // 1-1. Conveyor
         public Cylinder stopper;                // 1-2. Stopper
         public Sensor stopSensor;               // 1-2-1. Stop Sensor
-        public Aligner aligner;                 // 1-3. Aligner
+        public Cylinder aligner;                 // 1-3. Aligner
         public Sensor alignSensor;              // 1-4. Align Sensor
         public Sensor boxASensor;               // 1-5-1. Box A Sensor
         public Sensor boxBSensor;               // 1-5-2. Box B Sensor
+        public Sensor loadSensor;
 
         [Space(20)]
         [Header("Palletizing System")]
-        public DriveMotor yTransfer;            // 2-1. Y-Transfer
-        public DriveMotor xTransfer;            // 2-2. X-Transfer
-        //public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
-        public DriveMotor zTransfer;            // 2-4. Z-Transfer
+        //public DriveMotor yTransfer;            // 2-1. Y-Transfer
+        //public DriveMotor xTransfer;            // 2-2. X-Transfer
+        public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
+        //public DriveMotor zTransfer;            // 2-4. Z-Transfer
         public Cylinder loadCylinder;           // 2-5. Load Cylinder
 
         [Space(20)]
@@ -79,43 +80,44 @@ namespace MPS
             if (connection == Connection.Connected)
             {
                 short[] dData = ReadDeviceBlock("D0", 1);
-                short[] xData = ReadDeviceBlock("X0", 1);
+                short[] xData = ReadDeviceBlock("X0", 5);
                 short[] yData = ReadDeviceBlock("Y0", 5);
                 string newDData = ConvertDataIntoString(dData);
                 string newXData = ConvertDataIntoString(xData);
                 string newYData = ConvertDataIntoString(yData);
 
                 boxACount                               = newDData[0 ] - 48;
-                boxBCount                               = newXData[1 ] - 48;
+                boxBCount                               = newDData[1 ] - 48;
 
-                //stopSensor.plcInputValue                = newXData[1 ] - 48;
-                //alignSensor.plcInputValue               = newXData[2 ] - 48;
-                //boxASensor.plcInputValue                = newXData[3 ] - 48;
-                //boxBSensor.plcInputValue                = newXData[4 ] - 48;
+                stopSensor.plcInputValue                = newXData[10] - 48;
+                alignSensor.plcInputValue               = newXData[11] - 48;
+                boxASensor.plcInputValue                = newXData[12] - 48;
+                boxBSensor.plcInputValue                = newXData[13] - 48;
+                loadSensor.plcInputValue                = newXData[14] - 48;
 
-                //boxManager.plcInputValue                = newYData[0 ] - 48;
-                //Stopper.plcInputValues[0]               = newYData[10] - 48;
-                //Stopper.plcInputValues[1]               = newYData[11] - 48;
-                //aligner.plcInputValues[0]               = newYData[12] - 48;
-                //aligner.plcInputValues[1]               = newYData[13] - 48;
-                yTransfer.plcInputValues[0]             = newYData[42] - 48;
-                yTransfer.plcInputValues[1]             = newYData[43] - 48;
-                xTransfer.plcInputValues[0]             = newYData[40] - 48;
-                xTransfer.plcInputValues[1]             = newYData[41] - 48;
-                //rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
-                //rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
-                zTransfer.plcInputValues[0]             = newYData[44] - 48;
-                zTransfer.plcInputValues[1]             = newYData[45] - 48;
-                //loadCylinder.plcInputValues[0]          = newYData[22] - 48;
-                //loadCylinder.plcInputValues[1]          = newYData[23] - 48;
-                //palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
-                //palletAJigCylinder.plcInputValues[1]    = newYData[31] - 48;
-                //palletAPullCylinder.plcInputValues[0]   = newYData[32] - 48;
-                //palletAPullCylinder.plcInputValues[1]   = newYData[33] - 48;
-                //palletBJigCylinder.plcInputValues[0]    = newYData[34] - 48;
-                //palletBJigCylinder.plcInputValues[1]    = newYData[35] - 48;
-                //palletBPullCylinder.plcInputValues[0]   = newYData[36] - 48;
-                //palletBPullCylinder.plcInputValues[1]   = newYData[37] - 48;
+                boxManager.plcInputValue                = newYData[0 ] - 48;
+                stopper.plcInputValues[0]               = newYData[10] - 48;
+                stopper.plcInputValues[1]               = newYData[11] - 48;
+                aligner.plcInputValues[0]               = newYData[12] - 48;
+                aligner.plcInputValues[1]               = newYData[13] - 48;
+                //yTransfer.plcInputValues[0]             = newYData[42] - 48;
+                //yTransfer.plcInputValues[1]             = newYData[43] - 48;
+                //xTransfer.plcInputValues[0]             = newYData[40] - 48;
+                //xTransfer.plcInputValues[1]             = newYData[41] - 48;
+                rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
+                rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
+                //zTransfer.plcInputValues[0]             = newYData[44] - 48;
+                //zTransfer.plcInputValues[1]             = newYData[45] - 48;
+                loadCylinder.plcInputValues[0]          = newYData[22] - 48;
+                loadCylinder.plcInputValues[1]          = newYData[23] - 48;
+                palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
+                palletAJigCylinder.plcInputValues[1]    = newYData[31] - 48;
+                palletAPullCylinder.plcInputValues[0]   = newYData[32] - 48;
+                palletAPullCylinder.plcInputValues[1]   = newYData[33] - 48;
+                palletBJigCylinder.plcInputValues[0]    = newYData[34] - 48;
+                palletBJigCylinder.plcInputValues[1]    = newYData[35] - 48;
+                palletBPullCylinder.plcInputValues[0]   = newYData[36] - 48;
+                palletBPullCylinder.plcInputValues[1]   = newYData[37] - 48;
             }
         }
 
@@ -161,7 +163,7 @@ namespace MPS
             return newData;
         }
 
-        int GetDevice(string device)
+        public int GetDevice(string device)
         {
             if (connection == Connection.Connected)
             {
@@ -266,7 +268,7 @@ namespace MPS
             }
         }
 
-        bool isEmmergency = false;
+        //bool isEmmergency = false;
         //public void OnEmmergencyStopBtnClkEvent()
         //{
         //    if (connection == Connection.Connected)
