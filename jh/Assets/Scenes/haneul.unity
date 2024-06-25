@@ -8561,6 +8561,7 @@ MonoBehaviour:
   boxBCount: 0
   boxBFloor: 0
   mxComponent: {fileID: 1996577473}
+  loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 854911003}
   minRange: -4.6
   maxRange: 5
@@ -8568,11 +8569,15 @@ MonoBehaviour:
   destinationRate: 0
   transferTime: 0
   speed: 1
+  boxAOddFloorDefaultLocation: 0
+  boxAEvenFloorDefaultLocation: 0
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
   boxAVerticalDistance: 0
   boxAVerticalQuantity: 0
   boxAHeight: 0
+  boxBOddFloorDefaultLocation: 0
+  boxBEvenFloorDefaultLocation: 0
   boxBHorizontalDistance: 0
   boxBHorizontalQuantity: 0
   boxBVerticalDistance: 0
@@ -17044,6 +17049,7 @@ MonoBehaviour:
   boxBCount: 0
   boxBFloor: 0
   mxComponent: {fileID: 1996577473}
+  loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 1811624769}
   minRange: 0
   maxRange: 20
@@ -17051,11 +17057,15 @@ MonoBehaviour:
   destinationRate: 0
   transferTime: 0
   speed: 1
+  boxAOddFloorDefaultLocation: 0
+  boxAEvenFloorDefaultLocation: 0
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
   boxAVerticalDistance: 0
   boxAVerticalQuantity: 0
   boxAHeight: 0
+  boxBOddFloorDefaultLocation: 0
+  boxBEvenFloorDefaultLocation: 0
   boxBHorizontalDistance: 0
   boxBHorizontalQuantity: 0
   boxBVerticalDistance: 0
@@ -19904,6 +19914,7 @@ MonoBehaviour:
   boxBCount: 0
   boxBFloor: 0
   mxComponent: {fileID: 1996577473}
+  loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 2072744993}
   minRange: -32.5
   maxRange: 2.5
@@ -19911,11 +19922,15 @@ MonoBehaviour:
   destinationRate: 0
   transferTime: 0
   speed: 1
+  boxAOddFloorDefaultLocation: 0
+  boxAEvenFloorDefaultLocation: 0
   boxAHorizontalDistance: 0
   boxAHorizontalQuantity: 0
   boxAVerticalDistance: 0
   boxAVerticalQuantity: 0
   boxAHeight: 0
+  boxBOddFloorDefaultLocation: 0
+  boxBEvenFloorDefaultLocation: 0
   boxBHorizontalDistance: 0
   boxBHorizontalQuantity: 0
   boxBVerticalDistance: 0

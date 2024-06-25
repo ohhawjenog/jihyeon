@@ -32,6 +32,8 @@ public class DriveMotor : MonoBehaviour
     [Header("Device Info")]
     public Direction direction;
     public Detection detection;
+    public string deviceName;
+    public string deviceNameReversed;
     public int[] plcInputValues;
     public int plcInputBoxAQuantity;
     public int plcInputBoxBQuantity;
@@ -44,6 +46,7 @@ public class DriveMotor : MonoBehaviour
     public int boxBFloor;
     public MxComponent mxComponent;
     public Box boxDetector;
+    public Sensor loadingDetector;
 
     [Space(20)]
     [Header("Transfer Position")]
@@ -61,20 +64,21 @@ public class DriveMotor : MonoBehaviour
     float elapsedTime;
     public float speed = 1;
     Vector3 nowPos;
-    Vector3 defPosA;
-    Vector3 defPosB;
     Vector3 minPos;
     Vector3 maxPos;
+    Vector3 destination;
 
     [Space(20)]
     [Header("Palletizing Setting")]
-    //public Transform boxADefault;
+    public float boxAOddFloorDefaultLocation;
+    public float boxAEvenFloorDefaultLocation;
     public float boxAHorizontalDistance;
     public float boxAHorizontalQuantity;
     public float boxAVerticalDistance;
     public float boxAVerticalQuantity;
     public float boxAHeight;
-    //public Transform boxBDefault;
+    public float boxBOddFloorDefaultLocation;
+    public float boxBEvenFloorDefaultLocation;
     public float boxBHorizontalDistance;
     public float boxBHorizontalQuantity;
     public float boxBVerticalDistance;
@@ -136,6 +140,11 @@ public class DriveMotor : MonoBehaviour
                 StopCoroutine(CoTransfer());
                 isDriveMoving = false;
             }
+
+            if (loadingDetector.isObjectDetected == true)
+            {
+                StartCoroutine(CoTransfer());
+            }
         }
 
         if (boxACount > boxAHorizontalQuantity * boxAHorizontalQuantity)
@@ -164,12 +173,15 @@ public class DriveMotor : MonoBehaviour
         {
             case Direction.MoveLocalX:
                 transportRate = (transfer.transform.localPosition.x - minRange) / (maxRange - minRange) * 100;
+                destination = new Vector3(boxAOddFloorDefaultLocation, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalY:
                 transportRate = (transfer.transform.localPosition.y - minRange) / (maxRange - minRange) * 100;
+                destination = new Vector3(transfer.transform.localPosition.x, boxAOddFloorDefaultLocation, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalZ:
                 transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
+                destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxAOddFloorDefaultLocation);
                 break;
         }
     }
@@ -190,7 +202,7 @@ public class DriveMotor : MonoBehaviour
 
         elapsedTime = 0;
 
-        while (plcInputValues[0] > 0 || plcInputValues[1] > 0)
+        while (plcInputValues[0] > 0 || plcInputValues[1] > 0 || destination != new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z))
         {
             elapsedTime += Time.deltaTime;
 
@@ -204,6 +216,15 @@ public class DriveMotor : MonoBehaviour
             }
 
             yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        if (isDriveReversed == false)
+        {
+            mxComponent.SetDevice(deviceName, 0);
+        }
+        else
+        {
+            mxComponent.SetDevice(deviceNameReversed, 0);
         }
 
         isDriveMoving = false;

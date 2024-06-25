@@ -34,10 +34,10 @@ namespace MPS
 
         [Space(20)]
         [Header("Palletizing System")]
-        //public DriveMotor yTransfer;            // 2-1. Y-Transfer
-        //public DriveMotor xTransfer;            // 2-2. X-Transfer
+        public DriveMotor yTransfer;            // 2-1. Y-Transfer
+        public DriveMotor xTransfer;            // 2-2. X-Transfer
         public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
-        //public DriveMotor zTransfer;            // 2-4. Z-Transfer
+        public DriveMotor zTransfer;            // 2-4. Z-Transfer
         public Cylinder loadCylinder;           // 2-5. Load Cylinder
 
         [Space(20)]
@@ -80,9 +80,11 @@ namespace MPS
             if (connection == Connection.Connected)
             {
                 short[] dData = ReadDeviceBlock("D0", 1);
+                short[] mData = ReadDeviceBlock("M20", 3);
                 short[] xData = ReadDeviceBlock("X0", 5);
                 short[] yData = ReadDeviceBlock("Y0", 5);
                 string newDData = ConvertDataIntoString(dData);
+                string newMData = ConvertDataIntoString(mData);
                 string newXData = ConvertDataIntoString(xData);
                 string newYData = ConvertDataIntoString(yData);
 
@@ -100,14 +102,14 @@ namespace MPS
                 stopper.plcInputValues[1]               = newYData[11] - 48;
                 aligner.plcInputValues[0]               = newYData[12] - 48;
                 aligner.plcInputValues[1]               = newYData[13] - 48;
-                //yTransfer.plcInputValues[0]             = newYData[42] - 48;
-                //yTransfer.plcInputValues[1]             = newYData[43] - 48;
-                //xTransfer.plcInputValues[0]             = newYData[40] - 48;
-                //xTransfer.plcInputValues[1]             = newYData[41] - 48;
+                xTransfer.plcInputValues[0]             = newYData[40] - 48;
+                xTransfer.plcInputValues[1]             = newYData[41] - 48;
+                yTransfer.plcInputValues[0]             = newYData[42] - 48;
+                yTransfer.plcInputValues[1]             = newYData[43] - 48;
                 rotaryCylinder.plcInputValues[0]        = newYData[20] - 48;
                 rotaryCylinder.plcInputValues[1]        = newYData[21] - 48;
-                //zTransfer.plcInputValues[0]             = newYData[44] - 48;
-                //zTransfer.plcInputValues[1]             = newYData[45] - 48;
+                zTransfer.plcInputValues[0]             = newYData[44] - 48;
+                zTransfer.plcInputValues[1]             = newYData[45] - 48;
                 loadCylinder.plcInputValues[0]          = newYData[22] - 48;
                 loadCylinder.plcInputValues[1]          = newYData[23] - 48;
                 palletAJigCylinder.plcInputValues[0]    = newYData[30] - 48;
