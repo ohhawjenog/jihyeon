@@ -8554,10 +8554,8 @@ MonoBehaviour:
   plcInputValues: 
   plcInputBoxAQuantity: 0
   plcInputBoxBQuantity: 0
-  isDriveMoving: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  isInSafeZone: 0
   boxACount: 0
   boxAFloor: 0
   boxBCount: 0
@@ -17050,10 +17048,8 @@ MonoBehaviour:
   plcInputValues: 
   plcInputBoxAQuantity: 0
   plcInputBoxBQuantity: 0
-  isDriveMoving: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  isInSafeZone: 0
   boxACount: 0
   boxAFloor: 0
   boxBCount: 0
@@ -18571,11 +18567,16 @@ MonoBehaviour:
   boxAPrefab: {fileID: 1263763554342917499, guid: bbbd77915c054224585bc9b6d0bdc148, type: 3}
   spawnPoint: {fileID: 1793277706}
   boxBPrefab: {fileID: 8697618595624366251, guid: 94e3cb59d2bbd0f4c9be5d26f4925a06, type: 3}
+  Align_Sensor: {fileID: 0}
+  BoxA_Sensor: {fileID: 0}
+  BoxB_Sensor: {fileID: 0}
   switchDeviceName: Y0
   plcInputValue: 0
   speed: 0.01
   front: {x: 1, y: 0, z: 0}
   boxes: []
+  isBoxADetected: 0
+  isBoxBDetected: 0
 --- !u!1 &1954075539
 GameObject:
   m_ObjectHideFlags: 0
@@ -19926,10 +19927,8 @@ MonoBehaviour:
   plcInputValues: 
   plcInputBoxAQuantity: 0
   plcInputBoxBQuantity: 0
-  isDriveMoving: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  isInSafeZone: 0
   boxACount: 0
   boxAFloor: 0
   boxBCount: 0
@@ -20157,6 +20156,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionStatus: 0
+  boxManager: {fileID: 1938248911}
+  loadingDetector: {fileID: 1302175376}
+  xTransfer: {fileID: 1811624770}
+  yTransfer: {fileID: 2072744994}
+  zTransfer: {fileID: 854911004}
+  isInSafeZone: 0
 --- !u!1 &2115096353
 GameObject:
   m_ObjectHideFlags: 0
