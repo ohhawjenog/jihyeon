@@ -14,24 +14,8 @@ public class DriveMotor : MonoBehaviour
         MoveLocalZ = 3
     }
 
-    public enum Position
-    {
-        Default = 0,
-        Safe = 1,
-        XMoved = 2,
-        YMoved = 3,
-        ZMoved = 4
-    }
-
-    public enum Detection
-    {
-        BoxA = 1,
-        BoxB = 2
-    }
-
     [Header("Device Info")]
     public Direction direction;
-    public Detection detection;
     public string deviceName;
     public string deviceNameReversed;
     public int[] plcInputValues;
@@ -40,12 +24,14 @@ public class DriveMotor : MonoBehaviour
     public bool isDriveMoving;
     public bool isDriveReversed;
     public bool isDriveArrived;
+    public bool isInSafeZone;
     public int boxACount;
-    public int boxAFloor;
+    public int boxAFloor = 1;
     public int boxBCount;
-    public int boxBFloor;
+    public int boxBFloor = 1;
     public MxComponent mxComponent;
-    public Box boxDetector;
+    public BoxManager boxManager;
+    public TransferManager transferManager;
     public Sensor loadingDetector;
 
     [Space(20)]
@@ -63,10 +49,11 @@ public class DriveMotor : MonoBehaviour
     public float transferTime;
     float elapsedTime;
     public float speed = 1;
-    Vector3 nowPos;
-    Vector3 minPos;
-    Vector3 maxPos;
-    Vector3 destination;
+    float location;
+    public Vector3 nowPos;
+    public Vector3 minPos;
+    public Vector3 maxPos;
+    public Vector3 destination;
 
     [Space(20)]
     [Header("Palletizing Setting")]
@@ -87,8 +74,9 @@ public class DriveMotor : MonoBehaviour
 
     void Start()
     {
-        //boxACount = boxDetector.boxACount;
-        //boxBCount = boxDetector.boxBCount;
+        plcInputValues = new int[2];
+
+        isInSafeZone = false;
 
         transferTime = maxRange - minRange;
 
@@ -97,30 +85,23 @@ public class DriveMotor : MonoBehaviour
             case Direction.MoveLocalX:
                 minPos = new Vector3(minRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
                 maxPos = new Vector3(maxRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-                //defPosA = new Vector3(boxADefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-                //defPosB = new Vector3(boxBDefault.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalY:
                 minPos = new Vector3(transfer.transform.localPosition.x, minRange, transfer.transform.localPosition.z);
                 maxPos = new Vector3(transfer.transform.localPosition.x, maxRange, transfer.transform.localPosition.z);
-                //defPosA = new Vector3(transfer.transform.localPosition.x, boxADefault.transform.localPosition.y, transfer.transform.localPosition.z);
-                //defPosB = new Vector3(transfer.transform.localPosition.x, boxBDefault.transform.localPosition.y, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalZ:
                 minPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, minRange);
                 maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
-                //defPosA = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxADefault.transform.localPosition.z);
-                //defPosB = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxBDefault.transform.localPosition.z);
                 break;
         }
-
-        plcInputValues = new int[2];
-
-        //SetToMove();
     }
 
     private void Update()
     {
+        boxACount = mxComponent.boxACount;
+        boxBCount = mxComponent.boxBCount;
+
         if (MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
             if (plcInputValues[0] > 0)
@@ -155,7 +136,12 @@ public class DriveMotor : MonoBehaviour
         if (boxBCount > boxBHorizontalQuantity * boxBHorizontalQuantity)
         {
             boxBCount = 0;
-            boxAFloor++;
+            boxBFloor++;
+        }
+
+        if (loadingDetector.isObjectDetected == true && direction == Direction.MoveLocalZ && isInSafeZone == false)
+        {
+            StartCoroutine(CoTransferToSafeZone());
         }
     }
 
@@ -163,9 +149,18 @@ public class DriveMotor : MonoBehaviour
     {
         Vector3 newPos = Vector3.Lerp(startPos, endPos, _elapsedTime / _runTime);
         transfer.transform.localPosition = newPos;
+
+        if (isDriveReversed == false)
+        {
+            mxComponent.SetDevice(deviceName, 1);
+        }
+        else
+        {
+            mxComponent.SetDevice(deviceNameReversed, 1);
+        }
     }
 
-    public void SetToMove(/*Detection detection, int boxCount*/)
+    public void SetToMove(float location)
     {
         nowPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
 
@@ -173,31 +168,75 @@ public class DriveMotor : MonoBehaviour
         {
             case Direction.MoveLocalX:
                 transportRate = (transfer.transform.localPosition.x - minRange) / (maxRange - minRange) * 100;
-                destination = new Vector3(boxAOddFloorDefaultLocation, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                destination = new Vector3(location, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalY:
                 transportRate = (transfer.transform.localPosition.y - minRange) / (maxRange - minRange) * 100;
-                destination = new Vector3(transfer.transform.localPosition.x, boxAOddFloorDefaultLocation, transfer.transform.localPosition.z);
+                destination = new Vector3(transfer.transform.localPosition.x, location, transfer.transform.localPosition.z);
                 break;
             case Direction.MoveLocalZ:
                 transportRate = (transfer.transform.localPosition.z - minRange) / (maxRange - minRange) * 100;
-                destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, boxAOddFloorDefaultLocation);
+                destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 break;
         }
     }
 
     IEnumerator CoTransfer()
     {
-        //if (boxDetector.boxADetected == true && boxBDetected == false)
+        //switch (direction)
         //{
-        //    SetToMove(Detection.boxA, boxACount - 1);
-        //}
-        //else if (boxDetector.boxADetected == false && boxBDetected == true)
-        //{
-        //    SetToMove(Detection.boxB, boxBCount - 1);
+        //    case Direction.MoveLocalX:
+        //        if (boxManager.boxADetected == true && boxBDetected == false)
+        //        {
+        //            if (boxAFloor % 2 == 1)
+        //            {
+        //                SetToMove(boxAOddFloorDefaultLocation + (boxAHorizontalDistance * (boxACount - 1)));
+        //            }
+        //            else if (boxAFloor % 2 == 0 && boxAFloor != 0)
+        //            {
+        //                SetToMove(boxAEvenFloorDefaultLocation + (boxAVerticalDistance * (boxACount - 1)));
+        //            }
+
+        //        }
+        //        else if (boxManager.boxADetected == false && boxBDetected == true)
+        //        {
+        //            if (boxBFloor % 2 == 1)
+        //            {
+        //                SetToMove(boxBOddFloorDefaultLocation + (boxBHorizontalDistance * (boxBCount - 1)));
+        //            }
+        //            else if (boxBFloor % 2 == 0 && boxBFloor != 0)
+        //            {
+        //                SetToMove(boxBEvenFloorDefaultLocation + (boxBVerticalDistance * (boxBCount - 1)));
+        //            }
+        //        }
+        //        break;
+        //    case Direction.MoveLocalZ:
+        //        if (boxManager.boxADetected == true && boxBDetected == false)
+        //        {
+        //            if (boxAFloor % 2 == 1)
+        //            {
+        //                SetToMove(boxAOddFloorDefaultLocation + (boxAVerticalDistance * (boxACount - 1)));
+        //            }
+        //            else if (boxAFloor % 2 == 0 && boxAFloor != 0)
+        //            {
+        //                SetToMove(boxAEvenFloorDefaultLocation + (boxAHorizontalDistance * (boxACount - 1)));
+        //            }
+
+        //        }
+        //        else if (boxManager.boxADetected == false && boxBDetected == true)
+        //        {
+        //            if (boxBFloor % 2 == 1)
+        //            {
+        //                SetToMove(boxBOddFloorDefaultLocation + (boxBVerticalDistance * (boxBCount - 1)));
+        //            }
+        //            else if (boxBFloor % 2 == 0 && boxBFloor != 0)
+        //            {
+        //                SetToMove(boxBEvenFloorDefaultLocation + (boxBHorizontalDistance * (boxBCount - 1)));
+        //            }
+        //        }
+        //        break;
         //}
 
-        SetToMove();
         isDriveMoving = true;
 
         elapsedTime = 0;
@@ -228,5 +267,49 @@ public class DriveMotor : MonoBehaviour
         }
 
         isDriveMoving = false;
+
+        switch (direction)
+        {
+            case Direction.MoveLocalX:
+                transferManager.positionStatus = TransferManager.Position.XMoved;
+                break;
+            case Direction.MoveLocalY:
+                transferManager.positionStatus = TransferManager.Position.YMoved;
+                break;
+            case Direction.MoveLocalZ:
+                transferManager.positionStatus = TransferManager.Position.ZMoved;
+                break;
+        }
+    }
+
+    IEnumerator CoTransferToSafeZone()
+    {
+        SetToMove(maxRange);
+
+        isDriveMoving = true;
+
+        elapsedTime = 0;
+
+        while (plcInputValues[0] > 0 || plcInputValues[1] > 0 || destination != new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, transfer.transform.localPosition.z))
+        {
+            elapsedTime += Time.deltaTime;
+
+            MoveDrive(nowPos, maxPos, elapsedTime, transferTime * (100 - transportRate) * speed);
+
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        if (isDriveReversed == false)
+        {
+            mxComponent.SetDevice(deviceName, 0);
+        }
+        else
+        {
+            mxComponent.SetDevice(deviceNameReversed, 0);
+        }
+
+        isDriveMoving = false;
+        isInSafeZone = true;
+        transferManager.positionStatus = TransferManager.Position.Safe;
     }
 }
