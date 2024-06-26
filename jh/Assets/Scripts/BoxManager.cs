@@ -17,7 +17,13 @@ public class BoxManager : MonoBehaviour
         public Transform spawnPoint; // 박스를 생성할 위치
         public GameObject boxBPrefab;
 
-        [Space(20)]
+    [Space(20)]
+        [Header("박스 사이즈")]
+        public Sensor Align_Sensor;
+        public Sensor BoxA_Sensor;
+        public Sensor BoxB_Sensor;
+
+    [Space(20)]
         [Header("현재 상태")]
         public string switchDeviceName; // plc 연동되는 부분
         public int plcInputValue = 0;
@@ -26,7 +32,11 @@ public class BoxManager : MonoBehaviour
 
         public List<Box1> boxes = new List<Box1>(); // 생성된 박스를 관리할 리스트
 
-        void Update()
+        private bool resultPrinted = false;
+        public bool isBoxADetected;
+        public bool isBoxBDetected;
+
+    void Update()
         {
             if (MxComponent.instance.connection == MxComponent.Connection.Connected)
             {
@@ -47,7 +57,27 @@ public class BoxManager : MonoBehaviour
                     }
                 }
             }
+        if (Align_Sensor.isObjectDetected)
+        {
+            if (!resultPrinted)
+            {
+                if (BoxA_Sensor.isSizeDetected && BoxB_Sensor.isSizeDetected)
+                {
+                    Debug.Log("Box B");
+                    isBoxADetected = false;
+                    isBoxBDetected = true;
+                    resultPrinted = true;
+                }
+                else if (!BoxB_Sensor.isSizeDetected && BoxA_Sensor.isSizeDetected)
+                {
+                    Debug.Log("Box A");
+                    isBoxADetected = true;
+                    isBoxBDetected = false;
+                    resultPrinted = true;
+                }
+            }
         }
+    }
 
         // 버튼 클릭 시 호출될 메서드
         public void OnCreateBoxButtonClick()
