@@ -8549,17 +8549,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 2
-  deviceName: 
-  deviceNameReversed: 
+  deviceName: Y44
+  deviceNameReversed: Y45
   plcInputValues: 
-  plcInputBoxAQuantity: 0
-  plcInputBoxBQuantity: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  boxACount: 0
-  boxAFloor: 0
-  boxBCount: 0
-  boxBFloor: 0
   mxComponent: {fileID: 1996577473}
   boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
@@ -8568,27 +8562,11 @@ MonoBehaviour:
   minRange: -4.6
   maxRange: 5
   transportRate: 0
-  destinationRate: 0
-  transferTime: 0
   speed: 1
-  nowPos: {x: 0, y: 0, z: 0}
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
-  boxAOddFloorDefaultLocation: 0
+  boxAOddFloorDefaultLocation: -4.6
   boxAEvenFloorDefaultLocation: 0
-  boxAHorizontalDistance: 0
-  boxAHorizontalQuantity: 0
-  boxAVerticalDistance: 0
-  boxAVerticalQuantity: 0
-  boxAHeight: 0
-  boxBOddFloorDefaultLocation: 0
+  boxBOddFloorDefaultLocation: -4.6
   boxBEvenFloorDefaultLocation: 0
-  boxBHorizontalDistance: 0
-  boxBHorizontalQuantity: 0
-  boxBVerticalDistance: 0
-  boxBVerticaQuantity: 0
-  boxBHeight: 0
 --- !u!1 &859141678
 GameObject:
   m_ObjectHideFlags: 0
@@ -17021,7 +16999,7 @@ Transform:
   m_GameObject: {fileID: 1811624768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 7.57, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17043,17 +17021,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  deviceName: 
-  deviceNameReversed: 
+  deviceName: Y40
+  deviceNameReversed: Y41
   plcInputValues: 
-  plcInputBoxAQuantity: 0
-  plcInputBoxBQuantity: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  boxACount: 0
-  boxAFloor: 0
-  boxBCount: 0
-  boxBFloor: 0
   mxComponent: {fileID: 1996577473}
   boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
@@ -17062,27 +17034,11 @@ MonoBehaviour:
   minRange: 0
   maxRange: 20
   transportRate: 0
-  destinationRate: 0
-  transferTime: 0
   speed: 1
-  nowPos: {x: 0, y: 0, z: 0}
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
-  boxAOddFloorDefaultLocation: 0
-  boxAEvenFloorDefaultLocation: 0
-  boxAHorizontalDistance: 0
-  boxAHorizontalQuantity: 0
-  boxAVerticalDistance: 0
-  boxAVerticalQuantity: 0
-  boxAHeight: 0
-  boxBOddFloorDefaultLocation: 0
-  boxBEvenFloorDefaultLocation: 0
-  boxBHorizontalDistance: 0
-  boxBHorizontalQuantity: 0
-  boxBVerticalDistance: 0
-  boxBVerticaQuantity: 0
-  boxBHeight: 0
+  boxAOddFloorDefaultLocation: 7.57
+  boxAEvenFloorDefaultLocation: 4.07
+  boxBOddFloorDefaultLocation: 7.47
+  boxBEvenFloorDefaultLocation: 3.67
 --- !u!1 &1815236868
 GameObject:
   m_ObjectHideFlags: 0
@@ -19900,7 +19856,7 @@ Transform:
   m_GameObject: {fileID: 2072744992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -30.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -19922,17 +19878,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 3
-  deviceName: 
-  deviceNameReversed: 
+  deviceName: Y42
+  deviceNameReversed: Y43
   plcInputValues: 
-  plcInputBoxAQuantity: 0
-  plcInputBoxBQuantity: 0
   isDriveReversed: 0
   isDriveArrived: 0
-  boxACount: 0
-  boxAFloor: 0
-  boxBCount: 0
-  boxBFloor: 0
   mxComponent: {fileID: 1996577473}
   boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
@@ -19941,27 +19891,11 @@ MonoBehaviour:
   minRange: -32.5
   maxRange: 2.5
   transportRate: 0
-  destinationRate: 0
-  transferTime: 0
   speed: 1
-  nowPos: {x: 0, y: 0, z: 0}
-  minPos: {x: 0, y: 0, z: 0}
-  maxPos: {x: 0, y: 0, z: 0}
-  destination: {x: 0, y: 0, z: 0}
-  boxAOddFloorDefaultLocation: 0
-  boxAEvenFloorDefaultLocation: 0
-  boxAHorizontalDistance: 0
-  boxAHorizontalQuantity: 0
-  boxAVerticalDistance: 0
-  boxAVerticalQuantity: 0
-  boxAHeight: 0
-  boxBOddFloorDefaultLocation: 0
-  boxBEvenFloorDefaultLocation: 0
-  boxBHorizontalDistance: 0
-  boxBHorizontalQuantity: 0
-  boxBVerticalDistance: 0
-  boxBVerticaQuantity: 0
-  boxBHeight: 0
+  boxAOddFloorDefaultLocation: -30.08
+  boxAEvenFloorDefaultLocation: -26.58
+  boxBOddFloorDefaultLocation: -11.78
+  boxBEvenFloorDefaultLocation: -7.98
 --- !u!1 &2082153242
 GameObject:
   m_ObjectHideFlags: 0
@@ -20156,12 +20090,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionStatus: 0
+  mxComponent: {fileID: 1996577473}
   boxManager: {fileID: 1938248911}
   loadingDetector: {fileID: 1302175376}
   xTransfer: {fileID: 1811624770}
   yTransfer: {fileID: 2072744994}
   zTransfer: {fileID: 854911004}
   isInSafeZone: 0
+  boxACount: 0
+  boxAFloor: 0
+  boxBCount: 0
+  boxBFloor: 0
+  rotaryCylinderDeviceName: Y20
+  rotaryCylinderReversedDeviceName: Y21
+  loadCylinderForwardDeviceName: Y22
+  loadCylinderBackwardDeviceName: Y23
+  boxAHorizontalDistance: 1.5
+  boxAHorizontalQuantity: 4
+  boxAVerticalDistance: 2
+  boxAVerticalQuantity: 3
+  boxAHeight: 1.3
+  boxBHorizontalDistance: 2.6
+  boxBHorizontalQuantity: 3
+  boxBVerticalDistance: 4
+  boxBVerticalQuantity: 3
+  boxBHeight: 1.6
 --- !u!1 &2115096353
 GameObject:
   m_ObjectHideFlags: 0

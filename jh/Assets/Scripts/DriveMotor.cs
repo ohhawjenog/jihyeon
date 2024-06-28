@@ -50,6 +50,13 @@ public class DriveMotor : MonoBehaviour
     Vector3 maxPos;
     Vector3 destination;
 
+    [Space(20)]
+    [Header("Palletizing Setting")]
+    public float boxAOddFloorDefaultLocation;
+    public float boxAEvenFloorDefaultLocation;
+    public float boxBOddFloorDefaultLocation;
+    public float boxBEvenFloorDefaultLocation;
+
     void Start()
     {
         plcInputValues = new int[2];
@@ -162,11 +169,11 @@ public class DriveMotor : MonoBehaviour
                 {
                     if (transferManager.boxAFloor % 2 == 1)
                     {
-                        SetToMove(transferManager.boxAOddFloorDefaultLocation + (transferManager.boxAHorizontalDistance * (boxACount - 1)));
+                        SetToMove(boxAOddFloorDefaultLocation + (transferManager.boxAHorizontalDistance * (boxACount - 1)));
                     }
                     else if (transferManager.boxAFloor % 2 == 0 && transferManager.boxAFloor != 0)
                     {
-                        SetToMove(transferManager.boxAEvenFloorDefaultLocation + (transferManager.boxAVerticalDistance * (boxACount - 1)));
+                        SetToMove(boxAEvenFloorDefaultLocation + (transferManager.boxAVerticalDistance * (boxACount - 1)));
                     }
 
                 }
@@ -174,37 +181,22 @@ public class DriveMotor : MonoBehaviour
                 {
                     if (transferManager.boxBFloor % 2 == 1)
                     {
-                        SetToMove(transferManager.boxBOddFloorDefaultLocation + (transferManager.boxBHorizontalDistance * (boxBCount - 1)));
+                        SetToMove(boxBOddFloorDefaultLocation + (transferManager.boxBHorizontalDistance * (boxBCount - 1)));
                     }
                     else if (transferManager.boxBFloor % 2 == 0 && transferManager.boxBFloor != 0)
                     {
-                        SetToMove(transferManager.boxBEvenFloorDefaultLocation + (transferManager.boxBVerticalDistance * (boxBCount - 1)));
+                        SetToMove(boxBEvenFloorDefaultLocation + (transferManager.boxBVerticalDistance * (boxBCount - 1)));
                     }
                 }
                 break;
             case Direction.MoveZAxis:
                 if (boxManager.isBoxADetected == true && boxManager.isBoxBDetected == false)
                 {
-                    if (transferManager.boxAFloor % 2 == 1)
-                    {
-                        SetToMove(transferManager.boxAOddFloorDefaultLocation + (transferManager.boxAVerticalDistance * (boxACount - 1)));
-                    }
-                    else if (transferManager.boxAFloor % 2 == 0 && transferManager.boxAFloor != 0)
-                    {
-                        SetToMove(transferManager.boxAEvenFloorDefaultLocation + (transferManager.boxAHorizontalDistance * (boxACount - 1)));
-                    }
-
+                    SetToMove(minRange + ((transferManager.boxAFloor - 1) * transferManager.boxAHeight));
                 }
                 else if (boxManager.isBoxADetected == false && boxManager.isBoxBDetected == true)
                 {
-                    if (transferManager.boxBFloor % 2 == 1)
-                    {
-                        SetToMove(transferManager.boxBOddFloorDefaultLocation + (transferManager.boxBVerticalDistance * (boxBCount - 1)));
-                    }
-                    else if (transferManager.boxBFloor % 2 == 0 && transferManager.boxBFloor != 0)
-                    {
-                        SetToMove(transferManager.boxBEvenFloorDefaultLocation + (transferManager.boxBHorizontalDistance * (boxBCount - 1)));
-                    }
+                    SetToMove(minRange + ((transferManager.boxBFloor - 1) * transferManager.boxBHeight));
                 }
                 break;
         }
