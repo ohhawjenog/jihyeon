@@ -37,15 +37,15 @@ public class TransferManager : MonoBehaviour
 
     [Space(20)]
     [Header("Palletizing Setting")]
-    public float boxAOddFloorDefaultLocation;
-    public float boxAEvenFloorDefaultLocation;
+    //public float boxAOddFloorDefaultLocation;
+    //public float boxAEvenFloorDefaultLocation;
     public float boxAHorizontalDistance;
     public int boxAHorizontalQuantity;
     public float boxAVerticalDistance;
     public int boxAVerticalQuantity;
     public float boxAHeight;
-    public float boxBOddFloorDefaultLocation;
-    public float boxBEvenFloorDefaultLocation;
+    //public float boxBOddFloorDefaultLocation;
+    //public float boxBEvenFloorDefaultLocation;
     public float boxBHorizontalDistance;
     public int boxBHorizontalQuantity;
     public float boxBVerticalDistance;
