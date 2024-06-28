@@ -59,6 +59,8 @@ public class DriveMotor : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(CoCountBoxQuantity());
+
         plcInputValues = new int[2];
 
         transferTime = maxRange - minRange;
@@ -82,8 +84,6 @@ public class DriveMotor : MonoBehaviour
 
     private void Update()
     {
-        StartCoroutine(CoCountBoxQuantity());
-
         if (MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
             if (plcInputValues[0] > 0)
@@ -110,7 +110,7 @@ public class DriveMotor : MonoBehaviour
         }
     }
 
-    IEnumerator CoCountBoxQuantity()
+    public IEnumerator CoCountBoxQuantity()
     {
         boxACount = transferManager.boxACount;
         boxBCount = transferManager.boxBCount;
@@ -121,7 +121,7 @@ public class DriveMotor : MonoBehaviour
         for (int i = boxBCount; i <= (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity); i = i - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity))
             boxBCount = boxBCount - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity);
 
-        yield return new WaitForSeconds(Time.deltaTime);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public void MoveDrive(Vector3 startPos, Vector3 endPos, float _elapsedTime, float _runTime)
