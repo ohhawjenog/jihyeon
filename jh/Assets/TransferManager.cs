@@ -71,6 +71,7 @@ public class TransferManager : MonoBehaviour
             StartCoroutine(yTransfer.CoCountBoxQuantity());
             StartCoroutine(zTransfer.CoCountBoxQuantity());
             StartCoroutine(xTransfer.CoTransferToSafeZone());
+            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransferToSafeZone());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == true && positionStatus == Position.XMoved)
@@ -85,16 +86,20 @@ public class TransferManager : MonoBehaviour
             {
                 mxComponent.SetDevice(rotaryCylinderDeviceName, 1);
             }
+            print(this.gameObject.name + " StartCoroutine(yTransfer.CoTransfer());");
+
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.YMoved)
         {
             StartCoroutine(xTransfer.CoTransfer());
+            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.XMoved)
         {
             StartCoroutine(zTransfer.CoTransfer());
+            print(this.gameObject.name + " StartCoroutine(zTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.ZMoved)
@@ -102,16 +107,19 @@ public class TransferManager : MonoBehaviour
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 0);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 1);
             positionStatus = Position.BoxLoaded;
+            print(this.gameObject.name + " positionStatus = Position.BoxLoaded;");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.BoxLoaded)
         {
             StartCoroutine(zTransfer.CoTransfer());
+            print(this.gameObject.name + " StartCoroutine(zTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.ZMoved)
         {
             StartCoroutine(xTransfer.CoTransfer());
+            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.XMoved)
@@ -129,11 +137,13 @@ public class TransferManager : MonoBehaviour
 
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 1);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 0);
+            print(this.gameObject.name + " StartCoroutine(yTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.YMoved)
         {
             StartCoroutine(xTransfer.CoTransferToDefault());
+            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransferToDefault());");
         }
     }
 }

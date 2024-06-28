@@ -2083,7 +2083,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 188523941}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Aligner_Models
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2380,7 +2380,7 @@ GameObject:
   - component: {fileID: 211098810}
   - component: {fileID: 211098812}
   - component: {fileID: 211098811}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ACS4-B20-S300-M8-NUT001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3360,8 +3360,6 @@ Transform:
   - {fileID: 1917349900}
   - {fileID: 859141679}
   - {fileID: 884680862}
-  - {fileID: 1000699651}
-  - {fileID: 472439348}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &344558592
@@ -3375,7 +3373,7 @@ GameObject:
   - component: {fileID: 344558593}
   - component: {fileID: 344558595}
   - component: {fileID: 344558594}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: KGUA-B20-S300-Rod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4659,6 +4657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mxComponent: {fileID: 1996577473}
   sensorDeviceName: X10
   alignSensor: {fileID: 459875396}
   plcInputValue: 0
@@ -4865,7 +4864,7 @@ GameObject:
   - component: {fileID: 472439350}
   - component: {fileID: 472439349}
   m_Layer: 6
-  m_Name: 1-4-2. BoxB_Sensor
+  m_Name: 1-4-1. BoxA_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4879,12 +4878,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 472439347}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.17, y: 1, z: 6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 339896678}
+  m_Father: {fileID: 1917349900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &472439349
 MonoBehaviour:
@@ -4898,7 +4897,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: X13
+  mxComponent: {fileID: 1996577473}
+  sensorDeviceName: X12
   alignSensor: {fileID: 472439349}
   plcInputValue: 0
   isObjectDetected: 0
@@ -5956,6 +5956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mxComponent: {fileID: 1996577473}
   sensorDeviceName: X11
   alignSensor: {fileID: 561110591}
   plcInputValue: 0
@@ -8229,7 +8230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 803738677}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Assy-Cylinder-ACS4-B20-S300
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8549,8 +8550,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 2
-  deviceName: Y44
-  deviceNameReversed: Y45
+  deviceName: X44
+  deviceNameReversed: X45
   plcInputValues: 
   isDriveReversed: 0
   isDriveArrived: 0
@@ -8716,7 +8717,8 @@ GameObject:
   m_Component:
   - component: {fileID: 884680862}
   - component: {fileID: 884680863}
-  m_Layer: 6
+  - component: {fileID: 884680864}
+  m_Layer: 3
   m_Name: 1-4. SizeDetector
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -8759,6 +8761,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.2, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &884680864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884680861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mxComponent: {fileID: 1996577473}
+  sensorDeviceName: 
+  alignSensor: {fileID: 561110591}
+  plcInputValue: 0
+  isObjectDetected: 0
+  isSizeDetected: 0
 --- !u!1 &887590401
 GameObject:
   m_ObjectHideFlags: 0
@@ -9545,7 +9565,7 @@ GameObject:
   - component: {fileID: 1000699654}
   - component: {fileID: 1000699652}
   m_Layer: 6
-  m_Name: 1-4-1. BoxA_Sensor
+  m_Name: 1-4-2. BoxB_Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -9559,12 +9579,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000699650}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.17, y: 1, z: 4.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 339896678}
+  m_Father: {fileID: 1917349900}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1000699652
 MonoBehaviour:
@@ -9578,7 +9598,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorDeviceName: X12
+  mxComponent: {fileID: 1996577473}
+  sensorDeviceName: X13
   alignSensor: {fileID: 1000699652}
   plcInputValue: 0
   isObjectDetected: 0
@@ -12049,6 +12070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e708364ca8fc74f9e134ab380bb8a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mxComponent: {fileID: 0}
   sensorDeviceName: X14
   alignSensor: {fileID: 1302175376}
   plcInputValue: 0
@@ -12996,7 +13018,7 @@ GameObject:
   - component: {fileID: 1401245970}
   - component: {fileID: 1401245972}
   - component: {fileID: 1401245971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ACS4-B20-S300-M8-NUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16371,7 +16393,7 @@ GameObject:
   - component: {fileID: 1763101498}
   - component: {fileID: 1763101500}
   - component: {fileID: 1763101499}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Washer_d8.4XD17X1.6T001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16765,8 +16787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  deviceName: Y40
-  deviceNameReversed: Y41
+  deviceName: X40
+  deviceNameReversed: X41
   plcInputValues: 
   isDriveReversed: 0
   isDriveArrived: 0
@@ -17971,7 +17993,7 @@ GameObject:
   - component: {fileID: 1917349900}
   - component: {fileID: 1917349901}
   - component: {fileID: 1917349902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 1-3. Aligner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17992,6 +18014,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 188523941}
+  - {fileID: 472439348}
+  - {fileID: 1000699651}
   m_Father: {fileID: 339896678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1917349901
@@ -18268,8 +18292,8 @@ MonoBehaviour:
   spawnPoint: {fileID: 1793277706}
   boxBPrefab: {fileID: 8697618595624366251, guid: 94e3cb59d2bbd0f4c9be5d26f4925a06, type: 3}
   Align_Sensor: {fileID: 561110591}
-  BoxA_Sensor: {fileID: 1000699652}
-  BoxB_Sensor: {fileID: 472439349}
+  BoxA_Sensor: {fileID: 472439349}
+  BoxB_Sensor: {fileID: 1000699652}
   switchDeviceName: Y0
   plcInputValue: 0
   speed: 0.01
@@ -18708,7 +18732,7 @@ GameObject:
   - component: {fileID: 2010742596}
   - component: {fileID: 2010742598}
   - component: {fileID: 2010742597}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ACS4-B20-S300-CylinderRod
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19154,7 +19178,7 @@ GameObject:
   - component: {fileID: 2031856767}
   - component: {fileID: 2031856769}
   - component: {fileID: 2031856768}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Washer_d8.4XD17X1.6T
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19622,8 +19646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 3
-  deviceName: Y42
-  deviceNameReversed: Y43
+  deviceName: X42
+  deviceNameReversed: X43
   plcInputValues: 
   isDriveReversed: 0
   isDriveArrived: 0
@@ -19845,9 +19869,9 @@ MonoBehaviour:
   boxAFloor: 0
   boxBCount: 0
   boxBFloor: 0
-  rotaryCylinderDeviceName: Y20
-  rotaryCylinderReversedDeviceName: Y21
-  loadCylinderForwardDeviceName: Y22
+  rotaryCylinderDeviceName: X20
+  rotaryCylinderReversedDeviceName: X21
+  loadCylinderForwardDeviceName: X22
   loadCylinderBackwardDeviceName: Y23
   boxAHorizontalDistance: 1.5
   boxAHorizontalQuantity: 4
@@ -22592,6 +22616,7 @@ GameObject:
   - component: {fileID: 58965566024005524}
   - component: {fileID: 2847793149958177707}
   - component: {fileID: 3576919655924856974}
+  - component: {fileID: 3576919655924856975}
   m_Layer: 0
   m_Name: KGUA-B20-S300-Body
   m_TagString: Untagged
@@ -39237,6 +39262,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3576919655924856975
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487449540638348363}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1979852113216547685, guid: 194afd13cbc94cc4ca848cd1659debb6, type: 3}
 --- !u!4 &3578102978831149424
 Transform:
   m_ObjectHideFlags: 0
@@ -45323,7 +45370,7 @@ GameObject:
   - component: {fileID: 2594167793838579160}
   - component: {fileID: 3612231951355036058}
   - component: {fileID: 8936934212190794059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 16-03_200X100X3_AL6061
   m_TagString: Untagged
   m_Icon: {fileID: 0}

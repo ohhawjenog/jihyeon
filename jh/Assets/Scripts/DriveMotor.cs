@@ -102,11 +102,6 @@ public class DriveMotor : MonoBehaviour
             {
                 StopCoroutine(CoTransfer());
             }
-
-            if (loadingDetector.isObjectDetected == true)
-            {
-                StartCoroutine(CoTransfer());
-            }
         }
     }
 
@@ -137,6 +132,7 @@ public class DriveMotor : MonoBehaviour
         {
             mxComponent.SetDevice(deviceNameReversed, 1);
         }
+        print(this.gameObject.name + "MoveDrive");
     }
 
     public void SetToMove(float location)
@@ -158,10 +154,12 @@ public class DriveMotor : MonoBehaviour
                 destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 break;
         }
+        print(this.gameObject.name + "SetToMove");
     }
 
     public IEnumerator CoTransfer()
     {
+        print(this.gameObject.name + "CoTransfer");
         switch (direction)
         {
             case Direction.MoveXAxis:
@@ -247,6 +245,7 @@ public class DriveMotor : MonoBehaviour
 
     public IEnumerator CoTransferToSafeZone()
     {
+        print(this.gameObject.name + "CoTransferToSafeZone");
         SetToMove(maxRange);
 
         elapsedTime = 0;
@@ -298,5 +297,6 @@ public class DriveMotor : MonoBehaviour
         }
 
         transferManager.positionStatus = TransferManager.Position.Default;
+        print("CoTransferToDefault()");
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class Sensor : MonoBehaviour
 {
-    //public Sensor sensor;
+    public MxComponent mxComponent;
+
     public string sensorDeviceName;
     public Sensor alignSensor;
 
     public int plcInputValue;
-    //public string sensorDeviceName;
 
     public bool isObjectDetected = false;
     public bool isSizeDetected = false;
@@ -37,16 +37,18 @@ public class Sensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
         {
-            MxComponent.instance.SetDevice(sensorDeviceName, 1);
+            mxComponent.SetDevice(sensorDeviceName, 1);
             isObjectDetected = true;
             print("Sensor 감지");
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
         {
+            print("other.gameObject.layer == LayerMask.NameToLayer(Size)");
             if (alignSensor.isObjectDetected == true)
             {
-                MxComponent.instance.SetDevice(sensorDeviceName, 1);
+                mxComponent.SetDevice(sensorDeviceName, 1);
                 isSizeDetected = true;
+                print("Size 감지");
             }
         }
     }
@@ -55,12 +57,12 @@ public class Sensor : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Object"))
         {
-            MxComponent.instance.SetDevice(sensorDeviceName, 0);
+            mxComponent.SetDevice(sensorDeviceName, 0);
             isObjectDetected = false;
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
         {
-            MxComponent.instance.SetDevice(sensorDeviceName, 0);
+            mxComponent.SetDevice(sensorDeviceName, 0);
             isSizeDetected = false;
         }
     }

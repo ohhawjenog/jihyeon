@@ -71,7 +71,6 @@ public class Cylinder : MonoBehaviour
             {
                 Vector3 newPos = Vector3.MoveTowards(transform.position, destination.position, speed * Time.deltaTime);
                 transform.position = newPos;
-
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }

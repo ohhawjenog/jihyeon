@@ -57,22 +57,22 @@ public class BoxManager : MonoBehaviour
                     }
                 }
             }
-        if (Align_Sensor.isObjectDetected)
+        if (Align_Sensor.isObjectDetected == true)
         {
             if (!resultPrinted)
             {
-                if (BoxA_Sensor.isSizeDetected && BoxB_Sensor.isSizeDetected)
+                if (BoxA_Sensor.isSizeDetected == true && BoxB_Sensor.isSizeDetected == false)
                 {
-                    Debug.Log("Box B");
-                    isBoxADetected = false;
-                    isBoxBDetected = true;
-                    resultPrinted = true;
-                }
-                else if (!BoxB_Sensor.isSizeDetected && BoxA_Sensor.isSizeDetected)
-                {
-                    Debug.Log("Box A");
+                    print("Box A");
                     isBoxADetected = true;
                     isBoxBDetected = false;
+                    resultPrinted = true;
+                }
+                else if (BoxA_Sensor.isSizeDetected == false && BoxB_Sensor.isSizeDetected == true)
+                {
+                    print("Box A");
+                    isBoxADetected = false;
+                    isBoxBDetected = true;
                     resultPrinted = true;
                 }
             }
