@@ -80,11 +80,9 @@ namespace MPS
             if (connection == Connection.Connected)
             {
                 short[] dData = ReadDeviceBlock("D0", 1);
-                short[] mData = ReadDeviceBlock("M20", 3);
                 short[] xData = ReadDeviceBlock("X0", 5);
                 short[] yData = ReadDeviceBlock("Y0", 5);
                 string newDData = ConvertDataIntoString(dData);
-                string newMData = ConvertDataIntoString(mData);
                 string newXData = ConvertDataIntoString(xData);
                 string newYData = ConvertDataIntoString(yData);
 
