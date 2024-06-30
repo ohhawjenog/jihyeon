@@ -70,7 +70,7 @@ public class BoxManager : MonoBehaviour
                 }
                 else if (BoxA_Sensor.isSizeDetected == false && BoxB_Sensor.isSizeDetected == true)
                 {
-                    print("Box A");
+                    print("Box B");
                     isBoxADetected = false;
                     isBoxBDetected = true;
                     resultPrinted = true;

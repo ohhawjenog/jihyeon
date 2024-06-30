@@ -59,7 +59,7 @@ public class DriveMotor : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(CoCountBoxQuantity());
+        CoCountBoxQuantity();
 
         plcInputValues = new int[2];
 
@@ -84,28 +84,28 @@ public class DriveMotor : MonoBehaviour
 
     private void Update()
     {
-        if (MxComponent.instance.connection == MxComponent.Connection.Connected)
-        {
-            if (plcInputValues[0] > 0)
-            {
-                isDriveReversed = false;
-                StartCoroutine(CoTransfer());
-            }
+        //if (MxComponent.instance.connection == MxComponent.Connection.Connected)
+        //{
+        //    if (plcInputValues[0] > 0)
+        //    {
+        //        isDriveReversed = false;
+        //        StartCoroutine(CoTransfer());
+        //    }
 
-            if (plcInputValues[1] > 0)
-            {
-                isDriveReversed = true;
-                StartCoroutine(CoTransfer());
-            }
+        //    if (plcInputValues[1] > 0)
+        //    {
+        //        isDriveReversed = true;
+        //        StartCoroutine(CoTransfer());
+        //    }
 
-            if (plcInputValues[0] == 0 && plcInputValues[1] == 0)
-            {
-                StopCoroutine(CoTransfer());
-            }
-        }
+        //    if (plcInputValues[0] == 0 && plcInputValues[1] == 0)
+        //    {
+        //        StopCoroutine(CoTransfer());
+        //    }
+        //}
     }
 
-    public IEnumerator CoCountBoxQuantity()
+    public void CoCountBoxQuantity()
     {
         boxACount = transferManager.boxACount;
         boxBCount = transferManager.boxBCount;
@@ -115,8 +115,6 @@ public class DriveMotor : MonoBehaviour
 
         for (int i = boxBCount; i <= (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity); i = i - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity))
             boxBCount = boxBCount - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity);
-
-        yield return new WaitForSeconds(0.2f);
     }
 
     public void MoveDrive(Vector3 startPos, Vector3 endPos, float _elapsedTime, float _runTime)
@@ -132,7 +130,6 @@ public class DriveMotor : MonoBehaviour
         {
             mxComponent.SetDevice(deviceNameReversed, 1);
         }
-        print(this.gameObject.name + "MoveDrive");
     }
 
     public void SetToMove(float location)
@@ -154,7 +151,6 @@ public class DriveMotor : MonoBehaviour
                 destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 break;
         }
-        print(this.gameObject.name + "SetToMove");
     }
 
     public IEnumerator CoTransfer()
@@ -245,7 +241,6 @@ public class DriveMotor : MonoBehaviour
 
     public IEnumerator CoTransferToSafeZone()
     {
-        print(this.gameObject.name + "CoTransferToSafeZone");
         SetToMove(maxRange);
 
         elapsedTime = 0;
@@ -254,7 +249,7 @@ public class DriveMotor : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
 
-            MoveDrive(nowPos, maxPos, elapsedTime, transferTime * (100 - transportRate) * speed);
+            MoveDrive(nowPos, destination, elapsedTime, transferTime * (100 - transportRate) * speed);
 
             yield return new WaitForSeconds(Time.deltaTime);
         }

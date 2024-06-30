@@ -34,6 +34,7 @@ namespace MPS
 
         [Space(20)]
         [Header("Palletizing System")]
+        public TransferManager transferManager;
         public DriveMotor yTransfer;            // 2-1. Y-Transfer
         public DriveMotor xTransfer;            // 2-2. X-Transfer
         public RotaryCylinder rotaryCylinder;   // 2-3. Rotary Cylinder
@@ -79,7 +80,7 @@ namespace MPS
         {
             if (connection == Connection.Connected)
             {
-                short[] dData = ReadDeviceBlock("D0", 1);
+                short[] dData = ReadDeviceBlock("D0", 2);
                 short[] xData = ReadDeviceBlock("X0", 5);
                 short[] yData = ReadDeviceBlock("Y0", 5);
                 string newDData = ConvertDataIntoString(dData);
@@ -87,7 +88,7 @@ namespace MPS
                 string newYData = ConvertDataIntoString(yData);
 
                 boxACount                               = newDData[0 ] - 48;
-                boxBCount                               = newDData[1 ] - 48;
+                boxBCount                               = newDData[10] - 48;
 
                 stopSensor.plcInputValue                = newXData[10] - 48;
                 alignSensor.plcInputValue               = newXData[11] - 48;

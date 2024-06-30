@@ -43,13 +43,9 @@ public class Sensor : MonoBehaviour
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
         {
-            print("other.gameObject.layer == LayerMask.NameToLayer(Size)");
-            if (alignSensor.isObjectDetected == true)
-            {
-                mxComponent.SetDevice(sensorDeviceName, 1);
-                isSizeDetected = true;
-                print("Size 감지");
-            }
+            mxComponent.SetDevice(sensorDeviceName, 1);
+            isSizeDetected = true;
+            print(this.gameObject.name + " Size 감지");
         }
     }
 

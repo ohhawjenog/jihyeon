@@ -67,11 +67,10 @@ public class TransferManager : MonoBehaviour
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.Default)
         {
-            StartCoroutine(xTransfer.CoCountBoxQuantity());
-            StartCoroutine(yTransfer.CoCountBoxQuantity());
-            StartCoroutine(zTransfer.CoCountBoxQuantity());
+            xTransfer.CoCountBoxQuantity();
+            yTransfer.CoCountBoxQuantity();
+            zTransfer.CoCountBoxQuantity();
             StartCoroutine(xTransfer.CoTransferToSafeZone());
-            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransferToSafeZone());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == true && positionStatus == Position.XMoved)
