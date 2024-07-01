@@ -25,8 +25,10 @@ public class TransferManager : MonoBehaviour
     public DriveMotor yTransfer;
     public DriveMotor zTransfer;
     public bool isInSafeZone;
+    public bool isBoxADetected;
     public int boxACount;
     public int boxAFloor;
+    public bool isBoxBDetected;
     public int boxBCount;
     public int boxBFloor;
 
@@ -60,6 +62,17 @@ public class TransferManager : MonoBehaviour
 
     private void Update()
     {
+        if (boxManager.isBoxADetected == true)
+        {
+            isBoxADetected = true;
+            isBoxBDetected = false;
+        }
+        else if (boxManager.isBoxBDetected == true)
+        {
+            isBoxADetected = false;
+            isBoxBDetected = true;
+        }
+
         boxACount = mxComponent.boxACount;
         boxBCount = mxComponent.boxBCount;
         boxAFloor = (int)(boxACount / (boxAHorizontalQuantity * boxAVerticalQuantity)) + 1;
@@ -70,7 +83,12 @@ public class TransferManager : MonoBehaviour
             xTransfer.CoCountBoxQuantity();
             yTransfer.CoCountBoxQuantity();
             zTransfer.CoCountBoxQuantity();
-            StartCoroutine(xTransfer.CoTransferToSafeZone());
+
+            xTransfer.isSetted = false;
+            yTransfer.isSetted = false;
+            zTransfer.isSetted = false;
+
+            StartCoroutine(xTransfer.CoTransfer());
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == true && positionStatus == Position.XMoved)
@@ -85,20 +103,17 @@ public class TransferManager : MonoBehaviour
             {
                 mxComponent.SetDevice(rotaryCylinderDeviceName, 1);
             }
-            print(this.gameObject.name + " StartCoroutine(yTransfer.CoTransfer());");
 
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.YMoved)
         {
             StartCoroutine(xTransfer.CoTransfer());
-            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.XMoved)
         {
             StartCoroutine(zTransfer.CoTransfer());
-            print(this.gameObject.name + " StartCoroutine(zTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.ZMoved)
@@ -106,19 +121,16 @@ public class TransferManager : MonoBehaviour
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 0);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 1);
             positionStatus = Position.BoxLoaded;
-            print(this.gameObject.name + " positionStatus = Position.BoxLoaded;");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.BoxLoaded)
         {
             StartCoroutine(zTransfer.CoTransfer());
-            print(this.gameObject.name + " StartCoroutine(zTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.ZMoved)
         {
             StartCoroutine(xTransfer.CoTransfer());
-            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.XMoved)
@@ -136,13 +148,11 @@ public class TransferManager : MonoBehaviour
 
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 1);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 0);
-            print(this.gameObject.name + " StartCoroutine(yTransfer.CoTransfer());");
         }
 
         if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.YMoved)
         {
-            StartCoroutine(xTransfer.CoTransferToDefault());
-            print(this.gameObject.name + " StartCoroutine(xTransfer.CoTransferToDefault());");
+            StartCoroutine(xTransfer.CoTransfer());
         }
     }
 }
