@@ -249,9 +249,9 @@ namespace MPS
                 isStarted = !isStarted;
 
                 if (isStarted)
-                    SetDevice("X0", 1);
+                    SetDevice("X1", 1);
                 else
-                    SetDevice("X0", 0);
+                    SetDevice("X1", 0);
             }
         }
 

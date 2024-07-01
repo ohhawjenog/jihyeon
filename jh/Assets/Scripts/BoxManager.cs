@@ -32,14 +32,13 @@ public class BoxManager : MonoBehaviour
 
     [Space(20)]
     [Header("현재 상태")]
-    public string switchDeviceName; // plc 연동되는 부분
     public int plcInputValue = 0;
     public float speed = 1.0f;
     Vector3 direction = new Vector3(1, 0, 0);
     public bool isMoving = false;
     public bool isStoppedBySensor = false; // 센서에 의해 멈춘 상태를 추적
 
-    private bool resultPrinted = false;
+    public bool resultPrinted = false;
     public bool isBoxADetected;
     public bool isBoxBDetected;
 
@@ -57,24 +56,21 @@ public class BoxManager : MonoBehaviour
             }
         }
 
-        if (alignSensor.isObjectDetected == true)
+        if (alignSensor.isObjectDetected == true && resultPrinted == false)
         {
-            if (!resultPrinted)
+            if (boxASensor.isSizeDetected == true && boxBSensor.isSizeDetected == false)
             {
-                if (boxASensor.isSizeDetected == true && boxBSensor.isSizeDetected == false)
-                {
-                    print("Box A");
-                    isBoxADetected = true;
-                    isBoxBDetected = false;
-                    resultPrinted = true;
-                }
-                else if (boxASensor.isSizeDetected == false && boxBSensor.isSizeDetected == true)
-                {
-                    print("Box B");
-                    isBoxADetected = false;
-                    isBoxBDetected = true;
-                    resultPrinted = true;
-                }
+                print("Box A");
+                isBoxADetected = true;
+                isBoxBDetected = false;
+                resultPrinted = true;
+            }
+            else if (boxASensor.isSizeDetected == false && boxBSensor.isSizeDetected == true)
+            {
+                print("Box B");
+                isBoxADetected = false;
+                isBoxBDetected = true;
+                resultPrinted = true;
             }
         }
 
@@ -86,7 +82,14 @@ public class BoxManager : MonoBehaviour
                 isStoppedBySensor = true;
             }
 
-            if (transferManager.positionStatus == TransferManager.Position.BoxLoaded && box.isSensorCollider == false && box.isLoaderCollider == false)
+            if (box.isLoaderCollider == true)
+            {
+                StopMoving();
+                isStoppedBySensor = true;
+                resultPrinted = false;
+            }
+
+            if (transferManager.moved == TransferManager.Moved.BoxLoaded && transferManager.status == TransferManager.Status.BoxLoaded && box.isSensorCollider == false && box.isLoaderCollider == false)
             {
                 if (isBoxADetected)
                 {
@@ -131,14 +134,14 @@ public class BoxManager : MonoBehaviour
     public void StopMoving()
     {
         isMoving = false;
-        StopAllCoroutines();
+        StopCoroutine(CoMove());
     }
 
     IEnumerator CoMove()
     {
         while (isMoving)
         {
-            boxObj.transform.position += direction * Time.deltaTime * speed;
+            transform.GetChild(1).transform.position += direction * Time.deltaTime * speed;
             yield return null;
         }
     }

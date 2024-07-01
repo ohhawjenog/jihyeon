@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 
 public class Box : MonoBehaviour
 {
-    public bool isSensorCollider;
-    public bool isLoaderCollider;
+    public bool isSensorCollider = false;
+    public bool isLoaderCollider = false;
 
     private void OnTriggerEnter(Collider other)
     {

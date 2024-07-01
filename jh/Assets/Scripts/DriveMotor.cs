@@ -36,14 +36,12 @@ public class DriveMotor : MonoBehaviour
     public float minRange;
     [Tooltip("이송 가능한 최소 위치입니다.")]
     public float maxRange;
-    float transferTime;
     float elapsedTime;
     public float speed = 1;
-    float location;
+    public float location;
     Vector3 minPos;
     Vector3 maxPos;
     Vector3 destination;
-    public bool isSetted = true;
     public bool isDriverMoving;
 
     [Space(20)]
@@ -55,11 +53,9 @@ public class DriveMotor : MonoBehaviour
 
     void Start()
     {
-        CoCountBoxQuantity();
+        CountBoxQuantity();
 
         plcInputValues = new int[2];
-
-        transferTime = maxRange - minRange;
 
         switch (direction)
         {
@@ -100,28 +96,58 @@ public class DriveMotor : MonoBehaviour
         //    }
         //}
 
-        if (transferManager.isBoxADetected == true && isSetted == false)
+        switch (direction)
         {
-            SetToMoveA();
-        }
-        else if (transferManager.isBoxBDetected == true && isSetted == false)
-        {
-            SetToMoveB();
+            case Direction.MoveXAxis:
+                if (transfer.transform.localPosition.x >= maxRange)
+                {
+                    transferManager.moved = TransferManager.Moved.XMoved;
+
+                    if (transferManager.status == TransferManager.Status.Default)
+                        transferManager.status = TransferManager.Status.Safe;
+                }
+                if (transfer.transform.localPosition.x <= location && location != 0 && transferManager.isRotated == true)
+                {
+                    transferManager.moved = TransferManager.Moved.XMoved;
+                }
+                break;
+
+            case Direction.MoveYAxis:
+                if (transfer.transform.localPosition.y >= location || transform.position == Vector3.zero)
+                {
+                    if (transform.position == Vector3.zero && transferManager.status != TransferManager.Status.Default 
+                        && transferManager.status != TransferManager.Status.Safe)
+                        transferManager.moved = TransferManager.Moved.ZMoved;
+                }
+                break;
+
+            case Direction.MoveZAxis:
+                if (transfer.transform.localPosition.z <= location && transferManager.isRotated == true)
+                {
+                    if (transferManager.status == TransferManager.Status.Safe)
+                        transferManager.status = TransferManager.Status.Transfer;
+                    transferManager.moved = TransferManager.Moved.YMoved;
+                }
+                if (transform.position == Vector3.zero && transferManager.status == TransferManager.Status.BoxLoaded)
+                    transferManager.moved = TransferManager.Moved.YMoved;
+                break;
         }
     }
 
-    public void CoCountBoxQuantity()
+    public void CountBoxQuantity()
     {
         boxACount = transferManager.boxACount;
         boxBCount = transferManager.boxBCount;
 
-        for (int i = boxACount; i <= (transferManager.boxAHorizontalQuantity * transferManager.boxAVerticalQuantity); i = i - (transferManager.boxAHorizontalQuantity * transferManager.boxAVerticalQuantity))
-            boxACount = boxACount - (transferManager.boxAHorizontalQuantity * transferManager.boxAVerticalQuantity);
+        if (boxACount > transferManager.boxAHorizontalQuantity * transferManager.boxAVerticalQuantity)
+        {
+            boxACount = boxACount % (transferManager.boxAHorizontalQuantity * transferManager.boxAVerticalQuantity);
+        }
 
-        for (int i = boxBCount; i <= (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity); i = i - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity))
-            boxBCount = boxBCount - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity);
-
-        transferManager.isCounted = true;
+        if (boxBCount > transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity)
+        {
+            boxBCount = boxBCount % (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity);
+        }
     }
 
     public void SetToMoveA()
@@ -147,18 +173,17 @@ public class DriveMotor : MonoBehaviour
                 if (transferManager.boxAFloor % 2 == 1)
                 {
                     location = (int)((boxACount - 1) / transferManager.boxAVerticalQuantity) * transferManager.boxAVerticalDistance + boxAOddFloorDefaultLocation;
-                    destination = new Vector3(transfer.transform.localPosition.x, location, transfer.transform.localPosition.z);
+                    destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 }
                 else if (transferManager.boxAFloor % 2 == 0 && transferManager.boxAFloor != 0)
                 {
                     location = (int)((boxACount - 1) / transferManager.boxAHorizontalQuantity) * transferManager.boxAHorizontalDistance + boxAEvenFloorDefaultLocation;
-                    destination = new Vector3(location, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                    destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 }
                 break;
         }
 
-        transferManager.isCounted = true;
-        isSetted = true;
+        print($"SetA: {direction}: {destination}");
     }
 
     public void SetToMoveB()
@@ -184,103 +209,82 @@ public class DriveMotor : MonoBehaviour
                 if (transferManager.boxBFloor % 2 == 1)
                 {
                     location = (int)((boxBCount - 1) / transferManager.boxBVerticalQuantity) * transferManager.boxBVerticalDistance + boxBOddFloorDefaultLocation;
-                    destination = new Vector3(transfer.transform.localPosition.x, location, transfer.transform.localPosition.z);
+                    destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 }
                 else if (transferManager.boxBFloor % 2 == 0 && transferManager.boxBFloor != 0)
                 {
                     location = (int)((boxBCount - 1) / transferManager.boxBHorizontalQuantity) * transferManager.boxBHorizontalDistance + boxBEvenFloorDefaultLocation;
-                    destination = new Vector3(location, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
+                    destination = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, location);
                 }
                 break;
         }
 
-        transferManager.isCounted = true;
-        isSetted = true;
+        print($"SetB: {direction}: {destination}");
     }
 
-    public void MoveDrive(Vector3 startPos, Vector3 endPos)
+    public IEnumerator CoMove(Vector3 startPos, Vector3 endPos)
     {
         isDriverMoving = true;
-        Vector3 newPos = Vector3.MoveTowards(startPos, endPos, speed * Time.deltaTime);
-        transfer.transform.localPosition = newPos;
-    }
 
-    public IEnumerator CoTransfer()
-    {
-        while (isDriverMoving)
+        if (direction == Direction.MoveXAxis && transferManager.status != TransferManager.Status.Transfer && transferManager.status != TransferManager.Status.Safe)
         {
-            if (isDriveReversed == false)
-            {
-                MoveDrive(transfer.position, maxPos);
-                mxComponent.SetDevice(deviceName, 1);
+            destination = maxPos;
+        }
 
-                if (this.transform.localPosition == maxPos)
-                {
-                    isDriverMoving = false;
-
-                    if (direction == Direction.MoveXAxis)
-                        transferManager.positionStatus = TransferManager.Position.Safe;
-                }
-                else if (this.transform.localPosition == destination)
-                {
-                    switch (direction)
-                    {
-                        case Direction.MoveXAxis:
-                            transferManager.positionStatus = TransferManager.Position.XMoved;
-                            break;
-                        case Direction.MoveYAxis:
-                            transferManager.positionStatus = TransferManager.Position.YMoved;
-                            break;
-                        case Direction.MoveZAxis:
-                            transferManager.positionStatus = TransferManager.Position.ZMoved;
-                            break;
-                    }
-                }
-            }
-            else
-            {
-                MoveDrive(transfer.position, minPos);
-                mxComponent.SetDevice(deviceNameReversed, 1);
-
-                if (this.transform.localPosition == minPos)
-                {
-                    isDriverMoving = false;
-                }
-                else if (this.transform.localPosition == destination)
-                {
-                    switch (direction)
-                    {
-                        case Direction.MoveXAxis:
-                            transferManager.positionStatus = TransferManager.Position.XMoved;
-                            break;
-                        case Direction.MoveYAxis:
-                            transferManager.positionStatus = TransferManager.Position.YMoved;
-                            break;
-                        case Direction.MoveZAxis:
-                            transferManager.positionStatus = TransferManager.Position.ZMoved;
-                            break;
-                    }
-                }
-            }
+        while (transfer.transform.localPosition != destination)
+        {
+            print($"{direction} : CoMove {destination}");
+            Vector3 newPos = Vector3.MoveTowards(startPos, endPos, speed * 0.2f);
+            transfer.transform.localPosition = newPos;
 
             yield return new WaitForSeconds(0.2f);
         }
+
+        if (transfer.transform.localPosition == destination)
+        {
+            switch (direction)
+            {
+                case Direction.MoveXAxis:
+                    if (transferManager.status == TransferManager.Status.Default)
+                        transferManager.status = TransferManager.Status.Safe;
+                    transferManager.moved = TransferManager.Moved.XMoved;
+                    break;
+                case Direction.MoveYAxis:
+                    if (transferManager.status == TransferManager.Status.Safe)
+                        transferManager.status = TransferManager.Status.Transfer;
+                    transferManager.moved = TransferManager.Moved.YMoved;
+                    break;
+                case Direction.MoveZAxis:
+                    transferManager.moved = TransferManager.Moved.ZMoved;
+                    break;
+            }
+
+            isDriveReversed = !isDriveReversed;
+        }
+
+        print($"{direction} : CoMove 끝 {destination}");
     }
 
-    public IEnumerator CoTransferToDefault()
+    public void Transfer()
     {
-        while (isDriverMoving)
+        if (isDriveReversed == false)
         {
-            if (isDriveReversed == true)
-            {
-                MoveDrive(transfer.position, Vector3.zero);
-                mxComponent.SetDevice(deviceName, 1);
+            StartCoroutine(CoMove(transfer.position, maxPos));
+            mxComponent.SetDevice(deviceName, 1);
+        }
+        else
+        {
+            StartCoroutine(CoMove(transfer.position, minPos));
+            mxComponent.SetDevice(deviceNameReversed, 1);
+        }
+    }
 
-                if (this.transform.localPosition == Vector3.zero)
-                {
-                    isDriverMoving = false;
-                }
-            }
+    public IEnumerator CoMoveToDefault()
+    {
+        while (transfer.transform.localPosition != Vector3.zero)
+        {
+            Vector3 newPos = Vector3.MoveTowards(maxPos, Vector3.zero, speed * 0.2f);
+            transfer.transform.localPosition = newPos;
 
             yield return new WaitForSeconds(0.2f);
         }

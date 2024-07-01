@@ -9,6 +9,7 @@ public class Sensor : MonoBehaviour
 
     public string sensorDeviceName;
     public Sensor alignSensor;
+    public BoxManager boxManager;
 
     public int plcInputValue;
 
@@ -39,13 +40,11 @@ public class Sensor : MonoBehaviour
         {
             mxComponent.SetDevice(sensorDeviceName, 1);
             isObjectDetected = true;
-            print("Sensor 감지");
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("Size"))
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Size") && boxManager.resultPrinted == false)
         {
             mxComponent.SetDevice(sensorDeviceName, 1);
             isSizeDetected = true;
-            print(this.gameObject.name + " Size 감지");
         }
     }
 

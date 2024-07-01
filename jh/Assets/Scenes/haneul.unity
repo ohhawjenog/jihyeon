@@ -4660,6 +4660,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: X10
   alignSensor: {fileID: 459875396}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -4900,6 +4901,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: X12
   alignSensor: {fileID: 472439349}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -5959,6 +5961,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: X11
   alignSensor: {fileID: 561110591}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -8593,7 +8596,7 @@ MonoBehaviour:
   minRange: -4.6
   maxRange: 5
   speed: 1
-  isSetted: 1
+  location: 0
   isDriverMoving: 0
   boxAOddFloorDefaultLocation: -4.6
   boxAEvenFloorDefaultLocation: 0
@@ -8807,6 +8810,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: 
   alignSensor: {fileID: 561110591}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -9632,6 +9636,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: X13
   alignSensor: {fileID: 1000699652}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -12104,6 +12109,7 @@ MonoBehaviour:
   mxComponent: {fileID: 1996577473}
   sensorDeviceName: X14
   alignSensor: {fileID: 1302175376}
+  boxManager: {fileID: 1938248911}
   plcInputValue: 0
   isObjectDetected: 0
   isSizeDetected: 0
@@ -12196,7 +12202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: START PLC
+  m_text: START
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16830,7 +16836,7 @@ MonoBehaviour:
   minRange: 0
   maxRange: 20
   speed: 1
-  isSetted: 1
+  location: 0
   isDriverMoving: 0
   boxAOddFloorDefaultLocation: 7.57
   boxAEvenFloorDefaultLocation: 4.07
@@ -16854,7 +16860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1815236869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18331,11 +18337,11 @@ MonoBehaviour:
   alignSensor: {fileID: 561110591}
   boxASensor: {fileID: 472439349}
   boxBSensor: {fileID: 1000699652}
-  switchDeviceName: Y0
   plcInputValue: 0
   speed: 0.01
   isMoving: 0
   isStoppedBySensor: 0
+  resultPrinted: 0
   isBoxADetected: 0
   isBoxBDetected: 0
 --- !u!1 &1954075539
@@ -19727,7 +19733,7 @@ MonoBehaviour:
   minRange: -32.5
   maxRange: 2.5
   speed: 1
-  isSetted: 1
+  location: 0
   isDriverMoving: 0
   boxAOddFloorDefaultLocation: -30.08
   boxAEvenFloorDefaultLocation: -26.58
@@ -19926,17 +19932,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd93f27fea955b45860ed2a559d55f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionStatus: 0
+  moved: 0
+  status: 0
   mxComponent: {fileID: 1996577473}
   boxManager: {fileID: 1938248911}
   loadingDetector: {fileID: 1302175376}
   xTransfer: {fileID: 1811624770}
   yTransfer: {fileID: 2072744994}
   zTransfer: {fileID: 854911004}
-  isInSafeZone: 0
   isCounted: 0
   isRotated: 0
-  isLoaded: 0
   isBoxADetected: 0
   boxACount: 0
   boxAFloor: 0
@@ -19946,7 +19951,8 @@ MonoBehaviour:
   rotaryCylinderDeviceName: X20
   rotaryCylinderReversedDeviceName: X21
   loadCylinderForwardDeviceName: X22
-  loadCylinderBackwardDeviceName: Y23
+  loadCylinderBackwardDeviceName: X23
+  speed: 0.05
   boxAHorizontalDistance: 1.5
   boxAHorizontalQuantity: 4
   boxAVerticalDistance: 2
