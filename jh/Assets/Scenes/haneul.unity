@@ -996,7 +996,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &122004926
 Transform:
   m_ObjectHideFlags: 0
@@ -5861,7 +5861,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &558734286
 Transform:
   m_ObjectHideFlags: 0
@@ -6597,6 +6597,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622518747}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &624285273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624285274}
+  m_Layer: 0
+  m_Name: BoxA
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624285274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624285273}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.7, y: -3.8, z: -29.15}
+  m_LocalScale: {x: 1.5, y: 1.3, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &635354355
 GameObject:
   m_ObjectHideFlags: 0
@@ -8553,17 +8584,16 @@ MonoBehaviour:
   deviceName: X44
   deviceNameReversed: X45
   plcInputValues: 
-  isDriveReversed: 0
+  isDriveReversed: 1
   isDriveArrived: 0
   mxComponent: {fileID: 1996577473}
-  boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
   loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 854911003}
   minRange: -4.6
   maxRange: 5
-  transportRate: 0
   speed: 0.5
+  isSetted: 1
   boxAOddFloorDefaultLocation: -4.6
   boxAEvenFloorDefaultLocation: 0
   boxBOddFloorDefaultLocation: -4.6
@@ -11976,7 +12006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1289381462
 Transform:
   m_ObjectHideFlags: 0
@@ -12015,7 +12045,7 @@ GameObject:
   - component: {fileID: 1302175374}
   - component: {fileID: 1302175375}
   - component: {fileID: 1302175376}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LoadingDetector
   m_TagString: Sensor
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -16793,14 +16823,13 @@ MonoBehaviour:
   isDriveReversed: 0
   isDriveArrived: 0
   mxComponent: {fileID: 1996577473}
-  boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
   loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 1811624769}
   minRange: 0
   maxRange: 20
-  transportRate: 0
-  speed: 0.5
+  speed: 0.3
+  isSetted: 1
   boxAOddFloorDefaultLocation: 7.57
   boxAEvenFloorDefaultLocation: 4.07
   boxBOddFloorDefaultLocation: 7.47
@@ -18288,17 +18317,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3d4a869e183a24e89e482c8f8783af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxAPrefab: {fileID: 1263763554342917499, guid: bbbd77915c054224585bc9b6d0bdc148, type: 3}
   spawnPoint: {fileID: 1793277706}
+  boxAPrefab: {fileID: 1263763554342917499, guid: bbbd77915c054224585bc9b6d0bdc148, type: 3}
   boxBPrefab: {fileID: 8697618595624366251, guid: 94e3cb59d2bbd0f4c9be5d26f4925a06, type: 3}
-  Align_Sensor: {fileID: 561110591}
-  BoxA_Sensor: {fileID: 472439349}
-  BoxB_Sensor: {fileID: 1000699652}
+  transferManager: {fileID: 2109372159}
+  box: {fileID: 0}
+  boxObj: {fileID: 0}
+  boxA: {fileID: 624285273}
+  boxB: {fileID: 2066625956}
+  loadDetector: {fileID: 1302175376}
+  alignSensor: {fileID: 561110591}
+  boxASensor: {fileID: 472439349}
+  boxBSensor: {fileID: 1000699652}
   switchDeviceName: Y0
   plcInputValue: 0
   speed: 0.01
-  front: {x: 1, y: 0, z: 0}
-  boxes: []
+  isMoving: 0
+  isStoppedBySensor: 0
   isBoxADetected: 0
   isBoxBDetected: 0
 --- !u!1 &1954075539
@@ -19493,6 +19528,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2059811351}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2066625956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2066625957}
+  m_Layer: 0
+  m_Name: BoxB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2066625957
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066625956}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.7, y: -3.67, z: -10.450003}
+  m_LocalScale: {x: 2, y: 1.6000003, z: 2.4}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2069292111
 GameObject:
   m_ObjectHideFlags: 0
@@ -19653,14 +19719,13 @@ MonoBehaviour:
   isDriveReversed: 0
   isDriveArrived: 0
   mxComponent: {fileID: 1996577473}
-  boxManager: {fileID: 1938248911}
   transferManager: {fileID: 2109372159}
   loadingDetector: {fileID: 1302175376}
   transfer: {fileID: 2072744993}
   minRange: -32.5
   maxRange: 2.5
-  transportRate: 0
   speed: 0.5
+  isSetted: 1
   boxAOddFloorDefaultLocation: -30.08
   boxAEvenFloorDefaultLocation: -26.58
   boxBOddFloorDefaultLocation: -11.78
@@ -19866,8 +19931,10 @@ MonoBehaviour:
   yTransfer: {fileID: 2072744994}
   zTransfer: {fileID: 854911004}
   isInSafeZone: 0
+  isBoxADetected: 0
   boxACount: 0
   boxAFloor: 0
+  isBoxBDetected: 0
   boxBCount: 0
   boxBFloor: 0
   rotaryCylinderDeviceName: X20
@@ -20013,7 +20080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2134009526
 Transform:
   m_ObjectHideFlags: 0
@@ -69713,6 +69780,8 @@ SceneRoots:
   - {fileID: 227015325}
   - {fileID: 1996577472}
   - {fileID: 1938248910}
+  - {fileID: 624285274}
+  - {fileID: 2066625957}
   - {fileID: 1289381462}
   - {fileID: 558734286}
   - {fileID: 2134009526}

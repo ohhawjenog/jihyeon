@@ -9,12 +9,12 @@ public class TransferManager : MonoBehaviour
 {
     public enum Position
     {
-        Default,
-        Safe,
-        XMoved,
-        YMoved,
-        ZMoved,
-        BoxLoaded
+        Default = 0,
+        Safe = 1,
+        XMoved = 2,
+        YMoved = 3,
+        ZMoved = 4,
+        BoxLoaded = 5
     }
 
     public Position positionStatus;

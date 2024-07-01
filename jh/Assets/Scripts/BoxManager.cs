@@ -11,64 +11,64 @@ using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class BoxManager : MonoBehaviour
-    {
-        [Header("박스 생성")]
-        public GameObject boxAPrefab;
-        public Transform spawnPoint; // 박스를 생성할 위치
-        public GameObject boxBPrefab;
+{
+    [Header("박스 생성")]
+    public Transform spawnPoint; // 박스를 생성할 위치
+    public GameObject boxAPrefab;
+    public GameObject boxBPrefab;
+
+    public TransferManager transferManager;
+    public Box box = null;
+    public GameObject boxObj = null;
+    public GameObject boxA;
+    public GameObject boxB;
+    public Sensor loadDetector;
 
     [Space(20)]
-        [Header("박스 사이즈")]
-        public Sensor Align_Sensor;
-        public Sensor BoxA_Sensor;
-        public Sensor BoxB_Sensor;
+    [Header("박스 사이즈")]
+    public Sensor alignSensor;
+    public Sensor boxASensor;
+    public Sensor boxBSensor;
 
     [Space(20)]
-        [Header("현재 상태")]
-        public string switchDeviceName; // plc 연동되는 부분
-        public int plcInputValue = 0;
-        public float speed = 1.0f;
-        public Vector3 front = new Vector3(1, 0, 0);
+    [Header("현재 상태")]
+    public string switchDeviceName; // plc 연동되는 부분
+    public int plcInputValue = 0;
+    public float speed = 1.0f;
+    Vector3 direction = new Vector3(1, 0, 0);
+    public bool isMoving = false;
+    public bool isStoppedBySensor = false; // 센서에 의해 멈춘 상태를 추적
 
-        public List<Box1> boxes = new List<Box1>(); // 생성된 박스를 관리할 리스트
-
-        private bool resultPrinted = false;
-        public bool isBoxADetected;
-        public bool isBoxBDetected;
+    private bool resultPrinted = false;
+    public bool isBoxADetected;
+    public bool isBoxBDetected;
 
     void Update()
+    {
+        if (MxComponent.instance.connection == MxComponent.Connection.Connected)
         {
-            if (MxComponent.instance.connection == MxComponent.Connection.Connected)
+            if (plcInputValue == 0)
             {
-                if (plcInputValue == 0)
-                {
-                    // PLC 신호가 없으면 모든 박스 멈춤
-                    foreach (var box in boxes)
-                    {
-                        box.StopMoving();
-                    }
-                }
-                else if (plcInputValue > 0)
-            {
-                    // PLC 신호가 있으면 모든 박스 움직임 시작
-                    foreach (var box in boxes)
-                    {
-                        box.StartMoving();
-                    }
-                }
+                StopMoving();
             }
-        if (Align_Sensor.isObjectDetected == true)
+            else if (plcInputValue > 0)
+        {
+                StartMoving();
+            }
+        }
+
+        if (alignSensor.isObjectDetected == true)
         {
             if (!resultPrinted)
             {
-                if (BoxA_Sensor.isSizeDetected == true && BoxB_Sensor.isSizeDetected == false)
+                if (boxASensor.isSizeDetected == true && boxBSensor.isSizeDetected == false)
                 {
                     print("Box A");
                     isBoxADetected = true;
                     isBoxBDetected = false;
                     resultPrinted = true;
                 }
-                else if (BoxA_Sensor.isSizeDetected == false && BoxB_Sensor.isSizeDetected == true)
+                else if (boxASensor.isSizeDetected == false && boxBSensor.isSizeDetected == true)
                 {
                     print("Box B");
                     isBoxADetected = false;
@@ -77,30 +77,71 @@ public class BoxManager : MonoBehaviour
                 }
             }
         }
-    }
 
-        // 버튼 클릭 시 호출될 메서드
-        public void OnCreateBoxButtonClick()
+        if (box != null)
         {
-            GameObject boxObj = null;
-
-            int temp = Random.Range(0, 2);
-            if (temp == 0)
+            if (box.isSensorCollider == true)
             {
-                boxObj = Instantiate(boxAPrefab, spawnPoint.position, spawnPoint.rotation);
-
+                StopMoving();
+                isStoppedBySensor = true;
             }
-            else if (temp == 1)
+
+            if (transferManager.positionStatus == TransferManager.Position.BoxLoaded && box.isSensorCollider == false && box.isLoaderCollider == false)
             {
-                boxObj = Instantiate(boxBPrefab, spawnPoint.position, spawnPoint.rotation);
+                if (isBoxADetected)
+                {
+                    boxObj.transform.parent = boxA.gameObject.transform;
+                }
+                else if (isBoxBDetected)
+                {
+                    boxObj.transform.parent = boxB.gameObject.transform;
+                }
             }
-            
-
-            Box1 boxScript = boxObj.AddComponent<Box1>();
-            boxScript.speed = speed;
-            boxScript.direction = front;
-            boxes.Add(boxScript);
         }
     }
+
+    // 버튼 클릭 시 호출될 메서드
+    public void OnCreateBoxButtonClick()
+    {
+
+        int temp = Random.Range(0, 2);
+        if (temp == 0)
+        {
+            boxObj = Instantiate(boxAPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        }
+        else if (temp == 1)
+        {
+            boxObj = Instantiate(boxBPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+
+        box = boxObj.GetComponent<Box>();
+        boxObj.transform.parent = this.gameObject.transform;
+    }
+
+    public void StartMoving()
+    {
+        if (!isStoppedBySensor)
+        {
+            isMoving = true;
+            StartCoroutine(CoMove());
+        }
+    }
+
+    public void StopMoving()
+    {
+        isMoving = false;
+        StopAllCoroutines();
+    }
+
+    IEnumerator CoMove()
+    {
+        while (isMoving)
+        {
+            boxObj.transform.position += direction * Time.deltaTime * speed;
+            yield return null;
+        }
+    }
+}
 
 
