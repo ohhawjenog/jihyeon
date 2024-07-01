@@ -12,16 +12,14 @@ public class TransferManager : MonoBehaviour
         Default,
         XMoved,
         YMoved,
-        ZMoved,
-        BoxLoaded
+        ZMoved
     }
 
     public enum Status
     {
         Default,
         Safe,
-        Transfer,
-        BoxLoaded
+        Transfer
     }
 
     public Moved moved;
@@ -34,6 +32,10 @@ public class TransferManager : MonoBehaviour
     public DriveMotor zTransfer;
     public bool isCounted = false;
     public bool isRotated = false;
+    public bool isLoaded = false;
+    public bool isXMoving;
+    public bool isYMoving;
+    public bool isZMoving;
 
     public bool isBoxADetected;
     public int boxACount;
@@ -81,6 +83,8 @@ public class TransferManager : MonoBehaviour
 
         if (xTransfer.transform.position == Vector3.zero && yTransfer.transform.position == Vector3.zero && zTransfer.transform.position == Vector3.zero)
         {
+            isRotated = false;
+            isLoaded = false;
             moved = Moved.Default;
             status = Status.Default;
         }
@@ -95,12 +99,17 @@ public class TransferManager : MonoBehaviour
             StartCoroutine(CoSet());
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.Default && status == Status.Default && isRotated == false)
+        // 1. X축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.Default && status == Status.Default && isRotated == false && isLoaded == false)
         {
+            isXMoving = true;
+            isYMoving = false;
+            isZMoving = false;
             xTransfer.transform.Translate(Vector3.right * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Safe && isRotated == false)
+        // 2. 로터리 실린더 회전
+        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Safe && isRotated == false && isLoaded == false)
         {
             if (boxAFloor % 2 == 0 && isBoxADetected)
             {
@@ -116,54 +125,76 @@ public class TransferManager : MonoBehaviour
             isRotated = true;
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Safe && isRotated == true)
+        // 3. Y축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Safe && isRotated == true && isLoaded == false)
         {
+            isXMoving = false;
+            isYMoving = true;
+            isZMoving = false;
             yTransfer.transform.Translate(Vector3.back * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.YMoved && status == Status.Transfer && isRotated == true)
+        // 4. X축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.YMoved && status == Status.Transfer && isRotated == true && isLoaded == false)
         {
+            isXMoving = true;
+            isYMoving = false;
+            isZMoving = false;
             xTransfer.transform.Translate(Vector3.left * speed);
-            print(xTransfer.location);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Transfer && isRotated == true)
+        // 5. Z축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.Transfer && isRotated == true && isLoaded == false)
         {
+            isXMoving = false;
+            isYMoving = false;
+            isZMoving = true;
             zTransfer.transform.Translate(Vector3.down * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.ZMoved && status == Status.Transfer && isRotated == true)
+        // 6. 로드 실린더 후진
+        if (loadingDetector.isObjectDetected == true && moved == Moved.ZMoved && status == Status.Transfer && isRotated == true && isLoaded == false)
         {
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 0);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 1);
-            moved = Moved.BoxLoaded;
-            status = Status.BoxLoaded;
+            isLoaded = true;
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.BoxLoaded && status == Status.BoxLoaded && isRotated == true)
+        // 7. Z축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.ZMoved && isRotated == true && isLoaded == true)
         {
+            isYMoving = false;
+            isZMoving = true;
             zTransfer.transform.Translate(Vector3.zero * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.ZMoved && status == Status.BoxLoaded && isRotated == true)
+        // 8. X축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.ZMoved && isRotated == true && isLoaded == true)
         {
+            isXMoving = true;
+            isYMoving = false;
             xTransfer.transform.Translate(Vector3.right * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && status == Status.BoxLoaded && isRotated == true)
+        // 9. Y축 이송
+        if (loadingDetector.isObjectDetected == true && moved == Moved.XMoved && isRotated == true && isLoaded == true)
         {
+            isXMoving = false;
+            isYMoving = true;
+            isZMoving = false;
             yTransfer.transform.Translate(Vector3.zero * speed);
         }
 
-        if (loadingDetector.isObjectDetected == true && moved == Moved.YMoved && status == Status.BoxLoaded && isRotated == true)
+        // 10. 로드 실린더 전진
+        if (loadingDetector.isObjectDetected == true && moved == Moved.YMoved && status == Status.Safe && isRotated == true && isLoaded == true)
         {
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 1);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 0);
-            moved = Moved.BoxLoaded;
-            status = Status.Safe;
+            isLoaded = false;
         }
 
-        if (loadingDetector.isObjectDetected == false && moved == Moved.BoxLoaded && status == Status.Safe && isRotated == true)
+        // 11. 로터리 실린더 역회전
+        if (loadingDetector.isObjectDetected == false && status == Status.Safe && isRotated == true && isLoaded == false)
         {
             if (boxAFloor % 2 == 0 && isBoxADetected)
             {
@@ -176,11 +207,15 @@ public class TransferManager : MonoBehaviour
                 mxComponent.SetDevice(rotaryCylinderReversedDeviceName, 1);
             }
 
-            isRotated = true;
+            isRotated = false;
         }
 
-        if (loadingDetector.isObjectDetected == false && moved == Moved.BoxLoaded && status == Status.Safe && isRotated == false)
+        // 12. X축 이송
+        if (loadingDetector.isObjectDetected == false && status == Status.Safe && isRotated == false && isLoaded == false)
         {
+            isXMoving = true;
+            isYMoving = false;
+            isZMoving = false;
             xTransfer.transform.Translate(Vector3.zero * speed);
         }
     }

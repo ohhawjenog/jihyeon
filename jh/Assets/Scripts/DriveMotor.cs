@@ -106,29 +106,30 @@ public class DriveMotor : MonoBehaviour
                     if (transferManager.status == TransferManager.Status.Default)
                         transferManager.status = TransferManager.Status.Safe;
                 }
-                if (transfer.transform.localPosition.x <= location && location != 0 && transferManager.isRotated == true)
+                if (transfer.transform.localPosition.x <= location && transferManager.isRotated == true && transferManager.isXMoving == true)
                 {
                     transferManager.moved = TransferManager.Moved.XMoved;
                 }
                 break;
 
             case Direction.MoveYAxis:
-                if (transfer.transform.localPosition.y >= location || transform.position == Vector3.zero)
+                if (transfer.transform.localPosition.y <= location && transferManager.isZMoving == true)
                 {
-                    if (transform.position == Vector3.zero && transferManager.status != TransferManager.Status.Default 
-                        && transferManager.status != TransferManager.Status.Safe)
-                        transferManager.moved = TransferManager.Moved.ZMoved;
+                    transferManager.moved = TransferManager.Moved.ZMoved;
                 }
+                if (transform.position == Vector3.zero && transferManager.status != TransferManager.Status.Default
+                        && transferManager.status != TransferManager.Status.Safe && transferManager.isZMoving == true)
+                    transferManager.moved = TransferManager.Moved.ZMoved;
                 break;
 
             case Direction.MoveZAxis:
-                if (transfer.transform.localPosition.z <= location && transferManager.isRotated == true)
+                if (transfer.transform.localPosition.z <= location && transferManager.isRotated == true && transferManager.isYMoving == true)
                 {
                     if (transferManager.status == TransferManager.Status.Safe)
                         transferManager.status = TransferManager.Status.Transfer;
                     transferManager.moved = TransferManager.Moved.YMoved;
                 }
-                if (transform.position == Vector3.zero && transferManager.status == TransferManager.Status.BoxLoaded)
+                if (transform.position == Vector3.zero && transferManager.isLoaded == true)
                     transferManager.moved = TransferManager.Moved.YMoved;
                 break;
         }

@@ -89,7 +89,7 @@ public class BoxManager : MonoBehaviour
                 resultPrinted = false;
             }
 
-            if (transferManager.moved == TransferManager.Moved.BoxLoaded && transferManager.status == TransferManager.Status.BoxLoaded && box.isSensorCollider == false && box.isLoaderCollider == false)
+            if (transferManager.isLoaded == true && box.isSensorCollider == false && box.isLoaderCollider == false)
             {
                 if (isBoxADetected)
                 {
