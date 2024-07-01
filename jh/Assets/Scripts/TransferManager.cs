@@ -9,12 +9,13 @@ public class TransferManager : MonoBehaviour
 {
     public enum Position
     {
-        Default = 0,
-        Safe = 1,
-        XMoved = 2,
-        YMoved = 3,
-        ZMoved = 4,
-        BoxLoaded = 5
+        Default,
+        Safe,
+        Rotated,
+        XMoved,
+        YMoved,
+        ZMoved,
+        BoxLoaded
     }
 
     public Position positionStatus;
@@ -24,7 +25,11 @@ public class TransferManager : MonoBehaviour
     public DriveMotor xTransfer;
     public DriveMotor yTransfer;
     public DriveMotor zTransfer;
-    public bool isInSafeZone;
+    public bool isInSafeZone = false;
+    public bool isCounted = false;
+    public bool isRotated = false;
+    public bool isLoaded = false;
+
     public bool isBoxADetected;
     public int boxACount;
     public int boxAFloor;
@@ -39,15 +44,11 @@ public class TransferManager : MonoBehaviour
 
     [Space(20)]
     [Header("Palletizing Setting")]
-    //public float boxAOddFloorDefaultLocation;
-    //public float boxAEvenFloorDefaultLocation;
     public float boxAHorizontalDistance;
     public int boxAHorizontalQuantity;
     public float boxAVerticalDistance;
     public int boxAVerticalQuantity;
     public float boxAHeight;
-    //public float boxBOddFloorDefaultLocation;
-    //public float boxBEvenFloorDefaultLocation;
     public float boxBHorizontalDistance;
     public int boxBHorizontalQuantity;
     public float boxBVerticalDistance;
@@ -57,7 +58,6 @@ public class TransferManager : MonoBehaviour
     private void Start()
     {
         isInSafeZone = false;
-        positionStatus = Position.Default;
     }
 
     private void Update()
@@ -78,7 +78,12 @@ public class TransferManager : MonoBehaviour
         boxAFloor = (int)(boxACount / (boxAHorizontalQuantity * boxAVerticalQuantity)) + 1;
         boxBFloor = (int)(boxBCount / (boxBHorizontalQuantity * boxBVerticalQuantity)) + 1;
 
-        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.Default)
+        if (xTransfer.transform.position == Vector3.zero && yTransfer.transform.position == Vector3.zero && zTransfer.transform.position == Vector3.zero)
+        {
+            positionStatus = Position.Default;
+        }
+
+        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && isCounted == false && positionStatus == Position.Default)
         {
             xTransfer.CoCountBoxQuantity();
             yTransfer.CoCountBoxQuantity();
@@ -87,71 +92,80 @@ public class TransferManager : MonoBehaviour
             xTransfer.isSetted = false;
             yTransfer.isSetted = false;
             zTransfer.isSetted = false;
+        }
 
+        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && isCounted == true && positionStatus == Position.Default)
+        {
+            xTransfer.isDriverMoving = true;
             StartCoroutine(xTransfer.CoTransfer());
         }
 
-        if (loadingDetector.isObjectDetected == true && isInSafeZone == true && positionStatus == Position.XMoved)
+        if (loadingDetector.isObjectDetected == true && isCounted == true && positionStatus == Position.Safe)
         {
+            yTransfer.isDriverMoving = true;
             StartCoroutine(yTransfer.CoTransfer());
 
-            if (boxManager.isBoxADetected == true && boxAFloor % 2 == 0)
+            if (boxAFloor % 2 == 0 && isBoxADetected)
             {
                 mxComponent.SetDevice(rotaryCylinderDeviceName, 1);
+                mxComponent.SetDevice(rotaryCylinderReversedDeviceName, 0);
+                isRotated = true;
             }
-            else if (boxManager.isBoxBDetected == true && boxBFloor % 2 == 0)
+            else if (boxBFloor % 2 == 0 && isBoxBDetected)
             {
                 mxComponent.SetDevice(rotaryCylinderDeviceName, 1);
+                mxComponent.SetDevice(rotaryCylinderReversedDeviceName, 0);
+                isRotated = true;
             }
-
         }
 
-        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.YMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == false && positionStatus == Position.YMoved)
         {
+            xTransfer.isDriverMoving = true;
             StartCoroutine(xTransfer.CoTransfer());
         }
 
-        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.XMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == false && positionStatus == Position.XMoved)
         {
+            zTransfer.isDriverMoving = true;
             StartCoroutine(zTransfer.CoTransfer());
         }
 
-        if (loadingDetector.isObjectDetected == true && isInSafeZone == false && positionStatus == Position.ZMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == false && positionStatus == Position.ZMoved)
         {
             mxComponent.SetDevice(loadCylinderForwardDeviceName, 0);
             mxComponent.SetDevice(loadCylinderBackwardDeviceName, 1);
             positionStatus = Position.BoxLoaded;
         }
 
-        if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.BoxLoaded)
+        if (loadingDetector.isObjectDetected == true && isLoaded == false && positionStatus == Position.BoxLoaded)
         {
+            zTransfer.isDriverMoving = true;
             StartCoroutine(zTransfer.CoTransfer());
         }
 
-        if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.ZMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == true && positionStatus == Position.ZMoved)
         {
+            xTransfer.isDriverMoving = true;
             StartCoroutine(xTransfer.CoTransfer());
         }
 
-        if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.XMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == true && positionStatus == Position.XMoved)
         {
+            yTransfer.isDriverMoving = true;
             StartCoroutine(yTransfer.CoTransfer());
 
-            if (boxManager.isBoxADetected == true && boxAFloor % 2 == 0)
+            if (isRotated == true)
             {
+                mxComponent.SetDevice(rotaryCylinderDeviceName, 0);
                 mxComponent.SetDevice(rotaryCylinderReversedDeviceName, 1);
+                isRotated = false;
             }
-            else if (boxManager.isBoxBDetected == true && boxBFloor % 2 == 0)
-            {
-                mxComponent.SetDevice(rotaryCylinderReversedDeviceName, 1);
-            }
-
-            mxComponent.SetDevice(loadCylinderForwardDeviceName, 1);
-            mxComponent.SetDevice(loadCylinderBackwardDeviceName, 0);
         }
 
-        if (loadingDetector.isObjectDetected == false && isInSafeZone == false && positionStatus == Position.YMoved)
+        if (loadingDetector.isObjectDetected == true && isLoaded == true && positionStatus == Position.YMoved)
         {
+            xTransfer.isDriverMoving = true;
             StartCoroutine(xTransfer.CoTransfer());
         }
     }

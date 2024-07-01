@@ -40,11 +40,11 @@ public class DriveMotor : MonoBehaviour
     float elapsedTime;
     public float speed = 1;
     float location;
-    Vector3 nowPos;
     Vector3 minPos;
     Vector3 maxPos;
     Vector3 destination;
     public bool isSetted = true;
+    public bool isDriverMoving;
 
     [Space(20)]
     [Header("Palletizing Setting")]
@@ -76,11 +76,6 @@ public class DriveMotor : MonoBehaviour
                 maxPos = new Vector3(transfer.transform.localPosition.x, transfer.transform.localPosition.y, maxRange);
                 break;
         }
-
-        if (direction == Direction.MoveXAxis)
-        {
-            Vector3 sefeLocation = new Vector3(maxRange, transfer.transform.localPosition.y, transfer.transform.localPosition.z);
-        }
     }
 
     private void Update()
@@ -111,7 +106,7 @@ public class DriveMotor : MonoBehaviour
         }
         else if (transferManager.isBoxBDetected == true && isSetted == false)
         {
-            SetToMoveA();
+            SetToMoveB();
         }
     }
 
@@ -125,6 +120,8 @@ public class DriveMotor : MonoBehaviour
 
         for (int i = boxBCount; i <= (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity); i = i - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity))
             boxBCount = boxBCount - (transferManager.boxBHorizontalQuantity * transferManager.boxBVerticalQuantity);
+
+        transferManager.isCounted = true;
     }
 
     public void SetToMoveA()
@@ -159,6 +156,8 @@ public class DriveMotor : MonoBehaviour
                 }
                 break;
         }
+
+        transferManager.isCounted = true;
         isSetted = true;
     }
 
@@ -194,62 +193,96 @@ public class DriveMotor : MonoBehaviour
                 }
                 break;
         }
+
+        transferManager.isCounted = true;
         isSetted = true;
     }
 
     public void MoveDrive(Vector3 startPos, Vector3 endPos)
     {
-        Vector3 newPos = Vector3.Lerp(startPos, endPos, speed * Time.deltaTime);
+        isDriverMoving = true;
+        Vector3 newPos = Vector3.MoveTowards(startPos, endPos, speed * Time.deltaTime);
         transfer.transform.localPosition = newPos;
     }
 
     public IEnumerator CoTransfer()
     {
-        if (!isDriveReversed)
+        while (isDriverMoving)
         {
-            MoveDrive(transfer.transform.localPosition, maxPos);
-            mxComponent.SetDevice(deviceName, 1);
-            if(transferManager.positionStatus == TransferManager.Position.Default && transfer.transform.localPosition == maxPos && direction == Direction.MoveZAxis)
+            if (isDriveReversed == false)
             {
-                StopCoroutine(CoTransfer());
-                transferManager.positionStatus = TransferManager.Position.Safe;
-            }
-            else if (transfer.transform.localPosition == destination)
-            {
-                StopCoroutine(CoTransfer());
-            }
-        }
-        else
-        {
-            MoveDrive(transfer.transform.localPosition, minPos);
-            mxComponent.SetDevice(deviceNameReversed, 1);
-            if (transferManager.positionStatus == TransferManager.Position.Safe && transfer.transform.localPosition == minPos && direction == Direction.MoveZAxis)
-            {
-                StopCoroutine(CoTransfer());
-                transferManager.positionStatus = TransferManager.Position.Default;
-            }
-            else if (transfer.transform.localPosition == destination)
-            {
-                StopCoroutine(CoTransfer());
-            }
-        }
+                MoveDrive(transfer.position, maxPos);
+                mxComponent.SetDevice(deviceName, 1);
 
-        yield return new WaitForSeconds(0.2f);
+                if (this.transform.localPosition == maxPos)
+                {
+                    isDriverMoving = false;
 
-        if (transferManager.positionStatus != TransferManager.Position.Safe && transferManager.positionStatus != TransferManager.Position.Default)
-        {
-            switch (direction)
-            {
-                case Direction.MoveXAxis:
-                    transferManager.positionStatus = TransferManager.Position.XMoved;
-                    break;
-                case Direction.MoveYAxis:
-                    transferManager.positionStatus = TransferManager.Position.YMoved;
-                    break;
-                case Direction.MoveZAxis:
-                    transferManager.positionStatus = TransferManager.Position.ZMoved;
-                    break;
+                    if (direction == Direction.MoveXAxis)
+                        transferManager.positionStatus = TransferManager.Position.Safe;
+                }
+                else if (this.transform.localPosition == destination)
+                {
+                    switch (direction)
+                    {
+                        case Direction.MoveXAxis:
+                            transferManager.positionStatus = TransferManager.Position.XMoved;
+                            break;
+                        case Direction.MoveYAxis:
+                            transferManager.positionStatus = TransferManager.Position.YMoved;
+                            break;
+                        case Direction.MoveZAxis:
+                            transferManager.positionStatus = TransferManager.Position.ZMoved;
+                            break;
+                    }
+                }
             }
+            else
+            {
+                MoveDrive(transfer.position, minPos);
+                mxComponent.SetDevice(deviceNameReversed, 1);
+
+                if (this.transform.localPosition == minPos)
+                {
+                    isDriverMoving = false;
+                }
+                else if (this.transform.localPosition == destination)
+                {
+                    switch (direction)
+                    {
+                        case Direction.MoveXAxis:
+                            transferManager.positionStatus = TransferManager.Position.XMoved;
+                            break;
+                        case Direction.MoveYAxis:
+                            transferManager.positionStatus = TransferManager.Position.YMoved;
+                            break;
+                        case Direction.MoveZAxis:
+                            transferManager.positionStatus = TransferManager.Position.ZMoved;
+                            break;
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    public IEnumerator CoTransferToDefault()
+    {
+        while (isDriverMoving)
+        {
+            if (isDriveReversed == true)
+            {
+                MoveDrive(transfer.position, Vector3.zero);
+                mxComponent.SetDevice(deviceName, 1);
+
+                if (this.transform.localPosition == Vector3.zero)
+                {
+                    isDriverMoving = false;
+                }
+            }
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }

@@ -1987,7 +1987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &186734690
 Transform:
   m_ObjectHideFlags: 0
@@ -3463,7 +3463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &347185058
 Transform:
   m_ObjectHideFlags: 0
@@ -6762,7 +6762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &640460551
 Transform:
   m_ObjectHideFlags: 0
@@ -8592,8 +8592,9 @@ MonoBehaviour:
   transfer: {fileID: 854911003}
   minRange: -4.6
   maxRange: 5
-  speed: 0.5
+  speed: 1
   isSetted: 1
+  isDriverMoving: 0
   boxAOddFloorDefaultLocation: -4.6
   boxAEvenFloorDefaultLocation: 0
   boxBOddFloorDefaultLocation: -4.6
@@ -9038,7 +9039,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &921309878
 Transform:
   m_ObjectHideFlags: 0
@@ -9864,7 +9865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1042237110
 Transform:
   m_ObjectHideFlags: 0
@@ -11479,7 +11480,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1215746815
 Transform:
   m_ObjectHideFlags: 0
@@ -12845,7 +12846,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1380178231
 Transform:
   m_ObjectHideFlags: 0
@@ -12950,7 +12951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1400367337
 Transform:
   m_ObjectHideFlags: 0
@@ -16132,7 +16133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1725411542
 Transform:
   m_ObjectHideFlags: 0
@@ -16237,7 +16238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1739517714
 Transform:
   m_ObjectHideFlags: 0
@@ -16828,8 +16829,9 @@ MonoBehaviour:
   transfer: {fileID: 1811624769}
   minRange: 0
   maxRange: 20
-  speed: 0.3
+  speed: 1
   isSetted: 1
+  isDriverMoving: 0
   boxAOddFloorDefaultLocation: 7.57
   boxAEvenFloorDefaultLocation: 4.07
   boxBOddFloorDefaultLocation: 7.47
@@ -16985,7 +16987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1815828467
 Transform:
   m_ObjectHideFlags: 0
@@ -19716,7 +19718,7 @@ MonoBehaviour:
   deviceName: X42
   deviceNameReversed: X43
   plcInputValues: 
-  isDriveReversed: 0
+  isDriveReversed: 1
   isDriveArrived: 0
   mxComponent: {fileID: 1996577473}
   transferManager: {fileID: 2109372159}
@@ -19724,8 +19726,9 @@ MonoBehaviour:
   transfer: {fileID: 2072744993}
   minRange: -32.5
   maxRange: 2.5
-  speed: 0.5
+  speed: 1
   isSetted: 1
+  isDriverMoving: 0
   boxAOddFloorDefaultLocation: -30.08
   boxAEvenFloorDefaultLocation: -26.58
   boxBOddFloorDefaultLocation: -11.78
@@ -19931,6 +19934,9 @@ MonoBehaviour:
   yTransfer: {fileID: 2072744994}
   zTransfer: {fileID: 854911004}
   isInSafeZone: 0
+  isCounted: 0
+  isRotated: 0
+  isLoaded: 0
   isBoxADetected: 0
   boxACount: 0
   boxAFloor: 0
@@ -22236,7 +22242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &356060946117128664
 Transform:
   m_ObjectHideFlags: 0
